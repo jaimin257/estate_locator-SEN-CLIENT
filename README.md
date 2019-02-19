@@ -1,2 +1,5 @@
-# estate_locator-SEN-CLIENT
-It's our official repository for frontend side of software engineering project(Estate locator).
+# estate_locator-SEN-
+It's our official repository for backend side of software engineering project(Estate locator).
+
+Project Description : Design a system to find/identify the potential neighborhood
+                      for real-estate investment according to user needs.
