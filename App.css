@@ -168,17 +168,6 @@ body {
   visibility: hidden;
 }
 
-.pwd-weak {
-  background-color: #e74c3c;
-}
-
-.pwd-medium {
-  background-color: #3498db;
-}
-
-.pwd-strong {
-  background-color: #2ecc71;
-}
 
 .show {
   visibility: visible;
