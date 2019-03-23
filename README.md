@@ -8,7 +8,7 @@ Project Description : Design a system to find/identify the potential neighborhoo
 App.js and App.css is not required now.
 
 To Run this App:
-=> install npm
-=> install dependencies listed in packages.json (for ex. jquery)
-=> add scripts in packages.json file
-=> commnd-  npm start
+[1] install npm
+[2] install dependencies listed in packages.json (for ex. jquery)
+[3] add scripts in packages.json file
+[4] commnd-  npm start
