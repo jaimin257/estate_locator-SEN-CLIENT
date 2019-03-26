@@ -13,7 +13,7 @@ export class Home extends React.Component {
 
 	render(){
 		return(
-			<h1> This is New Home </h1>
+			<h1> This is New Home !! </h1>
 		);
 	}
 
