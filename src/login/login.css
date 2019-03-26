@@ -1,13 +1,13 @@
 html,
 body {
-  background-image: url("https://media.architecturaldigest.com/photos/5772a29056d7d0330986bc54/16:9/w_1280,c_limit/michael-jackson-home-01.jpg");
-  background-repeat: no-repeat;
+  /*background-image: url("https://media.architecturaldigest.com/photos/5772a29056d7d0330986bc54/16:9/w_1280,c_limit/michael-jackson-home-01.jpg");
+  */background-repeat: no-repeat;
   height: 100%;
   width: auto;
   background-position: center;
   background-repeat: no-repeat;
   background-size: 100% 100%;
-  background-color: #cccccc;
+  background-color: #ffffff;
   font-weight: bold;
   font-size: 17px;
 }
@@ -19,6 +19,7 @@ body {
 }
 
 .root-container {
+  margin-top: 200px;
   width: 100%;
   height: 100%;
   display: flex;
