@@ -57,6 +57,7 @@ export class LoginBox extends React.Component {
         success: function(result){
           if(result.login){
             console.log("login success");
+            
             this.setState({ redirect: true });
           }
           else{

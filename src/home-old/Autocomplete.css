@@ -1,0 +1,49 @@
+.AutoCompleteText {
+  width: 100%;
+  /*border: 1px solid #195363;*/
+  /*box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.1), 0 2 4 1 rgba(0, 0, 0, 0.18);*/
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 14px;
+  color: rgba(0, 0, 0, 0.73);
+}
+
+.AutoCompleteText input {
+  width: 100%;
+  border: 1px solid #15779b;
+  border-radius: 40px;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 15px;
+  color: rgba(0, 0, 0, 0.73);
+  padding: 10px 10px;
+  box-sizing: border-box;
+  outline: none;
+}
+
+.AutoCompleteText input:hover{
+  background-color: #f7fdff;
+}
+
+.AutoCompleteText ul {
+  overflow: visible;
+  background-image: linear-gredient(to bottom left, white, blue);
+  position: absolute;
+  list-style-type: none;
+  text-align: left;
+  margin: 0;
+  padding: 0;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+}
+.AutoCompleteText ul::before {
+  content: "";
+}
+.AutoCompleteText li {
+  border-bottom: 1px solid #15779b;
+  border-bottom-left-radius: 10px;
+  padding: 10px 15px;
+  width: auto;  
+  cursor: pointer;
+}
+.AutoCompleteText li:hover {
+  background-color: #f7fbfc ;
+} 

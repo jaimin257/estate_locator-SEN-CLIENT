@@ -3,17 +3,21 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "antd": "^3.15.2",
     "jquery": "^3.3.1",
+    "node-sass": "^4.11.0",
     "react": "^16.8.4",
+    "react-bootstrap": "^1.0.0-beta.6",
     "react-dom": "^16.8.4",
     "react-router": "^5.0.0",
     "react-router-dom": "^5.0.0",
     "react-scripts": "2.1.8",
+    "reactstrap": "^7.1.0",
     "webpack": "^4.28.3",
     "webpack-dev-server": "^3.1.14"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "fuser -k -n tcp 3000 | react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"

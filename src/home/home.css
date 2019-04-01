@@ -1,62 +1,93 @@
-html{
-	margin: 0px;
+@import url("https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css");
+html {
+  margin: 0px;
 }
 
-
-.home{
-	display: "inline-block";
-	margin-top: 50px;
-	height: auto;
-	width: 100%;
-	background-color: #cccccc;
-	float: right;
-	text-align: center;
-	padding-top: 100px;
+.home {
+  background-image: url("https://www.asianpaints.com/content/dam/asianpaints/website/2-inspiration/ideas/inspiration-wall/inspiration-gallery-images/set-3/inspiration-set-3-58.jpg.image.939.599.medium.jpg");
+  background-repeat: no-repeat;
+  width: auto;
+  height: 100vh;
+  overflow: auto;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  background-color: #ffffff;
+  font-weight: bold;
+  font-size: 17px;
+  padding: 5%;
 }
 
-.form-container{
-	width: 600px;
-  display: block;
-  margin: 0 auto;
-}
-
-input#search-bar{
-  border-radius: 10px;
-  margin: 0 auto;
+.search-container {
   width: 100%;
-  height: 45px;
-  padding: 0 20px;
-  font-size: 1rem;
-  border: 1px solid #D0CFCE;
-  outline: none;
-  &:focus{
-    border: 1px solid #008ABF;
-    transition: 0.35s ease;
-    color: #008ABF;
-    &::-webkit-input-placeholder{
-      transition: opacity 0.45s ease; 
-  	  opacity: 0;
-     }
-    &::-moz-placeholder {
-      transition: opacity 0.45s ease; 
-  	  opacity: 0;
-     }
-    &:-ms-placeholder {
-     transition: opacity 0.45s ease; 
-  	 opacity: 0;
-     }    
-   }
- }
-
-.search-icon{
-  position: relative;
-  float: right;
-  width: 75px;
-  height: 75px;
-  top: -62px;
-  right: -45px;
+  align-items: center;
 }
 
-.search-buttton{
-	display: inline;
+.search-selection .button {
+  text-align: center;
+  position: relative;
+}
+
+.buy {
+  margin-left: 20%;
+}
+
+.search-bar {
+  margin-left: 20%;
+  width: auto;
+  height: auto;
+}
+.search-button {
+  background-color: orange;
+  border-color: orange;
+  width: 10%;
+}
+.search-icon {
+  padding-right: 5px;
+}
+
+.inline {
+  float: left;
+}
+
+.search-box-input {
+  width: 50%;
+  height: 50px;
+}
+
+.button {
+  padding-right: 10px;
+  color: white;
+  background-color: black;
+  border: 1px solid black;
+  opacity: 0.9;
+  text-align: center;
+  font-size: 16px;
+  height: 58px;
+  width: 60px;
+}
+
+.rent {
+  border-left: 1px solid white;
+}
+.tag-line {
+  display: flex;
+  justify-content: center;
+}
+
+.login-link {
+  margin-left: 40%;
+}
+
+.test {
+  border: none;
+  width: 150px;
+  height: 50px;
+  background-color: #5e23dc;
+  color: white;
+  position: relative;
+}
+
+.drop1 {
+  width: 50px;
 }
