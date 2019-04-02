@@ -9,12 +9,13 @@ export class LoginRegisterBox extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      LoginOpen: true,
-      RegisterOpen: false
-    };
+      LoginOpen: this.props.match.path === "/signup" ? false : true,
+      RegisterOpen: this.props.match.path === "/signup" ? true : false
+    };  
   }
 
   render() {
+
     return (
       <div className="root-container">
         <div className="box-container">
@@ -46,9 +47,13 @@ export class LoginRegisterBox extends React.Component {
   }
   LoginBox() {
     this.setState({ LoginOpen: true, RegisterOpen: false });
+    this.props.history.push('/login');
+    console.log(this.props);
   }
 
   RegisterBox() {
     this.setState({ RegisterOpen: true, LoginOpen: false });
+    this.props.history.push('/signup');
+    console.log(this.props);
   }
 }

@@ -8,16 +8,18 @@ import { NavBar } from './navbar/navbar.js';
 
 let appurl = "http://localhost:1433"
 
-class App extends React.Component {
+export class App extends React.Component {
   render() {
     return (
       <BrowserRouter>
       	<div>
       	   	<Switch>
-        		<Route path="/" component={LoginRegisterBox} exact />
+            <Route path="/" component={LoginRegisterBox} exact />
+        		<Route path="/login" component={LoginRegisterBox} exact />
+            <Route path="/signup" component={LoginRegisterBox} exact />
             <div>
               <NavBar/>
-        		  <Route path="/home" component={Home} />
+        		  <Route path="/home" component={Home} exact/>
             </div>
         	</Switch>
         </div>
@@ -25,5 +27,3 @@ class App extends React.Component {
     )
   }
 }
-
-export default App;

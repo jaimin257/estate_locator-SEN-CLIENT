@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import cookie from "react-cookies";
 import "./home.css";
 import "./img1.jpg";
 import Dropdown from "react-bootstrap/Dropdown";
@@ -27,8 +28,10 @@ export class Home extends React.Component {
       dropdownOpen: false,
       value: "Number of Rooms",
       dropdownBugget: false,
-      valueb: "Budget"
+      valueb: "Budget",
+      token: cookie.load('cookiesNamejwt')
     };
+    console.log(document.cookie);
   }
 
   toggle() {
@@ -150,7 +153,7 @@ export class Home extends React.Component {
         <small>
           {this.state.isLoggedIn === false ? (
             <div class="login-link">
-              <a href="#">Login in to track your journey</a>
+              <a href="/login">Login in to track your journey</a>
             </div>
           ) : (
             <div />

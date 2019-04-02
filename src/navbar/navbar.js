@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import cookie from "react-cookies";
 import $ from "jquery";
 import "./navbar.css";
 import "./bootstrap.css";
@@ -8,23 +9,27 @@ export class NavBar extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      isLoggeedIn: true
+      isLoggeedIn: false,
+      token: cookie.load('cookiesNamejwt'),
+      username: cookie.load('username')
     };
+    if(this.state.username)
+      this.setState({isLoggeedIn:true});
   }
 
   render() {
     return (
       <div>
         <nav class="navbar navbar-light bg-light">
-          <a class="navbar-brand" href="#">
+          <a class="navbar-brand " href="/Home">
             <img
-              src={require("./index.png")}
+              src={require("./logo.png")}
               width="40"
               height="40"
-              class="d-inline-block align-top"
+              class="d-inline-block align-top logo"
               alt="mahin"
             />
-            EstateLocator
+            Estate Locator
           </a>
 
           <ul class="nav navbar-nav">
@@ -41,14 +46,14 @@ export class NavBar extends React.Component {
             <small>
               {this.state.isLoggeedIn === false ? (
                 <div>
-                  <li class="btn">
-                    <a href="#" class="nav-link">
-                      Sign - Up
+                  <li class="btn ">
+                    <a href="/login" class="nav-link">
+                      Login
                     </a>
                   </li>
-                  <li class="btn ">
-                    <a href="#" class="nav-link">
-                      Login
+                  <li class="btn">
+                    <a href="/signup" class="nav-link">
+                      SignUp
                     </a>
                   </li>
                 </div>
@@ -61,7 +66,7 @@ export class NavBar extends React.Component {
                   </li>
                   <li class="btn">
                     <a href="#" class="nav-link">
-                      Hi, Username
+                      Hi, {this.state.username}
                     </a>
                   </li>
                 </div>

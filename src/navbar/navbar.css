@@ -58,3 +58,13 @@ a {
   text-align: center;
   padding: 15px 20px;
 }
+
+.logo{
+  width: 100px;
+  height: auto;
+  margin: -20px 20px -15px -20px;
+}
+
+.heading{
+  font-size: 50px;
+}

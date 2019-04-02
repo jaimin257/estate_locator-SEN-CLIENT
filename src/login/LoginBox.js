@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import cookie from "react-cookies";
 import logo from './logo.svg';
 import './login.css';
 import $ from 'jquery';
@@ -57,7 +58,8 @@ export class LoginBox extends React.Component {
         success: function(result){
           if(result.login){
             console.log("login success");
-            
+            cookie.save(result.cname1, result.cvalue1, {path:"/", expires:new Date(result.cookieexpire) });
+            cookie.save('username', result.login.email, {path:"/", expires:new Date(result.cookieexpire) });
             this.setState({ redirect: true });
           }
           else{
