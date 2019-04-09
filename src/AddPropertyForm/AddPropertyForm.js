@@ -188,6 +188,7 @@ export class AddPropertyForm extends React.Component {
           propertyName: this.state.pname,
           propertyLocation: this.state.location,
           constructionStatus: this.state.constructionStatus,
+          bookingStatus: "00",
           seller: cookie.load('uid'),
           property_type: this.state.proptype,
           property_amount: this.state.sellprice,
@@ -198,7 +199,7 @@ export class AddPropertyForm extends React.Component {
           city: this.state.city,
           noOfRooms: this.state.bedroom,
           furnishedType: this.state.furnish,
-          discription:  this.state.pname + ' ' +
+          description:  this.state.pname + ' ' +
                         this.state.location + ' ' +
                         this.state.constructionStatus + ' ' +
                         cookie.load('uid') + ' ' +
