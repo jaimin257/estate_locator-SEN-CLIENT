@@ -18,6 +18,9 @@ export class Home extends React.Component {
     this.toggle = this.toggle.bind(this);
     this.select = this.select.bind(this);
 
+    this.togglea = this.togglea.bind(this);
+    this.selecta = this.selecta.bind(this);
+
     this.toggleb = this.toggleb.bind(this);
     this.selectb = this.selectb.bind(this);
 
@@ -27,7 +30,9 @@ export class Home extends React.Component {
       isLoggedIn: false,
       dropdownOpen: false,
       value: "Number of Rooms",
+      valuea: "Property Type",
       dropdownBugget: false,
+      dropdownProperty: false,
       valueb: "Budget",
       token: cookie.load("cookiesNamejwt")
     };
@@ -37,6 +42,11 @@ export class Home extends React.Component {
   toggle() {
     this.setState({
       dropdownOpen: !this.state.dropdownOpen
+    });
+  }
+  togglea() {
+    this.setState({
+      dropdownProperty: !this.state.dropdownProperty
     });
   }
 
@@ -50,6 +60,13 @@ export class Home extends React.Component {
   toggleb() {
     this.setState({
       dropdownBugget: !this.state.dropdownBugget
+    });
+  }
+
+  selecta(event) {
+    this.setState({
+      dropdownProperty: !this.state.dropdownProperty,
+      valuea: event.target.innerText
     });
   }
 
@@ -108,6 +125,21 @@ export class Home extends React.Component {
                     <DropdownItem onClick={this.select}>2 BHK</DropdownItem>
                     <DropdownItem onClick={this.select}>3 BHK</DropdownItem>
                     <DropdownItem onClick={this.select}>3+ BHK</DropdownItem>
+                  </DropdownMenu>
+                </ButtonDropdown>
+              </Dropdown>
+              <Dropdown class="drop1" style={{ marginRight: 20 }}>
+                <ButtonDropdown
+                  isOpen={this.state.dropdownProperty}
+                  toggle={this.togglea}
+                >
+                  <DropdownToggle>{this.state.valuea}</DropdownToggle>
+                  <DropdownMenu class="dropdown">
+                    <DropdownItem onClick={this.selecta}>
+                      Appartment
+                    </DropdownItem>
+                    <DropdownItem onClick={this.selecta}>Shop</DropdownItem>
+                    <DropdownItem onClick={this.selecta}>Land</DropdownItem>
                   </DropdownMenu>
                 </ButtonDropdown>
               </Dropdown>
