@@ -1,4 +1,5 @@
 import React, { PureComponent } from "react";
+import cookie from "react-cookies";
 import { ViewProfile } from "./ViewProfile.js";
 import { EditProfile } from "./EditProfile.js";
 import "./ViewProfile.css";
@@ -7,7 +8,7 @@ export class Myprofile extends PureComponent {
   constructor() {
     super();
     this.state = {
-      isEdit: false
+      isEdit: cookie.load('hasextrainfo') === 'false' ? true : false
     };
   }
 
@@ -15,7 +16,7 @@ export class Myprofile extends PureComponent {
     this.setState({
       isEdit: !this.state.isEdit
     });
-    console.log(this.state.isEdit);
+    // console.log(this.state.isEdit);
   };
 
   render() {

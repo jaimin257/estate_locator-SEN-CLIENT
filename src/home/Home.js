@@ -29,7 +29,7 @@ export class Home extends React.Component {
       dropdownBugget: false,
       valueb: "Budget",
       token: cookie.load('cookiesNamejwt'),
-      isLoggedIn: cookie.load('username') ? true : false
+      isLoggedIn: cookie.load('firstname') ? true : false
     };
     console.log(document.cookie);
   }

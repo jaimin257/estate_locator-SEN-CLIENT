@@ -10,6 +10,11 @@ import "./addPropertyForm.css";
 import FormControl from "@material-ui/core/FormControl";
 import InputLabel from "@material-ui/core/InputLabel";
 import Select from "@material-ui/core/Select";
+import cookie from "react-cookies";
+import $ from "jquery";
+
+let appurl = "http://localhost:1433"
+
 const styles = theme => ({
   container: {
     display: "flex",
@@ -47,14 +52,19 @@ export class AddPropertyForm extends React.Component {
     this.state = {
       isOwner: false,
       isBuy: false,
-      name: "",
-      street: "",
-      city: "",
-      locality: "",
-      typeOfPlot: "",
+      pname: "0",
+      location: "0",
+      city: "0",
+      state: "0",
+      proptype: "0",
+      carpetarea: "0",
       open: false,
-      constructionStatus: false,
-      bedroom: ""
+      constructionStatus: "0",
+      bedroom: "0",
+      sellprice: "0",
+      contract: "0",
+      desc: "0",
+      totalfloors: "0"
     };
   }
 
@@ -82,44 +92,38 @@ export class AddPropertyForm extends React.Component {
     });
   }
 
-  handleChange = name => event => {
-    this.setState({ [name]: event.target.value });
+  handleChange = pname => event => {
+    this.setState({ [pname]: event.target.value });
   };
-  handleChange = street => event => {
-    this.setState({ [street]: event.target.value });
+  handleChange = location => event => {
+    this.setState({ [location]: event.target.value });
   };
   handleChange = city => event => {
     this.setState({ [city]: event.target.value });
   };
-  handleChange = locality => event => {
-    this.setState({ [locality]: event.target.value });
+  handleChange = state => event => {
+    this.setState({ [state]: event.target.value });
   };
-
   handleChange = typeOfPlot => event => {
     this.setState({ [typeOfPlot]: event.target.value });
+  };
+
+  handleChange = proptype => event => {
+    this.setState({ [proptype]: event.target.value });
   };
 
   handleChange = bedroom => event => {
     this.setState({ [bedroom]: event.target.value });
   };
 
-  handleChange = bathroom => event => {
-    this.setState({ [bathroom]: event.target.value });
-  };
 
   handleChange = constructionStatus => event => {
     this.setState({ [constructionStatus]: event.target.value });
   };
 
-  handleChange = builduparea => event => {
-    this.setState({ [builduparea]: event.target.value });
-  };
 
   handleChange = carpetarea => event => {
     this.setState({ [carpetarea]: event.target.value });
-  };
-  handleChange = floorno => event => {
-    this.setState({ [floorno]: event.target.value });
   };
   handleChange = totalfloors => event => {
     this.setState({ [totalfloors]: event.target.value });
@@ -128,20 +132,8 @@ export class AddPropertyForm extends React.Component {
   handleChange = ageofproperty => event => {
     this.setState({ [ageofproperty]: event.target.value });
   };
-  handleChange = totalarea => event => {
-    this.setState({ [totalarea]: event.target.value });
-  };
   handleChange = sellprice => event => {
     this.setState({ [sellprice]: event.target.value });
-  };
-  handleChange = maintenancecharge => event => {
-    this.setState({ [maintenancecharge]: event.target.value });
-  };
-  handleChange = monthlyrent => event => {
-    this.setState({ [monthlyrent]: event.target.value });
-  };
-  handleChange = securitydeposit => event => {
-    this.setState({ [securitydeposit]: event.target.value });
   };
 
   handleClose = () => {
@@ -169,10 +161,15 @@ export class AddPropertyForm extends React.Component {
       contract: contract
     });
   }
-
-  _onPropertyChange(typeOfPlot) {
+  _onConstructionChange(constructionStatus) {
     this.setState({
-      typeOfPlot: typeOfPlot
+      constructionStatus: constructionStatus
+    });
+  }
+
+  _onPropertyChange(proptype) {
+    this.setState({
+      proptype: proptype
     });
   }
 
@@ -181,16 +178,57 @@ export class AddPropertyForm extends React.Component {
       furnish: furnish
     });
   }
+
+  onSubmit(){
+    $.ajax({
+        url: appurl + '/property/addProp',
+        method: 'POST',
+        data:{
+          token: cookie.load('cookiesNamekwt'),
+          propertyName: this.state.pname,
+          propertyLocation: this.state.location,
+          constructionStatus: this.state.constructionStatus,
+          seller: cookie.load('uid'),
+          property_type: this.state.proptype,
+          property_amount: this.state.sellprice,
+          contract_type: this.state.contract,
+          floor: this.state.totalfloors,
+          carpet_area: this.state.carpetarea,
+          state: this.state.state,
+          city: this.state.city,
+          noOfRooms: this.state.bedroom,
+          furnishedType: this.state.furnish,
+          discription:  this.state.pname + ' ' +
+                        this.state.location + ' ' +
+                        this.state.constructionStatus + ' ' +
+                        cookie.load('uid') + ' ' +
+                        this.state.proptype + ' ' +
+                        this.state.sellprice + ' ' +
+                        this.state.contract + ' ' +
+                        this.state.totalfloors + ' ' +
+                        this.state.carpetarea + ' ' +
+                        this.state.state + ' ' +
+                        this.state.city + ' ' +
+                        this.state.bedroom + ' ' + 
+                        this.state.furnish + ' ' 
+        },
+        success: function(result){
+          console.log(result);
+        }.bind(this)
+      });
+  }
+
+
+
   render() {
     const { classes } = this.props;
     console.log(this.state.typeOfPlot);
     return (
       <div>
         <div class="ownerinfo">
-          <h3>Tell us about yourself</h3>
           <h6>I am</h6>
           <div class="radio toggle">
-            <ButtonGroup>
+            <ButtonGroup required="true">
               <Button
                 onClick={this._onOwnerChange.bind(this, "iamowner")}
                 active={this.state.owner === "iamowner"}
@@ -209,9 +247,10 @@ export class AddPropertyForm extends React.Component {
           <form noValidate autoComplete="off" class="name input">
             <TextField
               id="standard-name"
-              label="Name"
-              value={this.state.name}
-              onChange={this.handleChange("name")}
+              label="Property Name"
+              value={this.state.pname}
+              required="true"
+              onChange={this.handleChange("pname")}
               margin="normal"
             />
           </form>
@@ -240,20 +279,20 @@ export class AddPropertyForm extends React.Component {
           <ButtonGroup>
             <Button
               onClick={this._onPropertyChange.bind(this, "landandplot")}
-              active={this.state.typeOfPlot === "landandplot"}
+              active={this.state.proptype === "landandplot"}
             >
               Land or Plot
             </Button>
             <Button
               onClick={this._onPropertyChange.bind(this, "appartmentandhouse")}
-              active={this.state.typeOfPlot === "appartmentandhouse"}
-            >
+              active={this.state.proptype === "appartmentandhouse"}
+            > 
               Appartment or House
             </Button>
 
             <Button
               onClick={this._onPropertyChange.bind(this, "shopsandoffice")}
-              active={this.state.typeOfPlot === "shopsandoffice"}
+              active={this.state.proptype === "shopsandoffice"}
             >
               Shops or Offices
             </Button>
@@ -262,9 +301,9 @@ export class AddPropertyForm extends React.Component {
           <form noValidate autoComplete="off" class="name input">
             <TextField
               id="standard-name"
-              label="Enter Street/Area/Landmark"
-              value={this.state.street}
-              onChange={this.handleChange("street")}
+              label="Enter Street/Area"
+              value={this.state.location}
+              onChange={this.handleChange("location")}
               margin="normal"
             />
           </form>
@@ -281,61 +320,46 @@ export class AddPropertyForm extends React.Component {
           <form noValidate autoComplete="off" class="name input">
             <TextField
               id="standard-name"
-              label="Locality"
-              value={this.state.locality}
-              onChange={this.handleChange("locality")}
+              label="State"
+              value={this.state.state}
+              onChange={this.handleChange("state")}
               margin="normal"
             />
           </form>
           <small>
-            {this.state.typeOfPlot === "appartmentandhouse" ||
-            this.state.typeOfPlot === "shopsandoffice" ? (
+            {this.state.proptype === "appartmentandhouse" ||
+            this.state.proptype === "shopsandoffice" ? (
               <div>
                 <h6>Construction Status</h6>
                 <ButtonGroup>
                   <Button
-                    onClick={this._onOptionChange.bind(this, "Ready to Move")}
-                    active={this.state.option === "Ready to Move"}
+                    onClick={this._onConstructionChange.bind(this, "Ready to Move")}
+                    active={this.state.constructionStatus === "Ready to Move"}
                   >
                     Ready to Move
                   </Button>
                   <Button
-                    onClick={this._onOptionChange.bind(
+                    onClick={this._onConstructionChange.bind(
                       this,
                       "Under Construction"
                     )}
-                    active={this.state.option === "Under Construction"}
+                    active={this.state.constructionStatus === "Under Construction"}
                   >
                     Under Construction
                   </Button>
                 </ButtonGroup>
                 <div>
                   <form noValidate autoComplete="off" class="name input">
-                    <TextField
-                      id="standard-name"
-                      label="Build Up Area in Sq. ft."
-                      value={this.state.builduparea}
-                      onChange={this.handleChange("builduparea")}
-                      margin="normal"
-                    />
 
                     <TextField
                       id="standard-name"
-                      label="Carpet Area (Optional)"
+                      label="Carpet Area"
                       value={this.state.carpetarea}
                       onChange={this.handleChange("carpetarea")}
                       margin="normal"
                     />
                   </form>
                   <form noValidate autoComplete="off" class="name input">
-                    <TextField
-                      id="standard-name"
-                      label="Floor no."
-                      value={this.state.floorno}
-                      onChange={this.handleChange("floorno")}
-                      margin="normal"
-                    />
-
                     <TextField
                       id="standard-name"
                       label="Total Floors"
@@ -360,9 +384,9 @@ export class AddPropertyForm extends React.Component {
                 <form>
                   <TextField
                     id="standard-name"
-                    label="Total area"
-                    value={this.state.totalarea}
-                    onChange={this.handleChange("totalarea")}
+                    label="Carpet area"
+                    value={this.state.carpetarea}
+                    onChange={this.handleChange("carpetarea")}
                     margin="normal"
                   />
                 </form>
@@ -371,7 +395,7 @@ export class AddPropertyForm extends React.Component {
           </small>
 
           <small>
-            {this.state.typeOfPlot === "appartmentandhouse" ? (
+            {this.state.proptype === "appartmentandhouse" ? (
               <div>
                 <h6>Furnish Type</h6>
                 <ButtonGroup>
@@ -412,25 +436,6 @@ export class AddPropertyForm extends React.Component {
                       <MenuItem value={3}>Three</MenuItem>
                     </Select>
                   </FormControl>
-                  <div>
-                    <FormControl>
-                      <InputLabel>Bathroom Count</InputLabel>
-                      <Select
-                        value={this.state.bathroom}
-                        onChange={this.handleChange("bathroom")}
-                        inputProps={{
-                          name: "bathroom"
-                        }}
-                      >
-                        <MenuItem value="">
-                          <em>None</em>
-                        </MenuItem>
-                        <MenuItem value={1}>One</MenuItem>
-                        <MenuItem value={2}>Two</MenuItem>
-                        <MenuItem value={3}>Three</MenuItem>
-                      </Select>
-                    </FormControl>
-                  </div>
                 </form>
               </div>
             ) : (
@@ -440,8 +445,6 @@ export class AddPropertyForm extends React.Component {
         </div>
         <div class="ownerinfo">
           <h6>Share Commericals for your Property</h6>
-          <small>
-            {this.state.contract === "forsell" ? (
               <form>
                 <TextField
                   id="standard-name"
@@ -450,49 +453,13 @@ export class AddPropertyForm extends React.Component {
                   onChange={this.handleChange("sellprice")}
                   margin="normal"
                 />
-                <TextField
-                  id="standard-name"
-                  label="Maintenance Charges (Optional)"
-                  value={this.state.maintenancecharge}
-                  onChange={this.handleChange("maintenancecharge")}
-                  margin="normal"
-                />
               </form>
-            ) : (
-              <div>
-                <form>
-                  <TextField
-                    id="standard-name"
-                    label="Monthly Rent"
-                    value={this.state.monthlyrent}
-                    onChange={this.handleChange("monthlyrent")}
-                    margin="normal"
-                  />
-                  <TextField
-                    id="standard-name"
-                    label="Maintenance Charges (Optional)"
-                    value={this.state.maintenancecharge}
-                    onChange={this.handleChange("maintenancecharge")}
-                    margin="normal"
-                  />
-                </form>
-                <form>
-                  <TextField
-                    id="standard-name"
-                    label="Security Deposit"
-                    value={this.state.securitydeposit}
-                    onChange={this.handleChange("securitydeposit")}
-                    margin="normal"
-                  />
-                </form>
-              </div>
-            )}
-          </small>
         </div>
         <div class="package-button">
           <button
             type="button"
             class="btn btn-success float-right package-button"
+            onClick={this.onSubmit.bind(this)}
           >
             Select Advertisement Package
           </button>

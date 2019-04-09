@@ -62,7 +62,10 @@ export class LoginBox extends React.Component {
           if(result.login){
             console.log("login success");
             cookie.save(result.cname1, result.cvalue1, {path:"/", expires:new Date(result.cookieexpire) });
-            cookie.save('username', result.login.email, {path:"/", expires:new Date(result.cookieexpire) });
+            cookie.save('uid', result.login._id, {path:"/", expires:new Date(result.cookieexpire) });
+            cookie.save('isverified', result.login.verified, {path:"/", expires:new Date(result.cookieexpire) });
+            cookie.save('hasextrainfo', result.login.addedExtraInfo, {path:"/", expires:new Date(result.cookieexpire) });
+            cookie.save('firstname', result.login.firstName, {path:"/", expires:new Date(result.cookieexpire) });
             console.log(result.login);
             this.setState({ redirect: true });
           }
@@ -89,7 +92,18 @@ export class LoginBox extends React.Component {
     }
     if(redirect){
       console.log("redirecting");
-      return <Redirect to='/Home/'/>
+      console.log(cookie.load('isverified'));
+      console.log(cookie.load('hasextrainfo'));
+      console.log("redirecting");
+      if(cookie.load('isverified') === "false"){
+        console.log("verif ma jay che");
+        return <Redirect to='/login'/>
+      }
+      if(cookie.load('hasextrainfo') === "false"){
+        console.log("extra ma jay che");
+        return <Redirect to='/profile'/>
+      }
+      return <Redirect to='/home'/>
     }
     return (
       <div className="inner-container">

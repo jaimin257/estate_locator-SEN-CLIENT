@@ -10,14 +10,17 @@ export class NavBar extends React.Component {
     super(props);
     this.state = {
       token: cookie.load('cookiesNamejwt'),
-      username: cookie.load('username'),
-      isLoggedIn: cookie.load('username') ? true : false
+      firstname: cookie.load('firstname'),
+      isLoggedIn: cookie.load('firstname') ? true : false
     };
   }
 
   logout(params){
     cookie.remove('cookiesNamejwt');
-    cookie.remove('username');
+    cookie.remove('uid');
+    cookie.remove('isverified');
+    cookie.remove('hasextrainfo');
+    cookie.remove('firstname');
   }
 
   render() {
@@ -69,7 +72,7 @@ export class NavBar extends React.Component {
                   </li>
                   <li class="btn">
                     <a href="#" class="nav-link">
-                      Hi, {this.state.username}
+                      Hi, {this.state.firstname}
                     </a>
                   </li>
                   <li class="btn">
