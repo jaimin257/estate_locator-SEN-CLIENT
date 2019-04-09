@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 import './login.css';
 import $ from 'jquery';
-
+var validator = require("email-validator");
 let appurl = "http://localhost:1433"
 
 export class RegisterBox extends React.Component {
@@ -43,6 +43,9 @@ export class RegisterBox extends React.Component {
     console.log('get register request');
     if (this.state.username == "") {
       this.showValidationErr("username", "username cannot be empty");
+    }
+    if(validator.validate(this.state.username) === false){
+      this.showValidationErr("username", "Enter proper Email ID"); 
     }
     if (this.state.password == "" || this.state.password2 == "") {
       this.showValidationErr("password", "password cannot be empty");

@@ -24,12 +24,12 @@ export class Home extends React.Component {
     this.state = {
       isBuy: false,
       isRent: true,
-      isLoggedIn: false,
       dropdownOpen: false,
       value: "Number of Rooms",
       dropdownBugget: false,
       valueb: "Budget",
-      token: cookie.load('cookiesNamejwt')
+      token: cookie.load('cookiesNamejwt'),
+      isLoggedIn: cookie.load('username') ? true : false
     };
     console.log(document.cookie);
   }

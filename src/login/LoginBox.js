@@ -4,7 +4,7 @@ import logo from './logo.svg';
 import './login.css';
 import $ from 'jquery';
 import { Redirect } from 'react-router';
-
+var validator = require("email-validator");
 
 let appurl = "http://localhost:1433"
 
@@ -42,6 +42,9 @@ export class LoginBox extends React.Component {
     if (this.state.username == "") {
       this.showValidationErr("username", "username cannot be empty");
     }
+    if(validator.validate(this.state.username) === false){
+      this.showValidationErr("username", "Enter proper Email ID"); 
+    }
     if (this.state.password == "") {
       this.showValidationErr("password", "password cannot be empty");
     }
@@ -60,6 +63,7 @@ export class LoginBox extends React.Component {
             console.log("login success");
             cookie.save(result.cname1, result.cvalue1, {path:"/", expires:new Date(result.cookieexpire) });
             cookie.save('username', result.login.email, {path:"/", expires:new Date(result.cookieexpire) });
+            console.log(result.login);
             this.setState({ redirect: true });
           }
           else{
@@ -94,10 +98,12 @@ export class LoginBox extends React.Component {
           <div className="input-group">
             <label htmlFor="username">Username</label>
             <input
-              type="text"
-              name="username"
+              type="email"
+              name="email"
+              required="true"
               className="login-input"
-              placeholder="Enter Username"
+              placeholder="Enter Email"
+
               onChange={this.onUsernameChange.bind(this)}
             />
             <small className="danger-error">

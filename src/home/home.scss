@@ -1,0 +1,89 @@
+* {
+  margin: 0;
+  padding: 0;
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+}
+body {
+  background-image: url("https://media.architecturaldigest.com/photos/5772a29056d7d0330986bc54/16:9/w_1280,c_limit/michael-jackson-home-01.jpg");
+  background-repeat: no-repeat;
+  height: 650px;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-color: #cccccc;
+}
+
+.out-container{
+  background-image: url('image1.jpg');
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+
+$blue_theme: #70a1ff;
+.main {
+  max-width: 1200px;
+  margin: auto;
+  ul {
+    list-style-type: none;
+    float: right;
+    margin-top: 30px;
+  }
+  ul li {
+    display: inline-block;
+  }
+  ul li a {
+    text-decoration: none;
+    color: black;
+    padding: 5 px 20px;
+    border: 1px solid transparent;
+    transition: 0.6s ease;
+    margin-right: 10px;
+  }
+  ul li a:hover {
+    background-color: rgb(255, 255, 255);
+    color: #000;
+  }
+  ul li.active a {
+    background-color: #ffffff;
+    color: #000;
+  }
+}
+
+.logo img {
+  float: left;
+  width: 150px;
+  height: auto;
+}
+
+.AutoComplete-wrapper {
+  display: flex;
+  max-width: 600px;
+  min-width: 100px;
+  /*height: 500px;*/
+  text-align: center;
+  margin: 0 auto 200px auto;
+  padding-top: 300px;
+  padding-left: 120px;
+}
+
+.Search {
+  height: 39px;
+  border-radius: 15px;
+  border: 1px solid $blue_theme; 
+  transition: border 0.8s ease-out;
+  padding: 8px;
+  margin-left: 5px;
+  font-family: Oxygen, sans-serif;
+  font-size: 17px;
+  color: #15779b;
+  background: rgba(15, 15, 15, 0.01);
+  background-color: #ffffff;
+}
+
+.Search:hover{
+  background: #15779b;
+  border: 1px solid white;
+  cursor: pointer;
+  color: white;
+}

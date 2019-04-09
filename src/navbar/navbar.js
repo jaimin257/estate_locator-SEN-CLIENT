@@ -9,12 +9,15 @@ export class NavBar extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      isLoggeedIn: false,
       token: cookie.load('cookiesNamejwt'),
-      username: cookie.load('username')
+      username: cookie.load('username'),
+      isLoggedIn: cookie.load('username') ? true : false
     };
-    if(this.state.username)
-      this.setState({isLoggeedIn:true});
+  }
+
+  logout(params){
+    cookie.remove('cookiesNamejwt');
+    cookie.remove('username');
   }
 
   render() {
@@ -39,14 +42,14 @@ export class NavBar extends React.Component {
               </a>
             </li>
             <li class="btn">
-              <a href="#" class="nav-link">
+              <a href="#" class="nav-link" >
                 Contact
               </a>
             </li>
             <small>
-              {this.state.isLoggeedIn === false ? (
+              {this.state.isLoggedIn === false ? (
                 <div>
-                  <li class="btn ">
+                  <li class="btn custom">
                     <a href="/login" class="nav-link">
                       Login
                     </a>
@@ -60,13 +63,18 @@ export class NavBar extends React.Component {
               ) : (
                 <div>
                   <li class="btn">
-                    <a href="#" class="nav-link">
-                      add Property
+                    <a href="/AddProp" class="nav-link">
+                      Add Property
                     </a>
                   </li>
                   <li class="btn">
                     <a href="#" class="nav-link">
                       Hi, {this.state.username}
+                    </a>
+                  </li>
+                  <li class="btn">
+                    <a href="" class="nav-link" onClick={this.logout.bind(this)}>
+                      LogOut
                     </a>
                   </li>
                 </div>
