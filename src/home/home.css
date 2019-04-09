@@ -1,0 +1,97 @@
+@import url("https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css");
+html {
+  margin: 0px;
+}
+
+.home {
+  background-image: url("https://www.asianpaints.com/content/dam/asianpaints/website/2-inspiration/ideas/inspiration-wall/inspiration-gallery-images/set-3/inspiration-set-3-58.jpg.image.939.599.medium.jpg");
+  background-repeat: no-repeat;
+  width: auto;
+  height: 100vh;
+  overflow: auto;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  background-color: #ffffff;
+  font-weight: bold;
+  font-size: 17px;
+  padding: 5%;
+}
+
+.search-container {
+  width: 100%;
+  align-items: center;
+}
+
+.search-selection .button {
+  text-align: center;
+  position: relative;
+  background-color: black;
+}
+
+.buy {
+  margin-left: 20%;
+}
+
+.search-bar {
+  margin-left: 20%;
+  width: auto;
+  height: auto;
+}
+.search-button {
+  background-color: orange;
+  border-color: orange;
+  width: 10%;
+  position: relative;
+  justify-content: flex-start;
+}
+.search-icon {
+  padding-right: 5px;
+  padding-top: 0%;
+}
+
+.inline {
+  float: right;
+}
+
+.search-box-input {
+  width: 50%;
+  height: 50px;
+}
+
+.button {
+  left: 20%;
+  display: inline-block;
+  color: white;
+  background-color: black;
+  border: 1px solid black;
+  opacity: 0.9;
+  text-align: center;
+  font-size: 16px;
+  height: 58px;
+  width: 60px;
+}
+
+.rent {
+  border-left: 1px solid white;
+}
+.tag-line {
+  display: flex;
+  justify-content: center;
+}
+
+.login-link {
+  margin-left: 40%;
+}
+
+.test {
+  border: none;
+  width: 150px;
+  height: 50px;
+  background-color: #5e23dc;
+  color: white;
+  position: static;
+  padding: 10px 5px;
+  justify-content: center;
+  display: flex;
+}
