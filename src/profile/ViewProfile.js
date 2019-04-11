@@ -2,6 +2,9 @@ import React from "react";
 import "./ViewProfile.css";
 import Avatar from "react-avatar";
 import cookie from "react-cookies";
+import $ from 'jquery';
+
+let appurl = "http://localhost:1433"
 
 const color = ["red", "green", "purple", "cyan", "teal", "blue"];
 const getcolor = () => {
@@ -12,10 +15,55 @@ export class ViewProfile extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      firstname: cookie.load("firstname"),
-      email: cookie.load("email")
+      email: "",
+        firstname: "",
+        uid: cookie.load("uid"),
+        contactno: "",
+        firstname: "",
+        lastname: "",
+        gender: "",
+        mobile: "",
+        address: "",
+        country: "",
+        state: "",
+        city: "",
+        pincode: ""
     };
   }
+
+  componentWillMount(){
+    let userstatus = 0;
+      $.ajax({
+          url: appurl + '/account/getUser',
+          method: 'POST',
+          data:{
+            userId: cookie.load("uid")
+          },
+        statusCode: {
+          200: function(){
+            console.log("user retrived success");
+            userstatus = 200;
+          }
+        },
+        success: function(result){
+          this.setState({email: result.user.email});
+          this.setState({firstname: result.user.firstName});
+          this.setState({lastname: result.user.lastName});
+          this.setState({gender: result.user.sex});
+          this.setState({mobile: result.user.mobileno});
+          this.setState({address: result.user.address});
+          this.setState({country: result.user.country});
+          this.setState({state: result.user.state});
+          this.setState({city: result.user.city});
+          this.setState({country: result.user.country});
+          this.setState({pincode: result.user.pincode});
+        }.bind(this),
+        error: function (result){
+          console.log("user retrived failed");
+        }
+      });
+  }
+
   render() {
     return (
       <div className="container">
@@ -41,59 +89,56 @@ export class ViewProfile extends React.Component {
                     {" "}
                     <strong>Last Name</strong>
                   </td>
-                  <td>
-                    {" "}
-                    {/*userInfo.user_last_name ? userInfo.user_last_name : ""*/}{" "}
-                  </td>
+                  <td> {this.state.lastname} </td>
                 </tr>
                 <tr>
                   <td>
                     {" "}
                     <strong>Gender</strong>
                   </td>
-                  <td> {/*props.user.primaryEmail*/} </td>
+                  <td> {this.state.gender} </td>
                 </tr>
                 <tr>
                   <td>
                     {" "}
                     <strong>Email</strong>
                   </td>
-                  <td>{this.state.email} </td>
+                  <td> {this.state.email} </td>
                 </tr>
                 <tr>
                   <td>
                     {" "}
                     <strong>Mobile Number</strong>
                   </td>
-                  <td> {/*userInfo.user_sex*/} </td>
+                  <td> {this.state.mobile} </td>
                 </tr>
                 <tr>
                   <td>
                     {" "}
                     <strong>Addresses</strong>
                   </td>
-                  <td> {/*userInfo.user_programme*/} </td>
+                  <td> {this.state.address} </td>
                 </tr>
                 <tr>
                   <td>
                     {" "}
                     <strong>City</strong>
                   </td>
-                  <td> {/*userInfo.user_batch*/} </td>
+                  <td> {this.state.city} </td>
                 </tr>
                 <tr>
                   <td>
                     {" "}
                     <strong>State</strong>
                   </td>
-                  <td> {/*userInfo.user_type*/} </td>
+                  <td> {this.state.state} </td>
                 </tr>
                 <tr>
                   <td>
                     {" "}
                     <strong>Pincode</strong>
                   </td>
-                  <td> {/*userInfo.user_type*/} </td>
+                  <td> {this.state.pincode} </td>
                 </tr>
               </tbody>
             </table>

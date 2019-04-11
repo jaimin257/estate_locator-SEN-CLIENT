@@ -4,6 +4,8 @@ import logo from './logo.svg';
 import './login.css';
 import $ from 'jquery';
 import { Redirect } from 'react-router';
+import Button from "react-bootstrap/Button";
+import Modal from "react-bootstrap/Modal";
 var validator = require("email-validator");
 
 let appurl = "http://localhost:1433"
@@ -11,7 +13,15 @@ let appurl = "http://localhost:1433"
 export class LoginBox extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { username: "", password: "", errors: [] , redirect: false};
+    this.state = { 
+      username: "", 
+      password: "",
+      errors: [], 
+      redirect: false,
+      show: false
+    };
+    this.handleShow = this.handleShow.bind(this);
+    this.handleClose = this.handleClose.bind(this);
   }
   showValidationErr(elm, msg) {
     this.setState(prevState => ({
@@ -36,6 +46,13 @@ export class LoginBox extends React.Component {
   onPasswordChange(param) {
     this.setState({ password: param.target.value });
     this.clearValidationErr("password");
+  }
+  handleClose() {
+    this.setState({ show: false });
+  }
+
+  handleShow() {
+    this.setState({ show: true });
   }
   submitLogin(param) {
     
@@ -63,9 +80,6 @@ export class LoginBox extends React.Component {
             console.log("login success");
             cookie.save(result.cname1, result.cvalue1, {path:"/", expires:new Date(result.cookieexpire) });
             cookie.save('uid', result.login._id, {path:"/", expires:new Date(result.cookieexpire) });
-            cookie.save('isverified', result.login.verified, {path:"/", expires:new Date(result.cookieexpire) });
-            cookie.save('hasextrainfo', result.login.addedExtraInfo, {path:"/", expires:new Date(result.cookieexpire) });
-            cookie.save('firstname', result.login.firstName, {path:"/", expires:new Date(result.cookieexpire) });
             console.log(result.login);
             this.setState({ redirect: true });
           }
@@ -80,6 +94,7 @@ export class LoginBox extends React.Component {
 
   render() {
     const { redirect } = this.state;
+    const { show } = this.state;
     let usernameErr = null,
       passwordErr = null;
     for (let err of this.state.errors) {
@@ -152,6 +167,36 @@ export class LoginBox extends React.Component {
             Login
           </button>
         </div>
+
+        <Button variant="primary" onClick={this.handleShow.bind(this)}>
+          Forgot Password ?
+        </Button>
+
+        <Modal show={this.state.show} onHide={this.handleClose}>
+          <Modal.Header closeButton>
+            <Modal.Title>Forgot Password</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <form>
+              <input
+                type="email"
+                required="true"
+                placeholder="Enter you registered email"
+                class="forgot"
+              />
+            </form>
+          </Modal.Body>
+          <Modal.Footer>
+            <Button variant="secondary" onClick={this.handleClose.bind(this)}>
+              Close
+            </Button>
+            <Button variant="primary" onClick={this.handleClose.bind(this)}>
+              Send
+            </Button>
+          </Modal.Footer>
+        </Modal>
+
+
       </div>
     );
   }

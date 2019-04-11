@@ -31,7 +31,7 @@ export class Home extends React.Component {
     this.state = {
       isBuy: false,
       isRent: true,
-      isLoggedIn: false,
+      isLoggedIn: cookie.load("cookiesNamejwt") ? true : false,
       dropdownOpen: false,
       value: "Number of Rooms",
       valuea: "Property Type",

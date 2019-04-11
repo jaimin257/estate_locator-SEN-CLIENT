@@ -33,7 +33,7 @@ body {
 }
 
 .box-controller {
-  visibility: visible;  
+  visibility: visible;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -60,7 +60,7 @@ body {
   margin-right: 10px;
 }
 
-.controller:hover{
+.controller:hover {
   background-color: #81a6e2;
   transition: background-color 0.3s ease-out;
 }
@@ -200,9 +200,21 @@ body {
   visibility: hidden;
 }
 
-
 .show {
   visibility: visible;
 }
 
+.page-link-cstm {
+  background: transparent;
+  border: none;
+  color: #fff;
+  margin-top: 3px;
+  text-align: center;
+  cursor: pointer;
+  box-sizing: border-box;
+}
+
+.forgot {
+  width: 100%;
+}
 /*# sourceMappingURL=App.css.map */

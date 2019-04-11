@@ -24,6 +24,7 @@ a {
   overflow: hidden;
   float: right;
   background-image: linear-gradient(to right, #68c2ff, white);
+  padding-right: 100px;
 }
 
 .item {
@@ -59,12 +60,16 @@ a {
   padding: 15px 20px;
 }
 
-.logo{
+.logo {
   width: 100px;
   height: auto;
   margin: -20px 20px -15px -20px;
 }
 
-.heading{
+.heading {
   font-size: 50px;
+}
+
+.drop {
+  background-color: antiquewhite;
 }

@@ -1,26 +1,60 @@
 import React, { Component } from "react";
 import cookie from "react-cookies";
+import Dropdown from "react-bootstrap/Dropdown";
+import {
+  Container,
+  ButtonDropdown,
+  DropdownMenu,
+  DropdownItem,
+  DropdownToggle
+} from "reactstrap";
 import $ from "jquery";
 import "./navbar.css";
 import "./bootstrap.css";
 import "./index.png";
 
+let appurl = "http://localhost:1433"
+
 export class NavBar extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      token: cookie.load('cookiesNamekwt'),
-      firstname: cookie.load('firstname'),
-      isLoggedIn: cookie.load('firstname') ? true : false
+      token: cookie.load("cookiesNamejwt"),
+      firstname: "",
+      isLoggedIn: cookie.load("cookiesNamejwt") ? true : false,
+      isverified: false,
+      hasextraInfo: false
     };
   }
 
-  logout(params){
-    cookie.remove('cookiesNamekwt');
-    cookie.remove('uid');
-    cookie.remove('isverified');
-    cookie.remove('hasextrainfo');
-    cookie.remove('firstname');
+  componentWillMount(){
+        let userstatus = 0;
+        $.ajax({
+            url: appurl + '/account/getUser',
+            method: 'POST',
+            data:{
+              userId: cookie.load("uid")
+            },
+            statusCode: {
+              200: function(){
+                console.log("user retrived success");
+                userstatus = 200;
+              }
+            },
+            success: function(result){
+              this.setState({firstname: result.user.firstName});
+              this.setState({isverified: result.user.verified});
+              this.setState({hasextraInfo: result.user.addedextrainfo});
+            }.bind(this),
+            error: function (result){
+              console.log("user retrived failed");
+            }
+          });
+      }
+
+  logout(params) {
+    cookie.remove("cookiesNamejwt");
+    cookie.remove("uid");
   }
 
   render() {
@@ -45,8 +79,8 @@ export class NavBar extends React.Component {
               </a>
             </li>
             <li class="btn">
-              <a href="#" class="nav-link" >
-                Contact
+              <a href="#" class="nav-link">
+                Contact Us
               </a>
             </li>
             <small>
@@ -70,15 +104,23 @@ export class NavBar extends React.Component {
                       Add Property
                     </a>
                   </li>
-                  <li class="btn">
-                    <a href="#" class="nav-link">
-                      Hi, {this.state.firstname}
-                    </a>
-                  </li>
-                  <li class="btn">
-                    <a href="" class="nav-link" onClick={this.logout.bind(this)}>
-                      LogOut
-                    </a>
+                  <li class="nav-item dropdown btn">
+                    <Dropdown class="drop btn">
+                      <Dropdown.Toggle id="dropdown-basic">
+                        Hi, {this.state.firstname}
+                      </Dropdown.Toggle>
+                      <Dropdown.Menu>
+                        <Dropdown.Item href="/profile">
+                          View Profile
+                        </Dropdown.Item>
+                        <Dropdown.Item href="#/action-2">
+                          My Advertisements
+                        </Dropdown.Item>
+                        <Dropdown.Item href="/home" onClick={this.logout.bind(this)}>
+                          Logout
+                        </Dropdown.Item>
+                      </Dropdown.Menu>
+                    </Dropdown>
                   </li>
                 </div>
               )}
