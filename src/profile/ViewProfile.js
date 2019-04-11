@@ -1,20 +1,22 @@
 import React from "react";
 import "./ViewProfile.css";
 import Avatar from "react-avatar";
+import cookie from "react-cookies";
 
 const color = ["red", "green", "purple", "cyan", "teal", "blue"];
 const getcolor = () => {
   return color[Math.floor(Math.random() * 8)];
 };
 
-export class ViewProfile extends React.Component{
+export class ViewProfile extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-
+      firstname: cookie.load("firstname"),
+      email: cookie.load("email")
     };
   }
-  render(){ 
+  render() {
     return (
       <div className="container">
         <div className="parent">
@@ -30,21 +32,9 @@ export class ViewProfile extends React.Component{
                 <tr>
                   <td>
                     {" "}
-                    <strong>Daiict Id</strong>
-                  </td>
-                  <td> {/*props*/} </td>
-                </tr>
-                <tr>
-                  <td>
-                    {" "}
                     <strong>First Name</strong>
                   </td>
-                  <td>
-                    {" "}
-                    {/*userInfo.user_first_name
-                      ? userInfo.user_first_name
-                    : ""*/}{" "}
-                  </td>
+                  <td> {this.state.firstname} </td>
                 </tr>
                 <tr>
                   <td>
@@ -59,55 +49,56 @@ export class ViewProfile extends React.Component{
                 <tr>
                   <td>
                     {" "}
-                    <strong>Primary Email</strong>
+                    <strong>Gender</strong>
                   </td>
                   <td> {/*props.user.primaryEmail*/} </td>
                 </tr>
                 <tr>
                   <td>
                     {" "}
-                    <strong>Contact No</strong>
+                    <strong>Email</strong>
                   </td>
-                  <td>
-                    {" "}
-                    {/*props.user.contactNo
-                      ? props.user.contactNo
-                    : userInfo.user_adr_mobileno*/}{" "}
-                  </td>
+                  <td>{this.state.email} </td>
                 </tr>
                 <tr>
                   <td>
                     {" "}
-                    <strong>Gender</strong>
+                    <strong>Mobile Number</strong>
                   </td>
                   <td> {/*userInfo.user_sex*/} </td>
                 </tr>
                 <tr>
                   <td>
                     {" "}
-                    <strong>Programme</strong>
+                    <strong>Addresses</strong>
                   </td>
                   <td> {/*userInfo.user_programme*/} </td>
                 </tr>
                 <tr>
                   <td>
                     {" "}
-                    <strong>Batch</strong>
+                    <strong>City</strong>
                   </td>
                   <td> {/*userInfo.user_batch*/} </td>
                 </tr>
                 <tr>
                   <td>
                     {" "}
-                    <strong>User Type</strong>
+                    <strong>State</strong>
+                  </td>
+                  <td> {/*userInfo.user_type*/} </td>
+                </tr>
+                <tr>
+                  <td>
+                    {" "}
+                    <strong>Pincode</strong>
                   </td>
                   <td> {/*userInfo.user_type*/} </td>
                 </tr>
               </tbody>
             </table>
-            
           </div>
-        </div>  
+        </div>
         {/*isStudent(props.user) ? (
           <div className="add-header">
             <h2 style={{ "margin-left": "8px" }}>Saved Addresses</h2>

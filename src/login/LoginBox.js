@@ -90,11 +90,16 @@ export class LoginBox extends React.Component {
         passwordErr = err.msg;
       }
     }
+
+    if(cookie.load('uid')){
+      console.log("redirecting to home");
+      return <Redirect to='/Home'/>
+    }
+
     if(redirect){
       console.log("redirecting");
       console.log(cookie.load('isverified'));
       console.log(cookie.load('hasextrainfo'));
-      console.log("redirecting");
       if(cookie.load('isverified') === "false"){
         console.log("verif ma jay che");
         return <Redirect to='/login'/>
@@ -114,7 +119,7 @@ export class LoginBox extends React.Component {
             <input
               type="email"
               name="email"
-              required="true"
+              required
               className="login-input"
               placeholder="Enter Email"
 

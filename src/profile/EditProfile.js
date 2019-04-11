@@ -1,10 +1,13 @@
 import React, { PureComponent } from "react";
+import cookie from "react-cookies";
 import "./ViewProfile.css";
 
 export class EditProfile extends PureComponent {
   constructor(props) {
     super();
     this.state = {
+      firstname: cookie.load("firstname"),
+      email: cookie.load("email"),
       contactNo: ""
     };
     /*this.handleChange = handleChange.bind(this);*/
@@ -25,35 +28,49 @@ export class EditProfile extends PureComponent {
           <table className="table table-striped animated fadeIn">
             <tbody>
               <tr>
-                <td>Daiict Id </td>
-                <td> {/*this.props.user.daiictId*/} </td>
-              </tr>
-              <tr>
                 <td> First Name</td>
                 <td>
-                  {" "}
-                  {/*userInfo.user_first_name
-                    ? userInfo.user_first_name
-                  : ""*/}{" "}
+                  <input
+                    type="text"
+                    placeholder="Enter you first name"
+                    name="firstname"
+                    required="true"
+                    value={this.state.firstname}
+                  />
                 </td>
               </tr>
               <tr>
                 <td> Last Name</td>
                 <td>
-                  {" "}
-                  {/*userInfo.user_last_name ? userInfo.user_last_name : ""*/}{" "}
+                  <input
+                    type="text"
+                    placeholder="Enter you last name"
+                    name="lastname"
+                    required="true"
+                  />
+                </td>
+              </tr>
+              <tr>
+                <td>Gender</td>
+                <td>
+                  <input
+                    type="text"
+                    placeholder="Enter you gender"
+                    name="gender"
+                    required="true"
+                  />
                 </td>
               </tr>
               <tr>
                 <td>Primary Email</td>
-                <td>{/*this.props.user.primaryEmail*/}</td>
+                <td>{this.state.email}</td>
               </tr>
               <tr>
-                <td> Contact No </td>
+                <td> Mobile Number </td>
                 <td>
                   <input
                     type="text"
-                    placeholder="1Enter Contact No"
+                    placeholder="Enter Mobile Number"
                     name="contactNo"
                     required="true"
                     pattern="[0-9]{10}"
@@ -61,12 +78,48 @@ export class EditProfile extends PureComponent {
                 </td>
               </tr>
               <tr>
-                <td> Gender</td>
-                <td> {/*userInfo.user_sex*/} </td>
+                <td>Address</td>
+                <td>
+                  <input
+                    type="text"
+                    placeholder="Enter you Address"
+                    name="address"
+                    required="true"
+                  />
+                </td>
               </tr>
               <tr>
-                <td> Programme</td>
-                <td> {/*userInfo.user_programme*/} </td>
+                <td>City</td>
+                <td>
+                  <input
+                    type="text"
+                    placeholder="Enter you city"
+                    name="city"
+                    required="true"
+                  />
+                </td>
+              </tr>
+              <tr>
+                <td>State</td>
+                <td>
+                  <input
+                    type="text"
+                    placeholder="Enter your state"
+                    name="state"
+                    required="true"
+                  />
+                </td>
+              </tr>
+              <tr>
+                <td>Pincode</td>
+                <td>
+                  <input
+                    type="numeric"
+                    placeholder="Enter your state"
+                    name="state"
+                    required="true"
+                  />
+                </td>
               </tr>
             </tbody>
           </table>
@@ -80,4 +133,3 @@ export class EditProfile extends PureComponent {
     );
   }
 }
-

@@ -47,7 +47,7 @@ export class RegisterBox extends React.Component {
     if(validator.validate(this.state.username) === false){
       this.showValidationErr("username", "Enter proper Email ID"); 
     }
-    if (this.state.password == "" || this.state.password2 == "") {
+    if (this.state.password == "") {
       this.showValidationErr("password", "password cannot be empty");
     }
     if(this.state.password != this.state.password2){

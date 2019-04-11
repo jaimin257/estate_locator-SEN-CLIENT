@@ -9,14 +9,14 @@ export class NavBar extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      token: cookie.load('cookiesNamejwt'),
+      token: cookie.load('cookiesNamekwt'),
       firstname: cookie.load('firstname'),
       isLoggedIn: cookie.load('firstname') ? true : false
     };
   }
 
   logout(params){
-    cookie.remove('cookiesNamejwt');
+    cookie.remove('cookiesNamekwt');
     cookie.remove('uid');
     cookie.remove('isverified');
     cookie.remove('hasextrainfo');
