@@ -11,6 +11,20 @@ import {
   DropdownItem,
   DropdownToggle
 } from "reactstrap";
+import Button from "react-bootstrap/Button";
+import ButtonGroup from "react-bootstrap/ButtonGroup";
+import PropTypes from "prop-types";
+import classNames from "classnames";
+import InputLabel from "@material-ui/core/InputLabel";
+import Select from "@material-ui/core/Select";
+import MenuItem from "@material-ui/core/MenuItem";
+import TextField from "@material-ui/core/TextField";
+const styles = theme => ({
+  button: {
+    display: "block",
+    marginTop: theme.spacing.unit * 2
+  }
+});
 
 export class Home extends React.Component {
   constructor(props) {
@@ -24,17 +38,22 @@ export class Home extends React.Component {
     this.toggleb = this.toggleb.bind(this);
     this.selectb = this.selectb.bind(this);
 
+    this.toggleBuy = this.toggleBuy.bind(this);
+    this.toggleRent = this.toggleRent.bind(this);
+
     this.state = {
       isBuy: false,
       isRent: true,
       isLoggedIn: false,
       dropdownOpen: false,
-      value: "Number of Rooms",
-      valuea: "Property Type",
+      value: "Property Type",
+      valuea: "Number of Rooms",
       dropdownBugget: false,
       dropdownProperty: false,
       valueb: "Budget",
-      token: cookie.load("cookiesNamejwt")
+      proptype: "",
+      token: cookie.load("cookiesNamejwt"),
+      showRoomButton: true
     };
     console.log(document.cookie);
   }
@@ -77,28 +96,77 @@ export class Home extends React.Component {
     });
   }
 
+  toggleBuy() {
+    this.setState({
+      isBuy: true
+    });
+  }
+
+  toggleRent() {
+    this.setState({
+      isBuy: false
+    });
+  }
+  onpropchange(proptype) {
+    this.setState({
+      proptype: proptype
+    });
+  }
+
+  handleApartment = () => {
+    this.setState({ showRoomButton: true });
+  };
+
+  handleLandShop = () => {
+    this.setState({ showRoomButton: false });
+  };
+
   render() {
+    const roomButton = (
+      <Dropdown class="drop1" style={{ marginRight: 20 }}>
+        <ButtonDropdown
+          isOpen={this.state.dropdownProperty}
+          toggle={this.togglea}
+        >
+          <DropdownToggle>{this.state.valuea}</DropdownToggle>
+          <DropdownMenu class="dropdown">
+            <DropdownItem onClick={this.selecta}>1 BHK</DropdownItem>
+            <DropdownItem onClick={this.selecta}>2 BHK</DropdownItem>
+            <DropdownItem onClick={this.selecta}>3 BHK</DropdownItem>
+            <DropdownItem onClick={this.selecta}>3 BHK +</DropdownItem>
+          </DropdownMenu>
+        </ButtonDropdown>
+      </Dropdown>
+    );
     return (
       <div class="home">
         <h1 class="tag-line"> Find Home. Find Happiness </h1>
         <div class="search-container">
           <div class="search-selection">
-            <button
-              class=" button buy"
-              onClick={
-                (this.state.isBuy == true,
-                this.state.isRent == false,
-                this.handle)
-              }
-            >
-              BUY
-            </button>
-            <button
-              class=" button rent"
-              onClick={(this.state.isBuy == false, this.state.isRent == true)}
-            >
-              RENT
-            </button>
+            <div class="radio toggle">
+              <div style={{ display: "flex", alignSelf: "center" }}>
+                <ButtonGroup required="true">
+                  <Button
+                    style={{ marginLeft: 435 }}
+                    onClick={
+                      (this.state.isBuy == true,
+                      this.state.isRent == false,
+                      this.handle)
+                    }
+                  >
+                    BUY
+                  </Button>
+                  <Button
+                    style={{ marginRight: 20 }}
+                    onClick={
+                      (this.state.isBuy == false, this.state.isRent == true)
+                    }
+                  >
+                    RENT
+                  </Button>
+                </ButtonGroup>
+              </div>
+            </div>
           </div>
           <div className="AutoComplete-wrapper">
             <AutoComplete />
@@ -120,29 +188,19 @@ export class Home extends React.Component {
                 >
                   <DropdownToggle>{this.state.value}</DropdownToggle>
                   <DropdownMenu class="dropdown">
-                    <DropdownItem onClick={this.select}>1 HK</DropdownItem>
-                    <DropdownItem onClick={this.select}>1 BHK</DropdownItem>
-                    <DropdownItem onClick={this.select}>2 BHK</DropdownItem>
-                    <DropdownItem onClick={this.select}>3 BHK</DropdownItem>
-                    <DropdownItem onClick={this.select}>3+ BHK</DropdownItem>
-                  </DropdownMenu>
-                </ButtonDropdown>
-              </Dropdown>
-              <Dropdown class="drop1" style={{ marginRight: 20 }}>
-                <ButtonDropdown
-                  isOpen={this.state.dropdownProperty}
-                  toggle={this.togglea}
-                >
-                  <DropdownToggle>{this.state.valuea}</DropdownToggle>
-                  <DropdownMenu class="dropdown">
-                    <DropdownItem onClick={this.selecta}>
+                    <DropdownItem onClick={this.handleApartment}>
                       Appartment
                     </DropdownItem>
-                    <DropdownItem onClick={this.selecta}>Shop</DropdownItem>
-                    <DropdownItem onClick={this.selecta}>Land</DropdownItem>
+                    <DropdownItem onClick={this.handleLandShop}>
+                      Shop
+                    </DropdownItem>
+                    <DropdownItem onClick={this.handleLandShop}>
+                      Land
+                    </DropdownItem>
                   </DropdownMenu>
                 </ButtonDropdown>
               </Dropdown>
+              {this.state.showRoomButton ? roomButton : <React.Fragment />}
               {this.isBuy === true ? (
                 <Dropdown class="drop1">
                   <ButtonDropdown

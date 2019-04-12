@@ -1,0 +1,60 @@
+.body {
+  margin: 0px;
+  padding: 0px;
+  font-family: "Raleway", sans-serif;
+  font-size: 11pt;
+  font-weight: 400;
+  color: #363636;
+  background-image: url("https://cache.desktopnexus.com/cropped-wallpapers/398/398136-1536x864-[DesktopNexus.com].jpg?st=7oK2zDgNd1TENZ5-0eRgqg&e=1555092007");
+}
+.GroupNo {
+  margin: 0;
+  line-height: 190%;
+  color: #171717;
+  overflow: hidden;
+  border-bottom: 1px solid #e5e5e5;
+  text-align: center;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  display: block;
+  padding: 0em 0em 1.5em 0em;
+  letter-spacing: 0.15em;
+  font-weight: 400;
+  font-size: 1.2em;
+  color: #6f6f6f;
+}
+.ProjectName {
+  font-weight: 400;
+  font-size: 2em;
+  color: #16a085;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  text-align: center;
+}
+.ProjectNameText {
+  font-weight: 200;
+  font-size: 1em;
+  color: #16a085;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  text-align: center;
+  margin-left: 45%;
+}
+.ProjectMem {
+  text-align: center;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  font-size: 0.8em;
+  text-decoration: none;
+}
+.Names {
+  text-align: center;
+  margin: 0;
+  list-style: none;
+  border-bottom: solid 1px #e5e5e5;
+  display: inline-block;
+  font-size: 1em;
+  color: black;
+  margin-left: 45%;
+  margin-bottom: 1%;
+}
