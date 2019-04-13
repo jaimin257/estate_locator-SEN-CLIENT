@@ -84,6 +84,7 @@ export class AddPropertyForm extends React.Component {
     this.setState({
       popup : false
     });
+    window.location.reload();
   }
 
   toggle() {
@@ -523,9 +524,7 @@ export class AddPropertyForm extends React.Component {
                 />
               </form>
         </div>
-        <div>
-          <input type="file" name="file1" onChange={this.onFileChange.bind(this)} multiple />
-        </div>
+        
         <div class="package-button">
           <button
             type="button"
@@ -554,3 +553,10 @@ export class AddPropertyForm extends React.Component {
     );
   }
 }
+
+
+
+/*
+<div>
+          <input type="file" name="file1" onChange={this.onFileChange.bind(this)} multiple />
+        </div>*/

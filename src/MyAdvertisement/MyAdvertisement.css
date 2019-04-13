@@ -15,6 +15,7 @@ html {
 .buttons {
   display: inline-flex;
   flex-direction: row;
+  width: -webkit-fill-available;
 }
 
 .delete {
@@ -62,12 +63,12 @@ html {
 
 .properties {
   padding-left: 4%;
-  color: white;
+  color: black;
 }
 
 .allsearch {
   margin: 0 auto;
-  left: 10%;
+  left: 20%;
   right: 30%;
   position: absolute;
 }
@@ -77,11 +78,20 @@ html {
 }
 
 .price {
-  color: white;
+  color: black;
 }
 
 b,
 strong {
   font-weight: bolder;
-  color: white !important;
+  color: black !important;
+  width: 100%;
+}
+
+.link{
+  color: white;
+}
+
+.link:hover{
+  color: white;
 }

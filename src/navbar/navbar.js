@@ -112,7 +112,7 @@ export class NavBar extends React.Component {
                         <Dropdown.Item href="/profile">
                           View Profile
                         </Dropdown.Item>
-                        <Dropdown.Item href="#/action-2">
+                        <Dropdown.Item href="/MyAdvertisement">
                           My Advertisements
                         </Dropdown.Item>
                         <Dropdown.Item href="/home" onClick={this.logout.bind(this)}>

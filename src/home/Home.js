@@ -1,20 +1,38 @@
 import React, { Component } from "react";
 import cookie from "react-cookies";
 import $ from 'jquery';
-import "./home.css";
+
 import "./img1.jpg";
 import Dropdown from "react-bootstrap/Dropdown";
 import AutoComplete from "./Autocomplete.js";
 import "./Autocomplete.css";
+import "./home.css";
 import {
   Container,
   ButtonDropdown,
   DropdownMenu,
   DropdownItem,
-  DropdownToggle
+  DropdownToggle,
+  Card,
+  CardImg,
+  CardText,
+  CardBody,
+  CardHeader,
+  CardTitle,
+  CardSubtitle,
+  Button
 } from "reactstrap";
+import Table from "react-bootstrap/Table";
+import Avatar from "react-avatar";
+import RenderToLayer from "material-ui/internal/RenderToLayer";
+import "./search.css";
 
 let appurl = "http://localhost:1433"
+
+const color = ["red", "green", "purple", "cyan", "teal", "blue"];
+const getcolor = () => {
+  return color[Math.floor(Math.random() * 8)];
+};
 
 export class Home extends React.Component {
   constructor(props) {
@@ -40,7 +58,58 @@ export class Home extends React.Component {
       valueb: "Budget",
       token: cookie.load("cookiesNamejwt"),
       suggestions: [],
-      text: ""
+      text: "",
+      searchresults: [
+        {
+          pname: "mahin",
+          location: "B/7 Shrama safalya society,nr tana appartment, ellorapark",
+          city: "hello",
+          budget: "100",
+          more: "ok"
+        },
+        {
+          pname: "mahinaa",
+          location: "gra",
+          city: "heo",
+          budget: "100",
+          more: "ok"
+        },
+        {
+          pname: "mahin",
+          location: "agra",
+          city: "hello",
+          budget: "100",
+          more: "ok"
+        },
+        {
+          pname: "mahin",
+          location: "agra",
+          city: "hello",
+          budget: "100",
+          more: "ok"
+        },
+        {
+          pname: "mahin",
+          location: "agra",
+          city: "hello",
+          budget: "100",
+          more: "ok"
+        },
+        {
+          pname: "mahin",
+          location: "agra",
+          city: "hello",
+          budget: "100",
+          more: "ok"
+        },
+        {
+          pname: "mahin",
+          location: "agra",
+          city: "hello",
+          budget: "100",
+          more: "ok"
+        }
+      ]
     };
     console.log(document.cookie);
   }
@@ -134,6 +203,12 @@ export class Home extends React.Component {
 
   render() {
     const { text } = this.state;
+     var center = {
+      textAlign: "center"
+    };
+    const { searchresults } = this.state;
+    const data = [{ name: "test1" }, { name: "test2" }];
+
     return (
       <div class="home">
         <h1 class="tag-line"> Find Home. Find Happiness </h1>
@@ -249,6 +324,66 @@ export class Home extends React.Component {
             )}
           </div>
         </div>
+
+
+        <div className="animated fadeIn">
+        
+        <div>
+          <div className="allsearching">
+            {searchresults.map(d => (
+              <Card style={{ border: "none" }}>
+                <div className="fif">
+                  <div id="avatar_position" className="image">
+                    <Avatar color={getcolor()} round={false} size={80} />
+                    <div className="name-style">
+                      {/*userInfo.user_first_name*/}{" "}
+                      {/*userInfo.user_last_name*/}
+                    </div>
+                  </div>
+                  <br/>
+                  <div className="properties">
+                    <div>
+                      <strong> Property Name : </strong>
+                      {d.pname}
+                    </div>
+                    <div>
+                      <strong>Price :</strong> ₹{" "}
+                      <span className="price">{d.budget}</span>{" "}
+                    </div>
+                    <div>
+                      <td>
+                        {" "}
+                        <strong>Address : </strong>
+                        {d.location}
+                        {"  "}
+                      </td>
+                    </div>
+                    <div className="buttons" width='200px'>
+                      <div>
+                        <button type="button" class="btn btn-primary" >
+                          
+                            <i
+                              className="fa fa-trash"
+                              style={{ textAlign: "center" }}
+                            />
+                          <a href={'/Property/'+d.pid} className="link">
+                            View More Details!!
+                          </a>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </Card>
+            ))}
+          </div>
+        </div>
+      </div>
+
+
+
+
+
       </div>
     );
   }

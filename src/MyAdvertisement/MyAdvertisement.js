@@ -12,8 +12,13 @@ import {
   Button
 } from "reactstrap";
 import Table from "react-bootstrap/Table";
+import {BrowserRouter as Router, Redirect, Route, Link, Switch} from "react-router-dom";
 import Avatar from "react-avatar";
 import "./MyAdvertisement.css";
+import cookie from "react-cookies";
+import $ from 'jquery';
+
+let appurl = "http://localhost:1433";
 
 const color = ["red", "green", "purple", "cyan", "teal", "blue"];
 const getcolor = () => {
@@ -24,7 +29,8 @@ export class MyAdvertisement extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      searchresults: [
+      searchresults: [],
+      /*searchresults: [
         {
           pname: "mahin",
           location: "B/7 Shrama safalya society,nr tana appartment, ellorapark",
@@ -74,8 +80,68 @@ export class MyAdvertisement extends Component {
           budget: "100",
           more: "ok"
         }
-      ]
+      ]*/
     };
+  }
+
+  componentWillMount(){
+    let userstatus = 0;
+      $.ajax({
+          url: appurl + '/property/getMyProps',
+          method: 'POST',
+          data:{
+            user: cookie.load("uid")
+          },
+        statusCode: {
+          200: function(){
+            console.log("property retrived success");
+            userstatus = 200;
+          }
+        },
+        success: function(result){
+          console.log(result);
+          let myprops = [];
+          result.map((p, index) => {
+            myprops.push(
+              {
+                pid: p._id,
+                pname: p.propertyName,
+                budget: p.property_amount,
+                location: p.propertyLocation,
+              }
+            )
+          });
+          this.setState({ searchresults : myprops });
+        }.bind(this),
+        error: function (result){
+          console.log("property retrived failed");
+        }
+      });
+  }
+
+  removeprop(param){
+    // window.location.reload();
+    // return;
+    let userstatus = 0;
+    $.ajax({
+          url: appurl + '/property/removeProp?propId='+param,
+          method: 'DELETE',
+          headers: {
+            'authorization' : 'Basic ' + cookie.load('cookiesNamejwt'),
+          },
+          data:{
+            userId: cookie.load("uid"),
+          },
+        statusCode: {
+          200: function(){
+            console.log("property delete success");
+            window.location.reload();
+          },
+        },
+        error: function (result){
+          console.log("property delete failed");
+        }
+      });
   }
 
   render() {
@@ -84,6 +150,8 @@ export class MyAdvertisement extends Component {
     };
     const { searchresults } = this.state;
     const data = [{ name: "test1" }, { name: "test2" }];
+
+
     return (
       <div className="animated fadeIn">
         <Card
@@ -102,7 +170,7 @@ export class MyAdvertisement extends Component {
           <CardHeader>
             <h4>
               <strong>
-                <i className="fa fa-align-justify" /> Search Results
+                 My Advertisement
               </strong>
             </h4>
           </CardHeader>
@@ -136,18 +204,21 @@ export class MyAdvertisement extends Component {
                         {"  "}
                       </td>
                     </div>
-                    <div className="buttons">
+                    <div className="buttons" width='200px'>
                       <div>
-                        <button type="button" class="btn btn-primary">
-                          <i
-                            className="fa fa-trash"
-                            style={{ textAlign: "center" }}
-                          />
-                          View More Details!!
+                        <button type="button" class="btn btn-primary" >
+                          
+                            <i
+                              className="fa fa-trash"
+                              style={{ textAlign: "center" }}
+                            />
+                          <a href={'/Property/'+d.pid} className="link">
+                            View More Details!!
+                          </a>
                         </button>
                       </div>
                       <div className="delete">
-                        <button type="button" class="btn btn-danger">
+                        <button type="button" className="btn btn-danger" onClick={this.removeprop.bind(this, d.pid)}>
                           <i
                             className="fa fa-trash"
                             style={{ textAlign: "center" }}

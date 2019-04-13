@@ -7,6 +7,8 @@ import { Home } from './home/Home.js';
 import { NavBar } from './navbar/navbar.js';
 import { AddPropertyForm } from './AddPropertyForm/AddPropertyForm.js';
 import { Myprofile } from './profile/MyProfile.js';
+import { MyAdvertisement } from './MyAdvertisement/MyAdvertisement.js';
+import { ViewProperty } from './ViewProperty/ViewProperty.js';
 
 let appurl = "http://localhost:1433"
 
@@ -24,6 +26,8 @@ export class App extends React.Component {
         		  <Route path="/home" component={Home} exact/>
               <Route path="/addprop" component={AddPropertyForm} exact/>
               <Route path="/profile" component={Myprofile} exact/>
+              <Route path="/MyAdvertisement" component={MyAdvertisement} exact/>
+              <Route path="/Property/:pid" component={ViewProperty} exact/>
             </div>
         	</Switch>
         </div>
