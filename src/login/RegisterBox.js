@@ -64,7 +64,7 @@ export class RegisterBox extends React.Component {
         },
         success: function(result){
           console.log(result);
-        }
+        }.bind(this)
       })
   }
 

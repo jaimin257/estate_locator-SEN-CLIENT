@@ -66,3 +66,14 @@ html {
 .forms {
   padding: 10px;
 }
+
+.popup{
+  text-align: center;
+  background-color: #96bfff;
+  height: 100%;
+  font-weight: bold;
+  font-size: 12px;
+  color: black;
+  padding-top: 70px;
+}
+

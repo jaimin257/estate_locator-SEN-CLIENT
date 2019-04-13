@@ -3,7 +3,7 @@ import cookie from "react-cookies";
 import logo from './logo.svg';
 import './login.css';
 import $ from 'jquery';
-import { Redirect } from 'react-router';
+import {BrowserRouter as Router, Redirect, Route, Link, Switch} from "react-router-dom";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 var validator = require("email-validator");
@@ -17,11 +17,14 @@ export class LoginBox extends React.Component {
       username: "", 
       password: "",
       errors: [], 
-      redirect: false,
-      show: false
+      redirect: cookie.load('uid') ? 1 : 0,
+      show: false,
+      forgotEmail: "",
+      sentEmail: "",
     };
     this.handleShow = this.handleShow.bind(this);
     this.handleClose = this.handleClose.bind(this);
+    this.submitLogin = this.submitLogin.bind(this);
   }
   showValidationErr(elm, msg) {
     this.setState(prevState => ({
@@ -47,6 +50,9 @@ export class LoginBox extends React.Component {
     this.setState({ password: param.target.value });
     this.clearValidationErr("password");
   }
+  onForgotEmailChange(param){
+    this.setState({ forgotEmail: param.target.value });
+  }
   handleClose() {
     this.setState({ show: false });
   }
@@ -55,7 +61,6 @@ export class LoginBox extends React.Component {
     this.setState({ show: true });
   }
   submitLogin(param) {
-    
     if (this.state.username == "") {
       this.showValidationErr("username", "username cannot be empty");
     }
@@ -76,20 +81,50 @@ export class LoginBox extends React.Component {
           password: this.state.password
         },
         success: function(result){
-          if(result.login){
+          if(result.user.verified){
             console.log("login success");
             cookie.save(result.cname1, result.cvalue1, {path:"/", expires:new Date(result.cookieexpire) });
-            cookie.save('uid', result.login._id, {path:"/", expires:new Date(result.cookieexpire) });
-            console.log(result.login);
-            this.setState({ redirect: true });
+            cookie.save('uid', result.user._id, {path:"/", expires:new Date(result.cookieexpire) });
+            console.log(result.user);
+            if(result.user.addedExtraInfo)
+              this.setState({ redirect: 1 });
+            if(!result.user.addedExtraInfo)
+              this.setState({ redirect: 2 });
           }
           else{
+            this.showValidationErr("password", "User not verified");
             console.log("login failed");
           }
+        }.bind(this),
+        error: function(error) {
+          this.showValidationErr("password", "Login Failed");
         }.bind(this)
       });
-
     }
+  }
+
+  onForgotPassword(param){
+    console.log("forgot");
+    if(validator.validate(this.state.forgotEmail) === false){
+      this.setState({ sentEmail : "Enter Proper Email ID"});
+      return;
+    }
+    else{
+      this.setState({ sentEmail : "Verification Link Sent"}); 
+    }
+    $.ajax({
+        url: appurl + '/account/sendForgetPasswordMail',
+        method: 'POST',
+        data:{
+          email: this.state.forgotEmail,
+        },
+        success: function(result){
+
+        }.bind(this),
+        error: function(error) {
+          
+        }.bind(this)
+      });
   }
 
   render() {
@@ -105,27 +140,18 @@ export class LoginBox extends React.Component {
         passwordErr = err.msg;
       }
     }
-
-    if(cookie.load('uid')){
-      console.log("redirecting to home");
-      return <Redirect to='/Home'/>
-    }
-
-    if(redirect){
-      console.log("redirecting");
-      console.log(cookie.load('isverified'));
-      console.log(cookie.load('hasextrainfo'));
-      if(cookie.load('isverified') === "false"){
-        console.log("verif ma jay che");
-        return <Redirect to='/login'/>
-      }
-      if(cookie.load('hasextrainfo') === "false"){
-        console.log("extra ma jay che");
-        return <Redirect to='/profile'/>
-      }
+  
+    if(redirect==1){
       return <Redirect to='/home'/>
     }
+    if(redirect==2){
+      return <Redirect to='/profile'/>
+    }
+
+    
+
     return (
+
       <div className="inner-container">
         <div className="header">Login</div>
         <div className="box">
@@ -180,17 +206,19 @@ export class LoginBox extends React.Component {
             <form>
               <input
                 type="email"
-                required="true"
+                required
                 placeholder="Enter you registered email"
                 class="forgot"
+                onChange={this.onForgotEmailChange.bind(this)}
               />
             </form>
           </Modal.Body>
           <Modal.Footer>
+            <p class="sentemail"> { this.state.sentEmail } </p>
             <Button variant="secondary" onClick={this.handleClose.bind(this)}>
               Close
             </Button>
-            <Button variant="primary" onClick={this.handleClose.bind(this)}>
+            <Button variant="primary" onClick={this.onForgotPassword.bind(this)}>
               Send
             </Button>
           </Modal.Footer>

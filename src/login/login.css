@@ -217,4 +217,8 @@ body {
 .forgot {
   width: 100%;
 }
-/*# sourceMappingURL=App.css.map */
+
+.sentemail{
+  padding-right: 140px;
+  color: cyan;
+}

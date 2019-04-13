@@ -23,7 +23,8 @@ export class NavBar extends React.Component {
       firstname: "",
       isLoggedIn: cookie.load("cookiesNamejwt") ? true : false,
       isverified: false,
-      hasextraInfo: false
+      hasextraInfo: false,
+      
     };
   }
 
@@ -43,8 +44,6 @@ export class NavBar extends React.Component {
             },
             success: function(result){
               this.setState({firstname: result.user.firstName});
-              this.setState({isverified: result.user.verified});
-              this.setState({hasextraInfo: result.user.addedextrainfo});
             }.bind(this),
             error: function (result){
               console.log("user retrived failed");

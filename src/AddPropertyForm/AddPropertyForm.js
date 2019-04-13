@@ -12,13 +12,15 @@ import InputLabel from "@material-ui/core/InputLabel";
 import Select from "@material-ui/core/Select";
 import cookie from "react-cookies";
 import $ from "jquery";
+import Modal from 'react-awesome-modal';
+import axios from 'axios';
 
 let appurl = "http://localhost:1433"
 
 const styles = theme => ({
   container: {
     display: "flex",
-    flexWrap: "wrap"
+    flexWrap: "wrap",
   },
   textField: {
     marginLeft: theme.spacing.unit,
@@ -64,8 +66,24 @@ export class AddPropertyForm extends React.Component {
       sellprice: "0",
       contract: "0",
       desc: "0",
-      totalfloors: "0"
+      totalfloors: "0",
+      popup: false,
+      popupError: "",
+      images: [],
+      imgerr: "",
     };
+  }
+
+  openPopup() {
+    this.setState({
+        popup : true
+    });
+  } 
+
+  closePopup() {
+    this.setState({
+      popup : false
+    });
   }
 
   toggle() {
@@ -179,12 +197,35 @@ export class AddPropertyForm extends React.Component {
     });
   }
 
-  onSubmit(){
+  onFileChange = (event) => {
+    let images = [];
+    for (var i = 0; i < event.target.files.length; i++) {
+      images[i] = event.target.files.item(i);
+    }
+    console.log(this.state.images.length);
+    images = images.filter(image => image.name.match(/\.(jpg|jpeg|png|gif)$/));
+    let imgerr = `${images.length} valid image(s) selected`;
+    this.setState({ 
+      images: images,
+      imgerr : imgerr
+    });
+    console.log(this.state.images.length);
+  }
+
+
+  onSubmit(e){
+    e.preventDefault();
+
+
+    let userstatus;
     $.ajax({
         url: appurl + '/property/addProp',
         method: 'POST',
+        headers: {
+          'authorization' : 'Basic ' + cookie.load('cookiesNamejwt'),
+        },
         data:{
-          token: cookie.load('cookiesNamekwt'),
+          token: cookie.load('cookiesNamejwt'),
           propertyName: this.state.pname,
           propertyLocation: this.state.location,
           constructionStatus: this.state.constructionStatus,
@@ -213,17 +254,43 @@ export class AddPropertyForm extends React.Component {
                         this.state.bedroom + ' ' + 
                         this.state.furnish + ' ' 
         },
+        statusCode: {
+              200: function(){
+                userstatus = 200;
+              }
+            },
         success: function(result){
-          console.log(result);
+          if(userstatus === 200){
+
+            // this.state.file.map( (f,index) => {
+            //   console.log("submiting");
+            //   console.log(this.state.file1.name);
+            //   let data = new FormData();
+            //   data.append(this.state.pname+str(index)+, f, f.name);
+            //   axios.post(appurl + "/property/addfile", data)
+            //     .then( res => { 
+            //       console.log("successsss : " + res);
+            //     });
+
+            // })
+            
+
+
+
+            console.log(result);
+            this.setState({ popupError : ""});
+          }
+          else{
+            this.setState({ popupError : "error"});
+          }
+          this.openPopup();
         }.bind(this)
       });
   }
 
 
-
   render() {
     const { classes } = this.props;
-    console.log(this.state.typeOfPlot);
     return (
       <div>
         <div class="ownerinfo">
@@ -456,6 +523,9 @@ export class AddPropertyForm extends React.Component {
                 />
               </form>
         </div>
+        <div>
+          <input type="file" name="file1" onChange={this.onFileChange.bind(this)} multiple />
+        </div>
         <div class="package-button">
           <button
             type="button"
@@ -465,6 +535,21 @@ export class AddPropertyForm extends React.Component {
             Select Advertisement Package
           </button>
         </div>
+
+        <Modal visible={this.state.popup} width="400" height="200" effect="fadeInUp" onClickAway={() => this.closePopup()}>
+            <div class="popup">
+                { this.state.popupError ? (
+                    <p>Property Added Successfully</p>
+                  ) 
+                :
+                  (
+                    <p>Error Adding Property</p>
+                  )
+                }  
+                <a href="javascript:void(0);" onClick={() => this.closePopup()}><h5><b>Close</b></h5></a>
+            </div>
+        </Modal>
+
       </div>
     );
   }

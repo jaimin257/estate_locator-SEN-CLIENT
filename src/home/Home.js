@@ -116,22 +116,18 @@ export class Home extends React.Component {
   }
 
   onSearch(param){
-    console.log(this.state);
+    if(this.state.text == ""){
+      return;
+    }
     $.ajax({
         url: appurl + '/property/searchProp',
         method: 'POST',
         data:{
           uid: cookie.load('uid'),
-          query: this.state.text
+          searchStr: this.state.text
         },
         success: function(result){
-          console.log(result);
-          // if(result.login){
-            
-          // }
-          // else{
-          //   console.log("login failed");
-          // }
+          console.log(result.searchResult);
         }.bind(this)
       });
   }
@@ -170,6 +166,7 @@ export class Home extends React.Component {
                 src={require("./search.png")}
                 width="25px"
                 height="20px;"
+                required
                 class="search-icon"
                 alt="mahin"
               />

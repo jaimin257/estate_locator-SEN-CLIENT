@@ -3,13 +3,39 @@ import cookie from "react-cookies";
 import { ViewProfile } from "./ViewProfile.js";
 import { EditProfile } from "./EditProfile.js";
 import "./ViewProfile.css";
+import $ from 'jquery';
+
+let appurl = "http://localhost:1433"
 
 export class Myprofile extends PureComponent {
   constructor() {
     super();
     this.state = {
-      isEdit: cookie.load('hasextrainfo') === 'false' ? true : false
+      isEdit: false,
     };
+  }
+
+  componentWillMount(){
+    let userstatus = 0;
+      $.ajax({
+          url: appurl + '/account/getUser',
+          method: 'POST',
+          data:{
+            userId: cookie.load("uid")
+          },
+        statusCode: {
+          200: function(){
+            console.log("user retrived success");
+            userstatus = 200;
+          }
+        },
+        success: function(result){
+          this.setState({isEdit: !result.user.addedExtraInfo});
+        }.bind(this),
+        error: function (result){
+          console.log("user retrived failed");
+        }
+      });
   }
 
   changeIsEdit(){

@@ -71,6 +71,7 @@ export class EditProfile extends PureComponent {
         method: 'POST',
         data:{
           userId: this.state.uid,
+          
           firstName: this.state.firstname,
           lastName: this.state.lastname,
           sex: this.state.gender,
@@ -91,6 +92,7 @@ export class EditProfile extends PureComponent {
         success: function(result){
           if(userstatus === 200){
             console.log("update success");
+            // this.props.history.push('/home');
             this.setState({redirectProf: true});
           }
           else{
