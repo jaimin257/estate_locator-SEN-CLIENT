@@ -59,57 +59,58 @@ export class Home extends React.Component {
       token: cookie.load("cookiesNamejwt"),
       suggestions: [],
       text: "",
-      searchresults: [
-        {
-          pname: "mahin",
-          location: "B/7 Shrama safalya society,nr tana appartment, ellorapark",
-          city: "hello",
-          budget: "100",
-          more: "ok"
-        },
-        {
-          pname: "mahinaa",
-          location: "gra",
-          city: "heo",
-          budget: "100",
-          more: "ok"
-        },
-        {
-          pname: "mahin",
-          location: "agra",
-          city: "hello",
-          budget: "100",
-          more: "ok"
-        },
-        {
-          pname: "mahin",
-          location: "agra",
-          city: "hello",
-          budget: "100",
-          more: "ok"
-        },
-        {
-          pname: "mahin",
-          location: "agra",
-          city: "hello",
-          budget: "100",
-          more: "ok"
-        },
-        {
-          pname: "mahin",
-          location: "agra",
-          city: "hello",
-          budget: "100",
-          more: "ok"
-        },
-        {
-          pname: "mahin",
-          location: "agra",
-          city: "hello",
-          budget: "100",
-          more: "ok"
-        }
-      ]
+      searchresults: [],
+      // searchresults: [
+      //   {
+      //     pname: "mahin",
+      //     location: "B/7 Shrama safalya society,nr tana appartment, ellorapark",
+      //     city: "hello",
+      //     budget: "100",
+      //     more: "ok"
+      //   },
+      //   {
+      //     pname: "mahinaa",
+      //     location: "gra",
+      //     city: "heo",
+      //     budget: "100",
+      //     more: "ok"
+      //   },
+      //   {
+      //     pname: "mahin",
+      //     location: "agra",
+      //     city: "hello",
+      //     budget: "100",
+      //     more: "ok"
+      //   },
+      //   {
+      //     pname: "mahin",
+      //     location: "agra",
+      //     city: "hello",
+      //     budget: "100",
+      //     more: "ok"
+      //   },
+      //   {
+      //     pname: "mahin",
+      //     location: "agra",
+      //     city: "hello",
+      //     budget: "100",
+      //     more: "ok"
+      //   },
+      //   {
+      //     pname: "mahin",
+      //     location: "agra",
+      //     city: "hello",
+      //     budget: "100",
+      //     more: "ok"
+      //   },
+      //   {
+      //     pname: "mahin",
+      //     location: "agra",
+      //     city: "hello",
+      //     budget: "100",
+      //     more: "ok"
+      //   }
+      // ]
     };
     console.log(document.cookie);
   }
@@ -197,6 +198,8 @@ export class Home extends React.Component {
         },
         success: function(result){
           console.log(result.searchResult);
+          this.setState({ searchresults: result.searchResult});
+          console.log("searched properties " + this.state.searchresults);
         }.bind(this)
       });
   }
@@ -344,17 +347,17 @@ export class Home extends React.Component {
                   <div className="properties">
                     <div>
                       <strong> Property Name : </strong>
-                      {d.pname}
+                      {d.propertyName}
                     </div>
                     <div>
                       <strong>Price :</strong> ₹{" "}
-                      <span className="price">{d.budget}</span>{" "}
+                      <span className="price">{d.property_amount}</span>{" "}
                     </div>
                     <div>
                       <td>
                         {" "}
                         <strong>Address : </strong>
-                        {d.location}
+                        {d.propertyLocation}
                         {"  "}
                       </td>
                     </div>
@@ -366,7 +369,7 @@ export class Home extends React.Component {
                               className="fa fa-trash"
                               style={{ textAlign: "center" }}
                             />
-                          <a href={'/Property/'+d.pid} className="link">
+                          <a href={'/Property/'+d._id} className="link">
                             View More Details!!
                           </a>
                         </button>

@@ -1,5 +1,6 @@
 import React, { PureComponent } from "react";
 import cookie from "react-cookies";
+import {BrowserRouter as Router, Redirect, Route, Link, Switch} from "react-router-dom";
 import { ViewProfile } from "./ViewProfile.js";
 import { EditProfile } from "./EditProfile.js";
 import "./ViewProfile.css";
@@ -46,6 +47,11 @@ export class Myprofile extends PureComponent {
   };
 
   render() {
+
+    if(!cookie.load('uid')){
+      return <Redirect to='/home'/> 
+    }
+
     return (
       <div>
         <div className="animated fadeIn">

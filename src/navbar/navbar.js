@@ -82,6 +82,11 @@ export class NavBar extends React.Component {
                 Contact Us
               </a>
             </li>
+            <li class="btn">
+              <a href="/AddProp" class="nav-link">
+                Add Property
+              </a>
+            </li>
             <small>
               {this.state.isLoggedIn === false ? (
                 <div>
@@ -98,11 +103,6 @@ export class NavBar extends React.Component {
                 </div>
               ) : (
                 <div>
-                  <li class="btn">
-                    <a href="/AddProp" class="nav-link">
-                      Add Property
-                    </a>
-                  </li>
                   <li class="nav-item dropdown btn">
                     <Dropdown class="drop btn">
                       <Dropdown.Toggle id="dropdown-basic">

@@ -14,6 +14,7 @@ import cookie from "react-cookies";
 import $ from "jquery";
 import Modal from 'react-awesome-modal';
 import axios from 'axios';
+import {BrowserRouter as Router, Redirect, Route, Link, Switch} from "react-router-dom";
 
 let appurl = "http://localhost:1433"
 
@@ -292,6 +293,11 @@ export class AddPropertyForm extends React.Component {
 
   render() {
     const { classes } = this.props;
+
+    if(!cookie.load('uid')){
+      return <Redirect to='/login'/> 
+    }
+
     return (
       <div>
         <div class="ownerinfo">
