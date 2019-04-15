@@ -63,7 +63,11 @@ export class RegisterBox extends React.Component {
           password2: this.state.password2
         },
         success: function(result){
+          this.showValidationErr("password2", "Verification Link Sent"); 
           console.log(result);
+        }.bind(this),
+        error: function (result){
+          this.showValidationErr("password2", "Error in SignUp"); 
         }.bind(this)
       })
   }
@@ -83,6 +87,7 @@ export class RegisterBox extends React.Component {
         password2Err = err.msg;
       }
     }
+
     return (
       <div className="inner-container">
         <div className="header">Sign-up</div>

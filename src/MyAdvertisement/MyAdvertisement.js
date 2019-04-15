@@ -89,7 +89,11 @@ export class MyAdvertisement extends Component {
       $.ajax({
           url: appurl + '/property/getMyProps',
           method: 'POST',
+          headers: {
+            'authorization' : 'Basic ' + cookie.load('cookiesNamejwt'),
+          },
           data:{
+            token: cookie.load('cookiesNamejwt'),
             user: cookie.load("uid")
           },
         statusCode: {
@@ -131,6 +135,7 @@ export class MyAdvertisement extends Component {
           },
           data:{
             userId: cookie.load("uid"),
+            token: cookie.load('cookiesNamejwt'),
           },
         statusCode: {
           200: function(){
@@ -207,11 +212,6 @@ export class MyAdvertisement extends Component {
                     <div className="buttons" width='200px'>
                       <div>
                         <button type="button" class="btn btn-primary" >
-                          
-                            <i
-                              className="fa fa-trash"
-                              style={{ textAlign: "center" }}
-                            />
                           <a href={'/Property/'+d.pid} className="link">
                             View More Details!!
                           </a>

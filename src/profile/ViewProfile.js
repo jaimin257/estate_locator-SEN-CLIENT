@@ -3,9 +3,19 @@ import "./ViewProfile.css";
 import Avatar from "react-avatar";
 import cookie from "react-cookies";
 import $ from 'jquery';
+import { ClipLoader } from 'react-spinners';
+import { css } from '@emotion/core';
 
 let appurl = "http://localhost:1433"
 
+const override = css`
+    display: block;
+    border-color: red;
+    display: block;
+    position: absolute;
+    left: 47%;
+    top: 40%;
+`;
 const color = ["red", "green", "purple", "cyan", "teal", "blue"];
 const getcolor = () => {
   return color[Math.floor(Math.random() * 8)];
@@ -27,7 +37,8 @@ export class ViewProfile extends React.Component {
         country: "",
         state: "",
         city: "",
-        pincode: ""
+        pincode: "",
+        loading: true,
     };
   }
 
@@ -57,6 +68,7 @@ export class ViewProfile extends React.Component {
           this.setState({city: result.user.city});
           this.setState({country: result.user.country});
           this.setState({pincode: result.user.pincode});
+          this.setState({ loading: false});
         }.bind(this),
         error: function (result){
           console.log("user retrived failed");
@@ -65,6 +77,21 @@ export class ViewProfile extends React.Component {
   }
 
   render() {
+
+    if(this.state.loading){
+      return (
+        <div className='sweet-loading'>
+          <ClipLoader
+            css={override}
+            sizeUnit={"px"}
+            size={150}
+            color={'#123abc'}
+            loading={this.state.loading}
+          />
+        </div> )
+    }
+
+
     return (
       <div className="container">
         <div className="parent">

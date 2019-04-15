@@ -3,8 +3,19 @@ import cookie from "react-cookies";
 import "./ViewProfile.css";
 import { Redirect } from 'react-router';
 import $ from 'jquery';
+import { ClipLoader } from 'react-spinners';
+import { css } from '@emotion/core';
 
 let appurl = "http://localhost:1433"
+
+const override = css`
+    display: block;
+    border-color: red;
+    display: block;
+    position: absolute;
+    left: 47%;
+    top: 40%;
+`;
 
 export class EditProfile extends PureComponent {
   constructor(props) {
@@ -26,6 +37,7 @@ export class EditProfile extends PureComponent {
         pincode: "",
         redirectProf: false,
         error: "",
+        loading: true,
       };
     }
 
@@ -55,6 +67,7 @@ export class EditProfile extends PureComponent {
               this.setState({city: result.user.city});
               this.setState({country: result.user.country});
               this.setState({pincode: result.user.pincode});
+              this.setState({ loading: false});
             }.bind(this),
             error: function (result){
               console.log("user retrived failed");
@@ -67,15 +80,18 @@ export class EditProfile extends PureComponent {
     console.log("editing");
     let userstatus;
     $.ajax({
-        url: appurl + '/account/UpdateUser',
+        url: appurl + '/account/updateUser',
         method: 'POST',
+        headers: {
+          'authorization' : 'Basic ' + cookie.load('cookiesNamejwt'),
+        },
         data:{
+          token: cookie.load('cookiesNamejwt'),
           userId: this.state.uid,
-          
           firstName: this.state.firstname,
           lastName: this.state.lastname,
           sex: this.state.gender,
-          contactno: this.state.mobile,
+          mobileno: this.state.mobile,
           address: this.state.address,
           country: this.state.country,
           state: this.state.state,
@@ -90,16 +106,14 @@ export class EditProfile extends PureComponent {
               }
             },
         success: function(result){
-          if(userstatus === 200){
             console.log("update success");
             // this.props.history.push('/home');
             this.setState({redirectProf: true});
-          }
-          else{
+        }.bind(this),
+        error: function (result){
             console.log("update failed");
             this.setState({error: "failed"}); 
-          }
-        }.bind(this)
+        }.bind(this),
       });
 
   }
@@ -137,6 +151,19 @@ export class EditProfile extends PureComponent {
 
     if(redirectProf){
       return <Redirect to='/home'/>
+    }
+
+    if(this.state.loading){
+      return (
+        <div className='sweet-loading'>
+          <ClipLoader
+            css={override}
+            sizeUnit={"px"}
+            size={150}
+            color={'#123abc'}
+            loading={this.state.loading}
+          />
+        </div> )
     }
 
     return (
@@ -285,7 +312,7 @@ export class EditProfile extends PureComponent {
           {this.state.error}
 
           <input
-            type="submit"
+            
             className="btn btn-outline-success style-btn"
             value="Save"
             onClick={this.onEdit.bind(this)}
