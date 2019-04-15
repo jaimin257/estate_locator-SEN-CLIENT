@@ -72,6 +72,7 @@ export class AddPropertyForm extends React.Component {
       popupError: "",
       images: [],
       imgerr: "",
+      pid : null,
     };
   }
 
@@ -218,7 +219,6 @@ export class AddPropertyForm extends React.Component {
   onSubmit(e){
     e.preventDefault();
 
-
     let userstatus;
     $.ajax({
         url: appurl + '/property/addProp',
@@ -259,27 +259,14 @@ export class AddPropertyForm extends React.Component {
         statusCode: {
               200: function(){
                 userstatus = 200;
-              }
+              },
+              201: function(){
+                userstatus = 201;
+              },
             },
         success: function(result){
-          if(userstatus === 200){
-
-            // this.state.file.map( (f,index) => {
-            //   console.log("submiting");
-            //   console.log(this.state.file1.name);
-            //   let data = new FormData();
-            //   data.append(this.state.pname+str(index)+, f, f.name);
-            //   axios.post(appurl + "/property/addfile", data)
-            //     .then( res => { 
-            //       console.log("successsss : " + res);
-            //     });
-
-            // })
-            
-
-
-
-            console.log(result);
+          if(result.prop._id){
+            this.setState({pid: result.prop._id});
             this.setState({ popupError : ""});
           }
           else{
@@ -293,6 +280,7 @@ export class AddPropertyForm extends React.Component {
 
   render() {
     const { classes } = this.props;
+    const nofiles = this.state.images.length;
 
     if(!cookie.load('uid')){
       return <Redirect to='/login'/> 
@@ -518,7 +506,7 @@ export class AddPropertyForm extends React.Component {
             )}
           </small>
         </div>
-        <div class="ownerinfo">
+        <div class="ownerinfoinfo">
           <h6>Share Commericals for your Property</h6>
               <form>
                 <TextField
@@ -543,8 +531,16 @@ export class AddPropertyForm extends React.Component {
 
         <Modal visible={this.state.popup} width="400" height="200" effect="fadeInUp" onClickAway={() => this.closePopup()}>
             <div class="popup">
-                { this.state.popupError ? (
-                    <p>Property Added Successfully</p>
+                { !this.state.popupError ? (
+                    <div> 
+                      <p>Property Added Successfully</p>
+                      <form id="myform" action={appurl + "/property/addfile"} enctype= "multipart/form-data" method="POST">
+                        <input type="hidden" name="pid" value={this.state.pid} />
+                        <input type="hidden" name="nofiles" value={nofiles} />
+                        <input type="file" name="file1" onChange={this.onFileChange.bind(this)} multiple />
+                        <input type="submit" value="submit" />
+                      </form>
+                    </div>
                   ) 
                 :
                   (

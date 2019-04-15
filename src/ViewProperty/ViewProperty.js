@@ -3,6 +3,9 @@ import "./ViewProperty.css";
 import Avatar from "react-avatar";
 import cookie from "react-cookies";
 import $ from "jquery";
+import { ClipLoader } from 'react-spinners';
+import { css } from '@emotion/core';
+
 
 let appurl = "http://localhost:1433"
 
@@ -10,6 +13,14 @@ const color = ["red", "green", "purple", "cyan", "teal", "blue"];
 const getcolor = () => {
   return color[Math.floor(Math.random() * 8)];
 };
+const override = css`
+    display: block;
+    border-color: red;
+    display: block;
+    position: absolute;
+    left: 47%;
+    top: 40%;
+`;
 
 export class ViewProperty extends React.Component {
   constructor(props) {
@@ -27,6 +38,8 @@ export class ViewProperty extends React.Component {
       nobed: "",
       furnishtype: "",
       floors: "",
+      loading: true,
+      images: [],
     };
 
     // console.log(this.props);
@@ -62,18 +75,68 @@ export class ViewProperty extends React.Component {
           this.setState({ furnishtype: result.prop.furnishedType });
           this.setState({ floors: result.prop.floor });
           console.log(result.prop);
+          this.setState({ loading: false});
         }.bind(this),
         error: function (result){
           console.log("property retrived failed");
         }
       });
+
+      let x = [];
+      let i = 0;
+      while(this.imageExists('http://localhost:1433/static/'+this.props.match.params.pid+'_'+i.toString()+'.png')){
+        x.push(i);
+        i = i+1;
+      }
+      this.setState({ images: x});
+
+
+  }
+
+  imageExists(url){
+    var http = new XMLHttpRequest();
+    http.open('HEAD', url, false);
+    http.send();
+    console.log("httping" + http.status);
+    return http.status != 404;
+  }
+
+  loadImages(){
+    console.log("gayuuuuu : " + this.state.images.length);
+    return(
+      <div> 
+          {
+            this.state.images.map( i => {
+              return <img src={"http://localhost:1433/static/"+this.props.match.params.pid+"_"+i.toString()+".png"} />
+            })
+          }
+      </div>
+    )
   }
 
 
   render() {
-    return (
+
+    if(this.state.loading){
+      return (
+        <div className='sweet-loading'>
+          <ClipLoader
+            css={override}
+            sizeUnit={"px"}
+            size={150}
+            color={'#123abc'}
+            loading={this.state.loading}
+          />
+        </div> )
+    }
+
+    return ( 
       <div className="container">
+
+
         <div className="parent">
+                {this.loadImages()}
+              
           <div className="quick-view" id="avatar_position">
             <Avatar color={getcolor()} round={true} size={120} />
             <div className="name-style">
