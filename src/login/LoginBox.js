@@ -109,20 +109,19 @@ export class LoginBox extends React.Component {
       this.setState({ sentEmail : "Enter Proper Email ID"});
       return;
     }
-    else{
-      this.setState({ sentEmail : "Verification Link Sent"}); 
-    }
     $.ajax({
-        url: appurl + '/account/sendForgetPasswordMail',
+        url: appurl + '/account/forgetPassword',
         method: 'POST',
         data:{
           email: this.state.forgotEmail,
         },
         success: function(result){
-
+          // console.log("seccess ma");
+          this.setState({ sentEmail : "Reset Password Link Sent"}); 
         }.bind(this),
         error: function(error) {
-          
+          // console.log("error ma");
+          this.setState({ sentEmail : "Something went wrong!"}); 
         }.bind(this)
       });
   }
@@ -194,7 +193,11 @@ export class LoginBox extends React.Component {
           </button>
         </div>
 
-        <Button variant="primary" onClick={this.handleShow.bind(this)}>
+        <Button
+          variant="primary"
+          onClick={this.handleShow.bind(this)}
+          className="page-link-cstm"
+          >
           Forgot Password ?
         </Button>
 

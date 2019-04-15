@@ -9,6 +9,7 @@ import { AddPropertyForm } from './AddPropertyForm/AddPropertyForm.js';
 import { Myprofile } from './profile/MyProfile.js';
 import { MyAdvertisement } from './MyAdvertisement/MyAdvertisement.js';
 import { ViewProperty } from './ViewProperty/ViewProperty.js';
+import { Forgotpassword } from './Forgotpassword/Forgotpassword.js';
 
 let appurl = "http://localhost:1433"
 
@@ -21,6 +22,7 @@ export class App extends React.Component {
             <Route path="/" component={LoginRegisterBox} exact />
         		<Route path="/login" component={LoginRegisterBox} exact />
             <Route path="/signup" component={LoginRegisterBox} exact />
+            <Route path="/forgotpassword/:uid" component={Forgotpassword} exact />
             <div>
               <NavBar/>
         		  <Route path="/home" component={Home} exact/>

@@ -205,20 +205,21 @@ body {
 }
 
 .page-link-cstm {
-  background: transparent;
-  border: none;
-  color: #fff;
-  margin-top: 3px;
-  text-align: center;
-  cursor: pointer;
-  box-sizing: border-box;
+  background: transparent !important;
+  border: none !important;
+  color: blue !important;
+  margin-top: 3px !important;
+  text-align: center !important;
+  cursor: pointer !important;
+  box-sizing: border-box !important;
 }
+
 
 .forgot {
   width: 100%;
 }
 
 .sentemail{
-  padding-right: 140px;
+  padding-right: 120px;
   color: cyan;
 }
