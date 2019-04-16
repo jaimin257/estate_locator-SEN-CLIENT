@@ -48,7 +48,7 @@ class AutoComplete extends React.Component {
     const { text } = this.state;
     return (
       <div className="AutoCompleteText">
-        <input value={text} onChange={this.onTextChanged} type="text" />
+        <input placeholder="Enter Any Property Detail" value={text} onChange={this.onTextChanged} type="text" placeholder="Enter Any Property Detail"/>
         {this.renderSuggestions()}
       </div>
     );

@@ -1,3 +1,12 @@
+.background {
+  background-image: url("https://www.maxpixel.net/static/photo/1x/Sunset-Light-Sunrise-Colours-Color-Background-1030600.jpg");
+  background-repeat: no-repeat;
+  width: auto;
+  height: 92vh;
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+}
+
 .parent {
   width: 100%;
   display: inline-flex;
@@ -30,4 +39,9 @@
   margin-top: 2%;
   margin-left: 5%;
   margin-right: 5%;
+}
+
+.submit {
+  margin: 0 auto;
+  margin-bottom: 2%;
 }

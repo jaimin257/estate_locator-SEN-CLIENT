@@ -231,7 +231,7 @@ export class AddPropertyForm extends React.Component {
           propertyName: this.state.pname,
           propertyLocation: this.state.location,
           constructionStatus: this.state.constructionStatus,
-          bookingStatus: "00",
+          bookingStatus: "",
           seller: cookie.load('uid'),
           property_type: this.state.proptype,
           property_amount: this.state.sellprice,
@@ -390,8 +390,7 @@ export class AddPropertyForm extends React.Component {
             />
           </form>
           <small>
-            {this.state.proptype === "appartmentandhouse" ||
-            this.state.proptype === "shopsandoffice" ? (
+            {this.state.proptype === "Appartment" ? (
               <div>
                 <h6>Construction Status</h6>
                 <ButtonGroup>

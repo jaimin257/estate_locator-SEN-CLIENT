@@ -46,7 +46,7 @@ export class Home extends React.Component {
 
     this.toggleb = this.toggleb.bind(this);
     this.selectb = this.selectb.bind(this);
-    this.items = ["Damien", "fire", "f1", "f2", "f3", "f4", "f5", "f6"];
+    this.items = []; //["Damien", "fire", "f1", "f2", "f3", "f4", "f5", "f6"];
     this.state = {
       isBuy: false,
       isRent: true,
@@ -114,12 +114,27 @@ export class Home extends React.Component {
 
   onTextChanged = e => {
     const value = e.target.value;
+    // console.log("dasd " + value);
+    this.setState({ text: e.target.value });
     let suggestions = [];
-    if (value.length > 0) {
-      const regEx = new RegExp(`^${value}`, "i");
-      suggestions = this.items.sort().filter(v => regEx.test(v));
-    }
-    this.setState(() => ({ suggestions, text: value }));
+    $.ajax({
+      url: appurl + "/property/searchSuggestion",
+      method: "POST",
+      data: {
+        search: value,
+      },
+      success: function(result) {
+        console.log(result.searchResult);
+        this.items = result.result;
+        if (value.length > 0) {
+          const regEx = new RegExp(`^${value}`, "i");
+          suggestions = this.items.sort().filter(v => regEx.test(v));
+        }
+        this.setState(() => ({ suggestions }));
+      }.bind(this)
+    });
+
+    
   };
 
   renderSuggestions() {
@@ -146,8 +161,10 @@ export class Home extends React.Component {
 
   _onBuyOrRentrChange(buyorrent) {
     this.setState({
-      buyorrent: buyorrent
+      buyorrent: buyorrent,
+      valueb: "Budget"
     });
+    console.log("br " + this.state.buyorrent);
   }
 
   onSearch(param) {
@@ -185,7 +202,7 @@ export class Home extends React.Component {
 
   render() {
     const roomButton = (
-      <Dropdown class="drop1" style={{ marginRight: 20 }}>
+      <Dropdown class="drop1" style={{ width: 170}}>
         <ButtonDropdown
           isOpen={this.state.dropdownProperty}
           toggle={this.togglea}
@@ -211,92 +228,109 @@ export class Home extends React.Component {
       <div class="home">
         <h1 class="tag-line"> Find Home. Find Happiness </h1>
         <div class="search-container">
-          <div class="search-selection">
-            <div class="radio toggle">
-              <div style={{ display: "flex", alignSelf: "center" }}>
-                <ButtonGroup required="true">
-                  <Button
-                    style={{ marginLeft: 435 }}
-                    onClick={this._onBuyOrRentrChange.bind(this, "buy")}
-                    active={this.state.buyorrent === "buy"}
-                  >
-                    BUY
-                  </Button>
-                  <Button
-                    style={{ marginRight: 20 }}
-                    onClick={this._onBuyOrRentrChange.bind(this, "rent")}
-                    active={this.state.buyorrent === "rent"}
-                  >
-                    RENT
-                  </Button>
-                </ButtonGroup>
+          
+          <div className="AutoComplete-wrapper">
 
+            <div class="search-selection">
+              <div class="radio toggle">
                 <div style={{ display: "flex", alignSelf: "center" }}>
-                  <Dropdown class="drop1" style={{ marginRight: 20 }}>
-                    <ButtonDropdown
-                      isOpen={this.state.dropdownOpen}
-                      toggle={this.toggle}
+                  <ButtonGroup required="true">
+                    <Button
+                      style={{ marginLeft: 0 }}
+                      onClick={this._onBuyOrRentrChange.bind(this, "buy")}
+                      active={this.state.buyorrent === "buy"}
                     >
-                      <DropdownToggle>{this.state.value}</DropdownToggle>
-                      <DropdownMenu class="dropdown">
-                        <DropdownItem onClick={this.select}>
-                          Appartment
-                        </DropdownItem>
-                        <DropdownItem onClick={this.select}>
-                          Shop
-                        </DropdownItem>
-                        <DropdownItem onClick={this.select}>
-                          Land
-                        </DropdownItem>
-                      </DropdownMenu>
-                    </ButtonDropdown>
-                  </Dropdown>
+                      BUY
+                    </Button>
+                    <Button
+                      style={{ marginRight: 20 }}
+                      onClick={this._onBuyOrRentrChange.bind(this, "rent")}
+                      active={this.state.buyorrent === "rent"}
+                    >
+                      RENT
+                    </Button>
+                  </ButtonGroup>
 
-                  {this.state.value === 'Appartment' ? roomButton : <React.Fragment />}
-
-                  {this.isBuy === true ? (
-                    <Dropdown class="drop1">
+                  <div style={{ display: "flex", alignSelf: "center" }}>
+                    <Dropdown class="drop1" style={{ width: 140 }}>
                       <ButtonDropdown
-                        isOpen={this.state.dropdownBugget}
-                        toggle={this.toggleb}
+                        isOpen={this.state.dropdownOpen}
+                        toggle={this.toggle}
                       >
-                        <DropdownToggle>{this.state.valuea}</DropdownToggle>
+                        <DropdownToggle>{this.state.value}</DropdownToggle>
                         <DropdownMenu class="dropdown">
-                          <DropdownItem onClick={this.selectb}>10k</DropdownItem>
-                          <DropdownItem onClick={this.selectb}>20k</DropdownItem>
-                          <DropdownItem onClick={this.selectb}>30k</DropdownItem>
-                          <DropdownItem onClick={this.selectb}>50k</DropdownItem>
-                          <DropdownItem onClick={this.selectb}>50k+</DropdownItem>
+                          <DropdownItem onClick={this.select}>
+                            Appartment
+                          </DropdownItem>
+                          <DropdownItem onClick={this.select}>
+                            Shop
+                          </DropdownItem>
+                          <DropdownItem onClick={this.select}>
+                            Land
+                          </DropdownItem>
                         </DropdownMenu>
                       </ButtonDropdown>
                     </Dropdown>
-                  ) : (
-                    <Dropdown class="drop1">
-                      <ButtonDropdown
-                        isOpen={this.state.dropdownBugget}
-                        toggle={this.toggleb}
-                      >
-                        <DropdownToggle>{this.state.valueb}</DropdownToggle>
-                        <DropdownMenu class="dropdown">
-                          <DropdownItem onClick={this.selectb}>{'<'}1 crore</DropdownItem>
-                          <DropdownItem onClick={this.selectb}>1 crore</DropdownItem>
-                          <DropdownItem onClick={this.selectb}>2 crore</DropdownItem>
-                          <DropdownItem onClick={this.selectb}>3 crore</DropdownItem>
-                          <DropdownItem onClick={this.selectb}>3 crore+</DropdownItem>
-                        </DropdownMenu>
-                      </ButtonDropdown>
-                    </Dropdown>
-                  )}
+
+                    {this.state.value === 'Appartment' ? roomButton : <React.Fragment />}
+
+                    {this.state.buyorrent === 'rent' ? (
+                      <Dropdown class="drop1" style={{width: 100 }}>
+                        <ButtonDropdown
+                          isOpen={this.state.dropdownBugget}
+                          toggle={this.toggleb}
+                        >
+                          <DropdownToggle>{this.state.valueb}</DropdownToggle>
+                          <DropdownMenu class="dropdown">
+                            <DropdownItem onClick={this.selectb}>10k</DropdownItem>
+                            <DropdownItem onClick={this.selectb}>20k</DropdownItem>
+                            <DropdownItem onClick={this.selectb}>30k</DropdownItem>
+                            <DropdownItem onClick={this.selectb}>50k</DropdownItem>
+                            <DropdownItem onClick={this.selectb}>50k+</DropdownItem>
+                          </DropdownMenu>
+                        </ButtonDropdown>
+                      </Dropdown>
+                    ) : (
+                      <Dropdown class="drop1" style={{width: 100 }}>
+                        <ButtonDropdown
+                          isOpen={this.state.dropdownBugget}
+                          toggle={this.toggleb}
+                        >
+                          <DropdownToggle>{this.state.valueb}</DropdownToggle>
+                          <DropdownMenu class="dropdown">
+                            <DropdownItem onClick={this.selectb}>{'<'}1 crore</DropdownItem>
+                            <DropdownItem onClick={this.selectb}>1 crore</DropdownItem>
+                            <DropdownItem onClick={this.selectb}>2 crore</DropdownItem>
+                            <DropdownItem onClick={this.selectb}>3 crore</DropdownItem>
+                            <DropdownItem onClick={this.selectb}>3 crore+</DropdownItem>
+                          </DropdownMenu>
+                        </ButtonDropdown>
+                      </Dropdown>
+                    )}
+                  </div>
+
+
                 </div>
-
-
               </div>
             </div>
-          </div>
-          <div className="AutoComplete-wrapper">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
             <div className="AutoCompleteText">
 
-              <input value={text} onChange={this.onTextChanged} type="text" />
+              <input placeholder="Enter Any Property Detail" value={text} onChange={this.onTextChanged} type="text" />
               <button class="search" onClick={this.onSearch.bind(this)}>
                 <img
                   src={require("./search.png")}
@@ -309,7 +343,6 @@ export class Home extends React.Component {
                 Search
               </button>
               {this.renderSuggestions()}
-
             </div>
             
 
@@ -367,7 +400,7 @@ export class Home extends React.Component {
                       <div className="buttons" width="200px">
                         <div>
                           <button type="button" class="btn btn-primary">
-                            <a href={"/Property/" + d._id} className="link">
+                            <a href={"/Property/" + d._id} target="_blank" className="link">
                               View More Details!!
                             </a>
                           </button>

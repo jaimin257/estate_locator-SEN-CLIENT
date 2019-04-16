@@ -5,7 +5,8 @@ import cookie from "react-cookies";
 import $ from "jquery";
 import { ClipLoader } from 'react-spinners';
 import { css } from '@emotion/core';
-
+import Image from "react-bootstrap/Image";
+import "./helper.js";
 
 let appurl = "http://localhost:1433"
 
@@ -155,10 +156,32 @@ export class ViewProperty extends React.Component {
     return ( 
       <div className="container">
 
+        {<div id="slider-wrapper">
+                  <div class="slider-controlls">
+                    <button class="next"> > </button>
+                    <button class="prev"> > </button>
+                  </div>
+                  <div class="slider-items">
+                    {this.state.images.map(i => (
+                      <div className="slider-item">
+                        <div class="content">
+                          <img
+                            src={
+                              "http://localhost:1433/static/" +
+                              this.props.match.params.pid +
+                              "_" +
+                              i.toString() +
+                              ".png"
+                            }
+                          />
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>}
 
         <div className="parent">
-                {this.loadImages()}
-              
+                {/*this.loadImages()*/}
           <div className="quick-view" id="avatar_position">
             <Avatar color={getcolor()} round={true} size={120} />
             <div className="name-style">

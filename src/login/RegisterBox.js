@@ -43,15 +43,19 @@ export class RegisterBox extends React.Component {
     console.log('get register request');
     if (this.state.username == "") {
       this.showValidationErr("username", "username cannot be empty");
+      return;
     }
     if(validator.validate(this.state.username) === false){
       this.showValidationErr("username", "Enter proper Email ID"); 
+      return;
     }
     if (this.state.password == "") {
       this.showValidationErr("password", "password cannot be empty");
+      return;
     }
     if(this.state.password != this.state.password2){
       this.showValidationErr("password2", "password doesn't match"); 
+      return;
     }
     console.log("register request sent");
     $.ajax({

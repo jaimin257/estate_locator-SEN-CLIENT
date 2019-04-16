@@ -59,7 +59,7 @@ export class NavBar extends React.Component {
   render() {
     return (
       <div>
-        <nav class="navbar navbar-light bg-light">
+        <nav class="navbar navbar-dark bg-dark">
           <a class="navbar-brand " href="/Home">
             <img
               src={require("./logo.png")}

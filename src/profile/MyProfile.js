@@ -54,24 +54,25 @@ export class Myprofile extends PureComponent {
 
     return (
       <div>
-        <div className="animated fadeIn">
-          {!this.state.isEdit && 
-            <ViewProfile user="mahin"/> 
-          }
-          {!this.state.isEdit && 
-            <button type="button" className="btn btn-outline-primary style-btn" onClick={this.changeIsEdit.bind(this)}>
+        <div className="animated fadeIn background">
+          {!this.state.isEdit && <ViewProfile user="mahin" />}
+          {!this.state.isEdit && (
+            <button
+              type="button"
+              className="btn btn-outline-primary style-btn"
+              onClick={this.changeIsEdit.bind(this)}
+            >
               Edit
             </button>
-          }
+          )}
 
-          {this.state.isEdit && 
+          {this.state.isEdit && (
             <EditProfile
               user="mahin"
               updateUser="mahin"
               changeIsEdit={this.changeIsEdit}
             />
-          }
-          
+          )}
         </div>
       </div>
     );

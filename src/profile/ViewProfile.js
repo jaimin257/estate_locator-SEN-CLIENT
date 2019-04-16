@@ -96,9 +96,17 @@ export class ViewProfile extends React.Component {
       <div className="container">
         <div className="parent">
           <div className="quick-view" id="avatar_position">
-            <Avatar color={getcolor()} round={true} size={120} />
+            <Avatar
+              color={getcolor()}
+              round={true}
+              size={120}
+              name={
+                this.state.firstname +
+                (this.state.lastname ? " " + this.state.lastname : "")
+              }
+            />
             <div className="name-style">
-              {/*userInfo.user_first_name*/} {/*userInfo.user_last_name*/}
+              {this.state.firstname} {this.state.lastname}
             </div>
           </div>
           <div className="info-table">
