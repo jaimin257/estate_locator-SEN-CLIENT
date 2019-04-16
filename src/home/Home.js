@@ -8,6 +8,7 @@ import Dropdown from "react-bootstrap/Dropdown";
 import AutoComplete from "./Autocomplete.js";
 import "./Autocomplete.css";
 import "./home.css";
+import "./bootstrap.css";
 import {
   Container,
   ButtonDropdown,
@@ -239,13 +240,15 @@ export class Home extends React.Component {
                       style={{ marginLeft: 0 }}
                       onClick={this._onBuyOrRentrChange.bind(this, "buy")}
                       active={this.state.buyorrent === "buy"}
+                      className="buybtn"
                     >
                       BUY
                     </Button>
                     <Button
-                      style={{ marginRight: 20 }}
+                      style={{ marginRight: 10 }}
                       onClick={this._onBuyOrRentrChange.bind(this, "rent")}
                       active={this.state.buyorrent === "rent"}
+                      className="rentbtn"
                     >
                       RENT
                     </Button>
@@ -258,7 +261,7 @@ export class Home extends React.Component {
                         toggle={this.toggle}
                       >
                         <DropdownToggle>{this.state.value}</DropdownToggle>
-                        <DropdownMenu class="dropdown">
+                        <DropdownMenu class="dropdown mydrop">
                           <DropdownItem onClick={this.select}>
                             Appartment
                           </DropdownItem>
@@ -315,32 +318,11 @@ export class Home extends React.Component {
             </div>
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
             <div className="AutoCompleteText">
 
               <input placeholder="Enter Any Property Detail" value={text} onChange={this.onTextChanged} type="text" />
               <button class="search" onClick={this.onSearch.bind(this)}>
-                <img
-                  src={require("./search.png")}
-                  width="25px"
-                  height="20px;"
-                  required
-                  class="search-icon"
-                  alt="mahin"
-                />
-                Search
+                <i class="fa fa-search"> Search</i>
               </button>
               {this.renderSuggestions()}
             </div>

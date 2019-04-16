@@ -7,6 +7,8 @@ import { ClipLoader } from 'react-spinners';
 import { css } from '@emotion/core';
 import Image from "react-bootstrap/Image";
 import "./helper.js";
+import { MDBCarousel, MDBCarouselCaption, MDBCarouselInner, MDBCarouselItem, MDBView, MDBMask, MDBContainer } from "mdbreact";
+
 
 let appurl = "http://localhost:1433"
 
@@ -137,6 +139,26 @@ export class ViewProperty extends React.Component {
     )
   }
 
+  imageslider(){
+    return ( 
+      <MDBContainer>
+        <h4 className="mt-5 mb-2">{this.state.pname}</h4>
+        <MDBCarousel activeItem={1} length={this.state.images.length} interval={1800} testimonial showControls={true} showIndicators={true} className="z-depth-1">
+          <MDBCarouselInner>
+            {
+              this.state.images.map( i => {
+                return ( 
+                   <MDBCarouselItem itemId={(i+1).toString()}>
+                      <img className="d-block w-100" src={"http://localhost:1433/static/"+this.props.match.params.pid+"_"+i.toString()+".png"}  />
+                  </MDBCarouselItem>
+                )
+              })
+            }
+          </MDBCarouselInner>
+        </MDBCarousel>
+      </MDBContainer>
+    )
+  }
 
   render() {
 
@@ -156,29 +178,7 @@ export class ViewProperty extends React.Component {
     return ( 
       <div className="container">
 
-        {<div id="slider-wrapper">
-                  <div class="slider-controlls">
-                    <button class="next"> > </button>
-                    <button class="prev"> > </button>
-                  </div>
-                  <div class="slider-items">
-                    {this.state.images.map(i => (
-                      <div className="slider-item">
-                        <div class="content">
-                          <img
-                            src={
-                              "http://localhost:1433/static/" +
-                              this.props.match.params.pid +
-                              "_" +
-                              i.toString() +
-                              ".png"
-                            }
-                          />
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </div>}
+        {this.imageslider()}
 
         <div className="parent">
                 {/*this.loadImages()*/}

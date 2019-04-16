@@ -8,7 +8,7 @@ let appurl = "http://localhost:1433"
 export class RegisterBox extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { username: "", password: "", password2: "", errors: [] };
+    this.state = { email: "", password: "", password2: "", errors: [] };
   }
 
   showValidationErr(elm, msg) {
@@ -27,9 +27,9 @@ export class RegisterBox extends React.Component {
       return { errors: newArr };
     });
   }
-  onUsernameChange(param) {
-    this.setState({ username: param.target.value });
-    this.clearValidationErr("username");
+  onEmailChange(param) {
+    this.setState({ email: param.target.value });
+    this.clearValidationErr("email");
   }
   onPasswordChange(param) {
     this.setState({ password: param.target.value });
@@ -40,55 +40,74 @@ export class RegisterBox extends React.Component {
     this.clearValidationErr("password2");
   }
   submitRegister(param) {
-    console.log('get register request');
-    if (this.state.username == "") {
-      this.showValidationErr("username", "username cannot be empty");
+    // console.log('get register request');
+    if (this.state.email == "") {
+      this.showValidationErr("email", "Email ID cannot be empty");
+      this.clearValidationErr("password");
+      this.clearValidationErr("password2");
+      this.clearValidationErr("response");
       return;
     }
-    if(validator.validate(this.state.username) === false){
-      this.showValidationErr("username", "Enter proper Email ID"); 
+    if(validator.validate(this.state.email) === false){
+      this.showValidationErr("email", "Enter proper Email ID"); 
+      this.clearValidationErr("password");
+      this.clearValidationErr("password2");
+      this.clearValidationErr("response");
       return;
     }
     if (this.state.password == "") {
       this.showValidationErr("password", "password cannot be empty");
+      this.clearValidationErr("password2");
+      this.clearValidationErr("response");
       return;
     }
     if(this.state.password != this.state.password2){
       this.showValidationErr("password2", "password doesn't match"); 
+      this.clearValidationErr("response");
       return;
     }
-    console.log("register request sent");
+    // console.log("register request sent");
     $.ajax({
         url: appurl + '/account/register',
         method: 'POST',
         data:{
-          email: this.state.username,
+          email: this.state.email,
           password: this.state.password,
           password2: this.state.password2
         },
         success: function(result){
-          this.showValidationErr("password2", "Verification Link Sent"); 
-          console.log(result);
+          this.showValidationErr("response", "Verification Link Sent"); 
+          this.clearValidationErr("password");
+          this.clearValidationErr("password2");
+          this.clearValidationErr("email");
+          // console.log(result);
         }.bind(this),
         error: function (result){
-          this.showValidationErr("password2", "Error in SignUp"); 
+          this.showValidationErr("response", "SignUp Failed"); 
+          this.clearValidationErr("password");
+          this.clearValidationErr("password2");
+          this.clearValidationErr("email");
         }.bind(this)
       })
   }
 
   render() {
-    let usernameErr = null,
+    let emailErr = null,
         passwordErr = null,
-        password2Err = null;
+        password2Err = null,
+        responseErr = null;
     for (let err of this.state.errors) {
-      if (err.elm == "username") {
-        usernameErr = err.msg;
+      if (err.elm == "email") {
+        emailErr = err.msg;
       }
       if (err.elm == "password") {
         passwordErr = err.msg;
       }
       if (err.elm == "password2") {
         password2Err = err.msg;
+      }
+      if (err.elm == "response") {
+        responseErr = err.msg;
       }
     }
 
@@ -97,16 +116,17 @@ export class RegisterBox extends React.Component {
         <div className="header">Sign-up</div>
         <div className="box">
           <div className="input-group">
-            <label htmlFor="username">Username</label>
+            <label htmlFor="email">Emaal</label>
             <input
-              type="text"
-              name="username"
+              type="email"
+              name="email"
+              required
               className="login-input"
-              placeholder="Enter Username"
-              onChange={this.onUsernameChange.bind(this)}
+              placeholder="Enter Email ID"
+              onChange={this.onEmailChange.bind(this)}
             />
             <small className="danger-error">
-              {usernameErr ? usernameErr : ""}
+              {emailErr ? emailErr : ""}
             </small>
           </div>
 
@@ -115,6 +135,7 @@ export class RegisterBox extends React.Component {
             <input
               type="password"
               name="password"
+              required
               className="login-input"
               placeholder="Enter Password"
               onChange={this.onPasswordChange.bind(this)}
@@ -144,6 +165,22 @@ export class RegisterBox extends React.Component {
           >
             Sign-up
           </button>
+
+          { 
+            responseErr === "Verification Link Sent" && responseErr !== "" ? (
+              <small className="response-signup">
+                Verification Link Sent
+              </small>
+            ) : ("")
+          }
+
+          {   
+            responseErr === "SignUp Failed" && responseErr !== "" ? ( 
+              <small className="response-error">
+                SignUp Failed
+              </small>
+            ) : ("")
+          }
         </div>
       </div>
     ); 

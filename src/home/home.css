@@ -75,10 +75,28 @@ html {
   align-items: center;
 }
 
+.search-selection {
+  padding: 10px 20px;
+}
+
 .search-selection .button {
   text-align: center;
   position: relative;
   background-color: black;
+}
+
+.btn{
+  border-radius: 20px !important;
+}
+
+.buybtn{
+  border-bottom-right-radius: 0px !important;
+  border-top-right-radius:  0px !important;
+}
+
+.rentbtn{
+  border-bottom-left-radius: 0px !important;
+  border-top-left-radius:  0px !important;
 }
 
 .buy {
