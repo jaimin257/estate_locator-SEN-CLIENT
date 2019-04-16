@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import cookie from "react-cookies";
-import $ from 'jquery';
+import $ from "jquery";
+import ButtonGroup from "react-bootstrap/ButtonGroup";
 
 import "./img1.jpg";
 import Dropdown from "react-bootstrap/Dropdown";
@@ -27,7 +28,7 @@ import Avatar from "react-avatar";
 import RenderToLayer from "material-ui/internal/RenderToLayer";
 import "./search.css";
 
-let appurl = "http://localhost:1433"
+let appurl = "http://localhost:1433";
 
 const color = ["red", "green", "purple", "cyan", "teal", "blue"];
 const getcolor = () => {
@@ -51,66 +52,16 @@ export class Home extends React.Component {
       isRent: true,
       isLoggedIn: cookie.load("cookiesNamejwt") ? true : false,
       dropdownOpen: false,
-      value: "Number of Rooms",
-      valuea: "Property Type",
+      value: "Property Type",
+      valuea: "Number of Rooms",
       dropdownBugget: false,
       dropdownProperty: false,
       valueb: "Budget",
       token: cookie.load("cookiesNamejwt"),
       suggestions: [],
       text: "",
+      buyorrent: "buy",
       searchresults: [],
-      // searchresults: [
-      //   {
-      //     pname: "mahin",
-      //     location: "B/7 Shrama safalya society,nr tana appartment, ellorapark",
-      //     city: "hello",
-      //     budget: "100",
-      //     more: "ok"
-      //   },
-      //   {
-      //     pname: "mahinaa",
-      //     location: "gra",
-      //     city: "heo",
-      //     budget: "100",
-      //     more: "ok"
-      //   },
-      //   {
-      //     pname: "mahin",
-      //     location: "agra",
-      //     city: "hello",
-      //     budget: "100",
-      //     more: "ok"
-      //   },
-      //   {
-      //     pname: "mahin",
-      //     location: "agra",
-      //     city: "hello",
-      //     budget: "100",
-      //     more: "ok"
-      //   },
-      //   {
-      //     pname: "mahin",
-      //     location: "agra",
-      //     city: "hello",
-      //     budget: "100",
-      //     more: "ok"
-      //   },
-      //   {
-      //     pname: "mahin",
-      //     location: "agra",
-      //     city: "hello",
-      //     budget: "100",
-      //     more: "ok"
-      //   },
-      //   {
-      //     pname: "mahin",
-      //     location: "agra",
-      //     city: "hello",
-      //     budget: "100",
-      //     more: "ok"
-      //   }
-      // ]
     };
     console.log(document.cookie);
   }
@@ -131,6 +82,9 @@ export class Home extends React.Component {
       dropdownOpen: !this.state.dropdownOpen,
       value: event.target.innerText
     });
+    if(this.state.value === 'Appartment'){
+      this.setState({ showRoomButton: true });
+    }
   }
 
   toggleb() {
@@ -150,6 +104,11 @@ export class Home extends React.Component {
     this.setState({
       dropdownBugget: !this.state.dropdownBugget,
       valueb: event.target.innerText
+    });
+  }
+  onpropchange(proptype) {
+    this.setState({
+      proptype: proptype
     });
   }
 
@@ -185,28 +144,64 @@ export class Home extends React.Component {
     }));
   }
 
-  onSearch(param){
-    if(this.state.text == ""){
+  _onBuyOrRentrChange(buyorrent) {
+    this.setState({
+      buyorrent: buyorrent
+    });
+  }
+
+  onSearch(param) {
+    if (this.state.text == "") {
       return;
     }
+    let tempb = this.state.valueb;
+    tempb = tempb.replace('k', '000');
+    tempb = tempb.replace(' crore', '0000000');
+    tempb = tempb.replace('+', '');
+    tempb = tempb.replace('<', '');
+
+    let tempa = this.state.valuea;
+    tempa = tempa.replace(' BHK', '');
+    tempa = tempa.replace('+', '');
+    
     $.ajax({
-        url: appurl + '/property/searchProp',
-        method: 'POST',
-        data:{
-          uid: cookie.load('uid'),
-          searchStr: this.state.text
-        },
-        success: function(result){
-          console.log(result.searchResult);
-          this.setState({ searchresults: result.searchResult});
-          console.log("searched properties " + this.state.searchresults);
-        }.bind(this)
-      });
+      url: appurl + "/property/searchProp",
+      method: "POST",
+      data: {
+        uid: cookie.load("uid"),
+        searchStr: this.state.text,
+        noOfRooms: tempa,
+        property_amount: tempb,
+        property_type: this.state.value,
+        contract_type: this.state.buyorrent,
+      },
+      success: function(result) {
+        console.log(result.searchResult);
+        this.setState({ searchresults: result.searchResult });
+        console.log("searched properties " + this.state.searchresults);
+      }.bind(this)
+    });
   }
 
   render() {
+    const roomButton = (
+      <Dropdown class="drop1" style={{ marginRight: 20 }}>
+        <ButtonDropdown
+          isOpen={this.state.dropdownProperty}
+          toggle={this.togglea}
+        >
+          <DropdownToggle>{this.state.valuea}</DropdownToggle>
+          <DropdownMenu class="dropdown">
+            <DropdownItem onClick={this.selecta}>1 BHK</DropdownItem>
+            <DropdownItem onClick={this.selecta}>2 BHK</DropdownItem>
+            <DropdownItem onClick={this.selecta}>3 BHK</DropdownItem>
+            <DropdownItem onClick={this.selecta}>3+ BHK </DropdownItem>
+          </DropdownMenu>
+        </ButtonDropdown>
+      </Dropdown>
+    );
     const { text } = this.state;
-     var center = {
+    var center = {
       textAlign: "center"
     };
     const { searchresults } = this.state;
@@ -217,106 +212,106 @@ export class Home extends React.Component {
         <h1 class="tag-line"> Find Home. Find Happiness </h1>
         <div class="search-container">
           <div class="search-selection">
-            <button
-              class=" button buy"
-              onClick={
-                (this.state.isBuy == true,
-                this.state.isRent == false,
-                this.handle)
-              }
-            >
-              BUY
-            </button>
-            <button
-              class=" button rent"
-              onClick={(this.state.isBuy == false, this.state.isRent == true)}
-            >
-              RENT
-            </button>
+            <div class="radio toggle">
+              <div style={{ display: "flex", alignSelf: "center" }}>
+                <ButtonGroup required="true">
+                  <Button
+                    style={{ marginLeft: 435 }}
+                    onClick={this._onBuyOrRentrChange.bind(this, "buy")}
+                    active={this.state.buyorrent === "buy"}
+                  >
+                    BUY
+                  </Button>
+                  <Button
+                    style={{ marginRight: 20 }}
+                    onClick={this._onBuyOrRentrChange.bind(this, "rent")}
+                    active={this.state.buyorrent === "rent"}
+                  >
+                    RENT
+                  </Button>
+                </ButtonGroup>
+
+                <div style={{ display: "flex", alignSelf: "center" }}>
+                  <Dropdown class="drop1" style={{ marginRight: 20 }}>
+                    <ButtonDropdown
+                      isOpen={this.state.dropdownOpen}
+                      toggle={this.toggle}
+                    >
+                      <DropdownToggle>{this.state.value}</DropdownToggle>
+                      <DropdownMenu class="dropdown">
+                        <DropdownItem onClick={this.select}>
+                          Appartment
+                        </DropdownItem>
+                        <DropdownItem onClick={this.select}>
+                          Shop
+                        </DropdownItem>
+                        <DropdownItem onClick={this.select}>
+                          Land
+                        </DropdownItem>
+                      </DropdownMenu>
+                    </ButtonDropdown>
+                  </Dropdown>
+
+                  {this.state.value === 'Appartment' ? roomButton : <React.Fragment />}
+
+                  {this.isBuy === true ? (
+                    <Dropdown class="drop1">
+                      <ButtonDropdown
+                        isOpen={this.state.dropdownBugget}
+                        toggle={this.toggleb}
+                      >
+                        <DropdownToggle>{this.state.valuea}</DropdownToggle>
+                        <DropdownMenu class="dropdown">
+                          <DropdownItem onClick={this.selectb}>10k</DropdownItem>
+                          <DropdownItem onClick={this.selectb}>20k</DropdownItem>
+                          <DropdownItem onClick={this.selectb}>30k</DropdownItem>
+                          <DropdownItem onClick={this.selectb}>50k</DropdownItem>
+                          <DropdownItem onClick={this.selectb}>50k+</DropdownItem>
+                        </DropdownMenu>
+                      </ButtonDropdown>
+                    </Dropdown>
+                  ) : (
+                    <Dropdown class="drop1">
+                      <ButtonDropdown
+                        isOpen={this.state.dropdownBugget}
+                        toggle={this.toggleb}
+                      >
+                        <DropdownToggle>{this.state.valueb}</DropdownToggle>
+                        <DropdownMenu class="dropdown">
+                          <DropdownItem onClick={this.selectb}>{'<'}1 crore</DropdownItem>
+                          <DropdownItem onClick={this.selectb}>1 crore</DropdownItem>
+                          <DropdownItem onClick={this.selectb}>2 crore</DropdownItem>
+                          <DropdownItem onClick={this.selectb}>3 crore</DropdownItem>
+                          <DropdownItem onClick={this.selectb}>3 crore+</DropdownItem>
+                        </DropdownMenu>
+                      </ButtonDropdown>
+                    </Dropdown>
+                  )}
+                </div>
+
+
+              </div>
+            </div>
           </div>
           <div className="AutoComplete-wrapper">
             <div className="AutoCompleteText">
+
               <input value={text} onChange={this.onTextChanged} type="text" />
+              <button class="search" onClick={this.onSearch.bind(this)}>
+                <img
+                  src={require("./search.png")}
+                  width="25px"
+                  height="20px;"
+                  required
+                  class="search-icon"
+                  alt="mahin"
+                />
+                Search
+              </button>
               {this.renderSuggestions()}
+
             </div>
-            <button class="search" onClick={this.onSearch.bind(this)}>
-              <img
-                src={require("./search.png")}
-                width="25px"
-                height="20px;"
-                required
-                class="search-icon"
-                alt="mahin"
-              />
-              Search
-            </button>
-            <div style={{ display: "flex", alignSelf: "center" }}>
-              <Dropdown class="drop1" style={{ marginRight: 20 }}>
-                <ButtonDropdown
-                  isOpen={this.state.dropdownOpen}
-                  toggle={this.toggle}
-                >
-                  <DropdownToggle>{this.state.value}</DropdownToggle>
-                  <DropdownMenu class="dropdown">
-                    <DropdownItem onClick={this.select}>1 HK</DropdownItem>
-                    <DropdownItem onClick={this.select}>1 BHK</DropdownItem>
-                    <DropdownItem onClick={this.select}>2 BHK</DropdownItem>
-                    <DropdownItem onClick={this.select}>3 BHK</DropdownItem>
-                    <DropdownItem onClick={this.select}>3+ BHK</DropdownItem>
-                  </DropdownMenu>
-                </ButtonDropdown>
-              </Dropdown>
-              <Dropdown class="drop1" style={{ marginRight: 20 }}>
-                <ButtonDropdown
-                  isOpen={this.state.dropdownProperty}
-                  toggle={this.togglea}
-                >
-                  <DropdownToggle>{this.state.valuea}</DropdownToggle>
-                  <DropdownMenu class="dropdown">
-                    <DropdownItem onClick={this.selecta}>
-                      Appartment
-                    </DropdownItem>
-                    <DropdownItem onClick={this.selecta}>Shop</DropdownItem>
-                    <DropdownItem onClick={this.selecta}>Land</DropdownItem>
-                  </DropdownMenu>
-                </ButtonDropdown>
-              </Dropdown>
-              {this.isBuy === true ? (
-                <Dropdown class="drop1">
-                  <ButtonDropdown
-                    isOpen={this.state.dropdownBugget}
-                    toggle={this.toggleb}
-                  >
-                    <DropdownToggle>{this.state.valueb}</DropdownToggle>
-                    <DropdownMenu class="dropdown">
-                      <DropdownItem onClick={this.selectb}>1 HK</DropdownItem>
-                      <DropdownItem onClick={this.selectb}>1 BHK</DropdownItem>
-                      <DropdownItem onClick={this.selectb}>2 BHK</DropdownItem>
-                      <DropdownItem onClick={this.selectb}>3 BHK</DropdownItem>
-                      <DropdownItem onClick={this.selectb}>3+ BHK</DropdownItem>
-                    </DropdownMenu>
-                  </ButtonDropdown>
-                </Dropdown>
-              ) : (
-                <Dropdown class="drop1">
-                  <ButtonDropdown
-                    isOpen={this.state.dropdownBugget}
-                    toggle={this.toggleb}
-                  >
-                    <DropdownToggle>{this.state.valueb}</DropdownToggle>
-                    <DropdownMenu class="dropdown">
-                      <DropdownItem onClick={this.selectb}>
-                        1 crore
-                      </DropdownItem>
-                      <DropdownItem onClick={this.selectb}>1 BHK</DropdownItem>
-                      <DropdownItem onClick={this.selectb}>2 BHK</DropdownItem>
-                      <DropdownItem onClick={this.selectb}>3 BHK</DropdownItem>
-                      <DropdownItem onClick={this.selectb}>3+ BHK</DropdownItem>
-                    </DropdownMenu>
-                  </ButtonDropdown>
-                </Dropdown>
-              )}
-            </div>
+            
 
             {this.state.isLoggedIn === false ? (
               <div class="login-link">
@@ -328,65 +323,63 @@ export class Home extends React.Component {
           </div>
         </div>
 
-
         <div className="animated fadeIn">
-        
-        <div>
-          <div className="allsearching">
-            {searchresults.map(d => (
-              <Card style={{ border: "none" }}>
-                <div className="fif">
-                  <div id="avatar_position" className="image">
-                    <Avatar color={getcolor()} round={false} size={80} />
-                    <div className="name-style">
-                      {/*userInfo.user_first_name*/}{" "}
-                      {/*userInfo.user_last_name*/}
+          <div>
+            <div className="allsearching">
+              {searchresults.map(d => (
+                <Card
+                  style={{
+                    border: "none",
+                    background: "rgba(255,255,255,0.15)"
+                  }}
+                >
+                  <div className="fif">
+                    <div id="avatar_position" className="image">
+                      <Avatar
+                        color={getcolor()}
+                        round={false}
+                        size={80}
+                        name={d.propertyName}
+                      />
+                      <div className="name-style">
+                        {/*userInfo.user_first_name*/}{" "}
+                        {/*userInfo.user_last_name*/}
+                      </div>
                     </div>
-                  </div>
-                  <br/>
-                  <div className="properties">
-                    <div>
-                      <strong> Property Name : </strong>
-                      {d.propertyName}
-                    </div>
-                    <div>
-                      <strong>Price :</strong> ₹{" "}
-                      <span className="price">{d.property_amount}</span>{" "}
-                    </div>
-                    <div>
-                      <td>
-                        {" "}
-                        <strong>Address : </strong>
-                        {d.propertyLocation}
-                        {"  "}
-                      </td>
-                    </div>
-                    <div className="buttons" width='200px'>
+                    <br />
+                    <div className="properties">
                       <div>
-                        <button type="button" class="btn btn-primary" >
-                          
-                            <i
-                              className="fa fa-trash"
-                              style={{ textAlign: "center" }}
-                            />
-                          <a href={'/Property/'+d._id} className="link">
-                            View More Details!!
-                          </a>
-                        </button>
+                        <strong> Property Name : </strong>
+                        {d.propertyName}
+                      </div>
+                      <div>
+                        <strong>Price :</strong> ₹{" "}
+                        <span className="price">{d.property_amount}</span>{" "}
+                      </div>
+                      <div>
+                        <td>
+                          {" "}
+                          <strong>Address : </strong>
+                          {d.propertyLocation}
+                          {"  "}
+                        </td>
+                      </div>
+                      <div className="buttons" width="200px">
+                        <div>
+                          <button type="button" class="btn btn-primary">
+                            <a href={"/Property/" + d._id} className="link">
+                              View More Details!!
+                            </a>
+                          </button>
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
-              </Card>
-            ))}
+                </Card>
+              ))}
+            </div>
           </div>
         </div>
-      </div>
-
-
-
-
-
       </div>
     );
   }

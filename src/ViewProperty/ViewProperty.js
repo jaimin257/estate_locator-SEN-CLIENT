@@ -40,6 +40,9 @@ export class ViewProperty extends React.Component {
       floors: "",
       loading: true,
       images: [],
+      sname: "",
+      snumber: "",
+      sid: "",
     };
 
     // console.log(this.props);
@@ -60,22 +63,41 @@ export class ViewProperty extends React.Component {
             console.log("property retrived success");
             userstatus = 200;
           }
-        },
-        success: function(result){
-          this.setState({ pname: result.prop.propertyName });
-          this.setState({ price: result.prop.property_amount });
-          this.setState({ carpetarea: result.prop.carpet_area });
-          this.setState({ propertytype: result.prop.property_type });
-          this.setState({ location: result.prop.propertyLocation });
-          this.setState({ city: result.prop.city });
-          this.setState({ state: result.prop.state });
-          this.setState({ contracttype: result.prop.contract_type });
-          this.setState({ cstatus: result.prop.constructionStatus });
-          this.setState({ nobed: result.prop.noOfRooms });
-          this.setState({ furnishtype: result.prop.furnishedType });
-          this.setState({ floors: result.prop.floor });
+          },
+          success: function(result){
+            this.setState({ sid: result.prop.seller });
+            this.setState({ pname: result.prop.propertyName });
+            this.setState({ price: result.prop.property_amount });
+            this.setState({ carpetarea: result.prop.carpet_area });
+            this.setState({ propertytype: result.prop.property_type });
+            this.setState({ location: result.prop.propertyLocation });
+            this.setState({ city: result.prop.city });
+            this.setState({ state: result.prop.state });
+            this.setState({ contracttype: result.prop.contract_type });
+            this.setState({ cstatus: result.prop.constructionStatus });
+            this.setState({ nobed: result.prop.noOfRooms });
+            this.setState({ furnishtype: result.prop.furnishedType });
+            this.setState({ floors: result.prop.floor });
+
+            $.ajax({
+            url: appurl + '/account/getUser',
+            method: 'POST',
+            data:{
+              userId: this.state.sid,
+            },
+            success: function(res){
+              this.setState({sname: res.user.firstName});
+              this.setState({snumber: res.user.mobileno});
+              console.log(res);
+              this.setState({ loading: false});
+            }.bind(this),
+            error: function (res){
+              console.log("property retrived failed");
+              this.setState({ loading: false});
+            }.bind(this)
+          });
           console.log(result.prop);
-          this.setState({ loading: false});
+          
         }.bind(this),
         error: function (result){
           console.log("property retrived failed");
@@ -272,53 +294,20 @@ export class ViewProperty extends React.Component {
                 ) : (
                   <div />
                 )}
-                
-
-                {/* 
-                <small>
-                  {this.state.propertytype === "appartmentandhouse" ? (
-                    <tr>
-                      <td>
-                        {" "}
-                        <strong>Number of Rooms</strong>
-                      </td>
-                      <td> {this.state.no} </td>
-                    </tr>
-                  ) : (
-                    <div />
-                  )}
-                </small>
-              */}
-              {/*
-                <small>
-                  {this.state.firstname === "" ? (
-                    <tr>
-                      <td>
-                        {" "}
-                        <strong>Seller name</strong>
-                      </td>
-                      <td>{this.state.email} </td>
-                    </tr>
-                  ) : (
-                    <tr>
-                      <td>
-                        {" "}
-                        <strong>Broker name</strong>
-                      </td>
-                      <td>{this.state.email} </td>
-                    </tr>
-                  )}
-                </small>
-                
-
+                  <tr>
+                    <td>
+                      {" "}
+                      <strong>Seller name</strong>
+                    </td>
+                    <td>{this.state.sname} </td>
+                  </tr>
                 <tr>
                   <td>
                     {" "}
                     <strong>Contact Number</strong>
                   </td>
-                  <td>{this.state.email} </td>
+                  <td>{this.state.snumber} </td>
                 </tr>
-              */}
               </tbody>
             </table>
           </div>

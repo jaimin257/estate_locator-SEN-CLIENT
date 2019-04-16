@@ -325,14 +325,14 @@ export class AddPropertyForm extends React.Component {
           <div class="radio toggle">
             <ButtonGroup>
               <Button
-                onClick={this._onContractChange.bind(this, "forsell")}
-                active={this.state.contract === "forsell"}
+                onClick={this._onContractChange.bind(this, "buy")}
+                active={this.state.contract === "buy"}
               >
                 Sell
               </Button>
               <Button
-                onClick={this._onContractChange.bind(this, "forrent")}
-                active={this.state.contract === "forrent"}
+                onClick={this._onContractChange.bind(this, "rent")}
+                active={this.state.contract === "rent"}
               >
                 Rent
               </Button>
@@ -341,21 +341,21 @@ export class AddPropertyForm extends React.Component {
 
           <ButtonGroup>
             <Button
-              onClick={this._onPropertyChange.bind(this, "landandplot")}
-              active={this.state.proptype === "landandplot"}
+              onClick={this._onPropertyChange.bind(this, "Land")}
+              active={this.state.proptype === "Land"}
             >
               Land or Plot
             </Button>
             <Button
-              onClick={this._onPropertyChange.bind(this, "appartmentandhouse")}
-              active={this.state.proptype === "appartmentandhouse"}
+              onClick={this._onPropertyChange.bind(this, "Appartment")}
+              active={this.state.proptype === "Appartment"}
             > 
               Appartment or House
             </Button>
 
             <Button
-              onClick={this._onPropertyChange.bind(this, "shopsandoffice")}
-              active={this.state.proptype === "shopsandoffice"}
+              onClick={this._onPropertyChange.bind(this, "Shop")}
+              active={this.state.proptype === "Shop"}
             >
               Shops or Offices
             </Button>
@@ -506,7 +506,7 @@ export class AddPropertyForm extends React.Component {
             )}
           </small>
         </div>
-        <div class="ownerinfoinfo">
+        <div class="ownerinfo">
           <h6>Share Commericals for your Property</h6>
               <form>
                 <TextField
