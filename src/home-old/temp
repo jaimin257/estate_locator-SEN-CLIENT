@@ -1,0 +1,118 @@
+import React, { Component } from 'react'
+import './home.css';
+import $ from 'jquery';
+
+
+export class Home extends React.Component {
+	constructor(props){
+		super(props);
+		this.state={
+			isFilter: false
+		}
+	}
+
+	filterMenu = () => {
+		this.setState(prevState => {
+			let flag = false;
+			if(prevState.isFilter === false )
+				flag = true;
+			return { isFilter : true };
+		})
+	}
+
+	render(){
+		return(
+			<div class='home'>
+				<h1> Home </h1>
+				<form class="form-container">
+					<input id="search-bar" type="text" placeholder="Enter Area/Property Name"/>
+					<div class="search-button" onClick={this.filterMenu.bind(this)}> Add Filters > </div>
+					<div class="search-button"><i class="fa fa-search"></i></div>
+				</form>
+				<small>{
+					this.state.isFilter === true ? (
+						<h1> Filter 1 </h1>
+					) 
+						:
+					(
+						<h1> nothing </h1>
+					)
+				}
+				</small>
+			</div>
+		);
+	}
+
+}
+
+
+
+
+
+html{
+	margin: 0px;
+}
+
+
+.home{
+	display: "inline-block";
+	margin-top: 50px;
+	height: auto;
+	width: 100%;
+	background-color: #cccccc;
+	float: right;
+	text-align: center;
+	padding-top: 100px;
+}
+
+.form-container{
+	width: 800px;
+  display: block;
+  margin: 0 auto;
+}
+
+input#search-bar{
+  border-radius: 10px;
+  margin: 0 0;
+  width: 60%;
+  height: 45px;
+  padding: 0 20px;
+  font-size: 1rem;
+  border: 1px solid #D0CFCE;
+  outline: none;
+  &:focus{
+    border: 1px solid #008ABF;
+    transition: 0.35s ease;
+    color: #008ABF;
+    &::-webkit-input-placeholder{
+      transition: opacity 0.45s ease; 
+  	  opacity: 0;
+     }
+    &::-moz-placeholder {
+      transition: opacity 0.45s ease; 
+  	  opacity: 0;
+     }
+    &:-ms-placeholder {
+     transition: opacity 0.45s ease; 
+  	 opacity: 0;
+     }    
+   }
+ }
+
+.search-button{
+  position: relative;
+  height: 17px;
+  width: auto;
+  float: right;
+  text-align: center;
+  padding: 15px 15px;
+  background-color: #b2e2ff;
+  border-radius: 10px;
+  cursor: pointer;
+  left: -65px;
+  margin-left: 5px;
+}
+
+.search-button:hover{
+	background-color: #f2efff;
+}

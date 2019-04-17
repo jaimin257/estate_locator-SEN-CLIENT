@@ -1,0 +1,170 @@
+.viewprop {
+  background-image: url("https://www.maxpixel.net/static/photo/1x/Sunset-Light-Sunrise-Colours-Color-Background-1030600.jpg");
+  background-repeat: no-repeat;
+  width: 100%;
+  height: 100vh;
+  overflow: auto;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  background-color: #ffffff;
+  font-weight: bold;
+  font-size: 17px;
+  padding-top: 15vh;
+  position: fixed;
+
+}
+
+.propimage{
+  height: 600px !important;
+  /*width: 700px !important;*/
+}
+
+.parent {
+  width: 80%;
+  display: inline-flex;
+  margin-top: 2%;
+  margin-left: 20% !important;
+  margin-right: 20% ;
+}
+.quick-view {
+  flex-basis: 30%;
+  padding: 2em;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-right: 2px black solid;
+  padding-top: 10%;
+}
+.info-table {
+  flex-basis: 70%;
+  margin: 5%;
+  overflow-y: auto;
+}
+.style-btn {
+  margin-left: 50%;
+}
+.name-style {
+  text-align: center;
+  font-size: 1.5em;
+}
+.edit-profile {
+  margin-top: 2%;
+  margin-left: 5%;
+  margin-right: 5%;
+}
+
+#slider-wrapper {
+  width: 100%;
+  background: #333;
+  position: relative;
+}
+
+.slider-controlls .next,
+.slider-controlls .prev {
+  display: block;
+  position: absolute;
+  border: none;
+  background-color: rgba(51, 51, 51, 0.5);
+  color: #fff;
+  top: 50%;
+  padding: 20px;
+  -webkit-transform: translateY(-50%);
+  transform: translateY(-50%);
+  font-size: 18px;
+  z-index: 99999;
+}
+.slider-controlls .next {
+  right: 20px;
+}
+.slider-controlls .prev {
+  left: 20px;
+}
+
+.slider-items {
+  width: 100%;
+  margin: 0px auto;
+  height: 100vh;
+  position: relative;
+  overflow: hidden;
+}
+.slider-items .slider-item {
+  width: 100%;
+  position: absolute;
+  opacity: 1;
+}
+.slider-items .slider-item.active {
+  opacity: 1;
+}
+.slider-items .slider-item.active .content h1 {
+  opacity: 1;
+  bottom: 40%;
+  left: 20%;
+  z-index: 9999;
+  font-weight: normal;
+}
+.slider-items .slider-item.active .content p {
+  opacity: 1;
+  left: 20%;
+  z-index: 9999;
+}
+.slider-items .slider-item.active .content img {
+  width: 100% !important;
+  opacity: 1;
+}
+.slider-items .slider-item .content {
+  width: 100%;
+  height: 100vh;
+  position: relative;
+  overflow: hidden;
+}
+.slider-items .slider-item .content h1 {
+  position: absolute;
+  bottom: 40%;
+  left: 10%;
+  background-color: rgba(51, 102, 153, 0.8);
+  padding: 15px 20px;
+  color: #fff;
+  opacity: 0;
+  transition: all 0.5s;
+}
+.slider-items .slider-item .content p {
+  position: absolute;
+  bottom: 32%;
+  left: 0%;
+  background-color: rgba(51, 51, 51, 0.8);
+  padding: 10px;
+  color: #fff;
+  opacity: 0;
+  transition: all 0.6s;
+  transition-delay: 0.1s;
+}
+.slider-items .slider-item .content img {
+  display: block;
+  position: absolute;
+  width: 100%;
+  opacity: 0;
+  transition: all 0.5s;
+}
+
+.slider-bullets {
+  width: 100px;
+  bottom: 20px;
+  position: absolute;
+  text-align: center;
+  z-index: 99999;
+  width: 100%;
+}
+.slider-bullets .bullet {
+  width: 20px;
+  height: 20px;
+  background: rgba(228, 228, 228, 0.4);
+  border: 2px solid transparent;
+  border-radius: 50%;
+  display: inline-block;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+.slider-bullets .bullet.active {
+  border: 2px solid #333;
+}

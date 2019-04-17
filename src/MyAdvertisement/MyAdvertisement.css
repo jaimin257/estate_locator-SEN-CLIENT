@@ -1,0 +1,135 @@
+html {
+  margin: 0px;
+  height: 100%;
+}
+
+.fif {
+  width: 100%;
+  display: inline-flex;
+  flex-direction: row;
+  margin: 0 -4px 0 0;
+  padding: 4%;
+  border: 1cm;
+}
+
+.buttons {
+  display: inline-flex;
+  flex-direction: row;
+  width: -webkit-fill-available;
+}
+
+.delete {
+  padding-left: 5px;
+}
+
+.parent {
+  width: 100%;
+  display: flex !important;
+  margin-top: 2%;
+  margin-left: 15% !important;
+  margin-right: 15% !important;
+}
+.quick-view {
+  flex-basis: 30%;
+  padding: 2em;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-right: 2px black solid;
+  padding-top: 10%;
+}
+.info-table {
+  flex-basis: 70%;
+  margin: 5%;
+  overflow-y: auto;
+}
+.style-btn {
+  margin-left: 50%;
+}
+.name-style {
+  text-align: center;
+  font-size: 1.5em;
+}
+.edit-profile {
+  margin-top: 2%;
+  margin-left: 5%;
+  margin-right: 5%;
+}
+
+.try {
+  display: inline-block;
+  margin: 0 -4px 0 0;
+}
+
+.properties {
+  padding-left: 4%;
+  color: black;
+}
+
+.allsearch {
+  margin: 0 auto;
+  left: 25%;
+  right: 25%;
+  position: absolute;
+}
+
+.image {
+  padding-top: 20px;
+}
+
+.price {
+  color: black;
+}
+
+b,
+strong {
+  font-weight: bolder;
+  color: black !important;
+  width: 100%;
+}
+
+.link{
+  color: white;
+  fonr-weight: 100 !important;
+}
+
+.link:hover{
+  color: white !important;
+}
+
+.headprop{
+  text-align: center !important;
+  font-family: 'Baloo Bhaina', cursive;
+  font-weight: 100 !important;
+  font-size: 30px;
+}
+
+.homeprop {
+  background-image: url("https://www.maxpixel.net/static/photo/1x/Sunset-Light-Sunrise-Colours-Color-Background-1030600.jpg");
+  background-repeat: no-repeat;
+  width: 100%;
+  height: 100vh;
+  overflow: auto;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  background-color: #ffffff;
+  font-weight: bold;
+  font-size: 17px;
+  padding-top: 15vh;
+  position: fixed;
+
+}
+
+.btn-danger{
+  background-color: transparent !important;
+  color: black !important;
+  font-weight: bold !important;
+  border-width: 2px !important;
+  /*border-color: #d2b5dd !important;*/
+}
+
+.btn-danger:hover{
+  background-color: #c82333 !important;
+  color: white !important;
+}

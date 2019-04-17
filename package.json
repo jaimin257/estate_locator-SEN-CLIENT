@@ -1,0 +1,51 @@
+{
+  "name": "test",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@material-ui/core": "^3.9.3",
+    "antd": "^3.15.2",
+    "axios": "^0.18.0",
+    "bootstrap": "^4.3.1",
+    "classnames": "^2.2.6",
+    "cookie-parser": "^1.4.4",
+    "email-validator": "^2.0.4",
+    "font-awesome": "^4.7.0",
+    "google-maps-react": "^2.0.2",
+    "jquery": "^3.3.1",
+    "material-ui": "^0.20.2",
+    "mdbreact": "^4.13.0",
+    "node-sass": "^4.11.0",
+    "nodemon": "^1.18.10",
+    "prop-types": "^15.7.2",
+    "react": "^16.8.4",
+    "react-avatar": "^3.6.0",
+    "react-awesome-modal": "^2.0.5",
+    "react-bootstrap": "^1.0.0-beta.6",
+    "react-cookie": "^3.1.1",
+    "react-cookies": "^0.1.0",
+    "react-dom": "^16.8.4",
+    "react-router": "^5.0.0",
+    "react-router-dom": "^5.0.0",
+    "react-scripts": "2.1.8",
+    "react-spinners": "^0.5.4",
+    "reactstrap": "^7.1.0",
+    "webpack": "^4.28.3",
+    "webpack-dev-server": "^3.1.14"
+  },
+  "scripts": {
+    "start": "fuser -k -n tcp 3000 | react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ]
+}

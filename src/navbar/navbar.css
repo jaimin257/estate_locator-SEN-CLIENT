@@ -1,0 +1,128 @@
+@import url('https://fonts.googleapis.com/css?family=Pacifico');
+@import url('https://fonts.googleapis.com/css?family=Permanent+Marker');
+@import url('https://fonts.googleapis.com/css?family=Berkshire+Swash');
+@import url('https://fonts.googleapis.com/css?family=Baloo+Bhaina');
+html,
+body {
+  padding: 0px;
+}
+
+#root {
+  padding: 0px;
+}
+
+.btn{
+  /*font-family: 'Baloo Bhaina', cursive !important;*/
+}
+
+a {
+  color: black !important;
+  text-decoration: none !important;
+  font-weight: 100;
+  font-family: 'Baloo Bhaina', cursive;
+  font-size: 19px !important;
+  transition: font-size 0.4s ease-out;
+}
+
+a:hover{
+  font-size: 20px !important;
+  color: black !important;
+}
+
+.navbar-nav {
+  flex-direction: row;
+}
+
+.mynav{
+  position: fixed !important;
+  width: 100%;
+  z-index: 5; 
+  /*background-color: transparent !important;*/
+  /*background-image: linear-gradient(20deg, #d3b6da, black, transparent, transparent, #d3b6da);*/
+  background-image: linear-gradient(180deg, #d3b6da, transparent);
+}
+
+.nav-bar {
+  width: 100%;
+  height: 50px;
+  margin: 0px;
+  padding: 0px;
+  position: static;
+  overflow: hidden;
+  float: right;
+  /*background-image: linear-gradient(to right, #68c2ff, white);*/
+  padding-right: 100px;
+}
+
+.navbar-brand{
+  font-family: 'Pacifico', cursive;
+  font-size: 28px !important;
+  font-weight: 100;
+  transition: font-size 0.4s ease-out;
+}
+
+.navbar-brand:hover{
+  font-size: 32px !important;
+  color: black !important;
+}
+
+.item {
+  height: auto;
+  width: 60px;
+  float: right;
+  text-align: center;
+  padding: 15px 20px;
+  background-color: #b2e2ff;
+  border-radius: 10px;
+}
+
+.item:hover {
+  background-color: #6fc7fc;
+  cursor: pointer;
+}
+
+.header {
+  height: auto;
+  width: auto;
+  float: left;
+  padding: 10px 5px;
+  margin-bottom: 0px;
+  border-radius: 0px;
+  font-size: 30px;
+}
+
+.userinfo {
+  height: auto;
+  width: 120px;
+  float: right;
+  text-align: center;
+  padding: 15px 20px;
+}
+
+.logo {
+  width: 100px;
+  height: auto;
+  margin: -20px 20px -15px -20px;
+}
+
+.heading {
+  font-size: 50px;
+}
+
+.drop {
+  background-color: antiquewhite;
+}
+
+.btn-primary{
+  background-color: transparent !important;
+  color: black !important;
+  font-weight: bold !important;
+  border-width: 2px !important;
+  /*border-color: #d2b5dd !important;*/
+}
+
+.btn-primary:hover{
+  background-color: #0072b3 !important;
+
+  color: white !important;
+}

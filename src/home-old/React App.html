@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<!-- saved from url=(0022)http://localhost:3000/ -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <link rel="shortcut icon" href="http://localhost:3000/favicon.ico">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="theme-color" content="#000000">
+    <link rel="manifest" href="http://localhost:3000/manifest.json">
+    <title>React App</title>
+  <style type="text/css"></style><style type="text/css">body {
+  margin: 0;
+  padding: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
+}
+</style><style type="text/css">html,
+body {
+  /*background-image: url("https://media.architecturaldigest.com/photos/5772a29056d7d0330986bc54/16:9/w_1280,c_limit/michael-jackson-home-01.jpg");
+  */background-repeat: no-repeat;
+  height: 100%;
+  width: auto;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  background-color: #ffffff;
+  font-weight: bold;
+  font-size: 17px;
+}
+
+#root {
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  background-color: #ffffff;
+}
+
+.root-container {
+  margin-top: 200px;
+  width: 600px;
+  height: 100%;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-justify-content: center;
+          justify-content: center;
+  -webkit-align-items: center;
+          align-items: center;
+  -webkit-flex-direction: column;
+          flex-direction: column;
+  color: #bb1e1e;
+  background-color: #ffffff;
+}
+
+.box-controller {
+  visibility: visible;
+  display: -webkit-flex;
+  display: flex;
+  max-width: 24em;
+  min-width: 10em;
+  height: 35px;
+  box-shadow: 100px 100px 20px zpx rgba(15, 15, 15, 0.2);
+  /*margin-bottom: 30px;*/
+  -webkit-align-items: center;
+          align-items: center;
+  transition: visibility 0.5s ease-out;
+}
+
+.controller {
+  -webkit-flex: 1 1;
+          flex: 1 1;
+  text-align: center;
+  height: 100%;
+  line-height: 2;
+  cursor: pointer;
+  background-color: #a7c4f2;
+  border-radius: 3px;
+  box-shadow: 0px 5px 5px 5px rgba(50, 50, 100, 0.3);
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.controller:hover{
+  background-color: #81a6e2;
+  transition: background-color 0.3s ease-out;
+}
+
+.selected-controller {
+  box-shadow: 0px 5px 5px 5px rgba(50, 50, 100, 0.9);
+  /*transition: border 0.5s ease-out;*/
+  /*border-bottom: 2px solid #70a1ff;*/
+}
+
+.box-container {
+  background-image: url(/static/media/login-img.9f0f1a16.png);
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-direction: column;
+          flex-direction: column;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  /*object-fit: contain;*/
+  max-width: 50em;
+  min-width: 40em;
+  /*box-shadow: 0px 0px 20px 0px rgba(15, 15, 15, 0.2);*/
+  border-radius: 6px;
+  padding: 100px;
+  position: relative;
+
+  /*background-color: antiquewhite;*/
+}
+
+.inner-container {
+  transition: visibility 1s ease-out;
+  padding-left: 40%;
+
+}
+
+.inner-container.show {
+  visibility: visible;
+}
+
+.header {
+  text-align: center;
+  padding: 5px;
+  margin-bottom: 17px;
+  /* margin-left: 35px; */
+  /* margin-right: 35px; */
+  font-family: Ozxgen, sans-serif;
+  font-size: 22px;
+  border-bottom: 2px solid #70a1ff;
+}
+
+.box {
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-direction: column;
+          flex-direction: column;
+  -webkit-justify-content: center;
+          justify-content: center;
+}
+
+.input-group {
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-direction: column;
+          flex-direction: column;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+.login-label {
+  font-family: Oxygen, sans-serif;
+  font-size: 20px;
+  font-weight: 600;
+  padding-left: 5px;
+}
+
+.login-input {
+  height: 2.1em;
+  border-radius: 5px;
+  border: 2px solid #70a1ff;
+  transition: border 0.2s ease-out;
+  padding: 10px;
+  margin-top: 10px;
+  font-family: Oxygen, sans-serif;
+  font-size: 19px;
+  color: #3e3e42;
+  background: rgba(15, 15, 15, 0.01);
+}
+
+.login-input:hover {
+  border: 3px solid #70a1ff;
+}
+
+.login-input:focus {
+  border: 2px solid #6565e7;
+  box-shadow: 0px 0px 20px rgba(15, 15, 15, 0.2);
+}
+
+.login-input::-webkit-input-placeholder {
+  font-family: Oxygen, sans-serif;
+  font-size: 16px;
+  color: rgba(15, 15, 15, 0.4);
+}
+
+.login-input::-ms-input-placeholder {
+  font-family: Oxygen, sans-serif;
+  font-size: 16px;
+  color: rgba(15, 15, 15, 0.4);
+}
+
+.login-input::placeholder {
+  font-family: Oxygen, sans-serif;
+  font-size: 16px;
+  color: rgba(15, 15, 15, 0.4);
+}
+
+.login-btn {
+  padding: 2px 30px;
+  /* background-color: #417cef; */
+  border: 0;
+  font-size: 18px;
+  border-radius: 3px;
+  font-family: Oxygen, sans-serif;
+  background-color: rgba(255, 255, 255, 0.03);
+  margin-top: 20px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  font-weight: bold;
+  border: 2px solid #417cef;
+  transition: background-color 0.3s ease-out;
+  cursor: pointer;
+}
+
+.login-btn:hover,
+.login-btn:focus {
+  background-color: #417cef;
+  color: white;
+}
+
+.danger-error {
+  color: #e74c3c;
+  font-size: 16px;
+  font-weight: normal;
+}
+
+.password-state {
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-direction: row;
+          flex-direction: row;
+  margin-top: 20px;
+}
+
+.pwd {
+  height: 6px;
+  -webkit-flex: 1 1;
+          flex: 1 1;
+  visibility: hidden;
+}
+
+
+.show {
+  visibility: visible;
+}
+</style><style type="text/css">.AutoCompleteText {
+  width: 100%;
+  /*border: 1px solid #195363;*/
+  /*box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.1), 0 2 4 1 rgba(0, 0, 0, 0.18);*/
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 14px;
+  color: rgba(0, 0, 0, 0.73);
+}
+
+.AutoCompleteText input {
+  width: 100%;
+  border: 1px solid #15779b;
+  border-radius: 40px;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 15px;
+  color: rgba(0, 0, 0, 0.73);
+  padding: 10px 10px;
+  box-sizing: border-box;
+  outline: none;
+}
+
+.AutoCompleteText input:hover{
+  background-color: #f7fdff;
+}
+
+.AutoCompleteText ul {
+  overflow: visible;
+  background-image: linear-gredient(to bottom left, white, blue);
+  position: absolute;
+  list-style-type: none;
+  text-align: left;
+  margin: 0;
+  padding: 0;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+}
+.AutoCompleteText ul::before {
+  content: "";
+}
+.AutoCompleteText li {
+  border-bottom: 1px solid #15779b;
+  border-bottom-left-radius: 10px;
+  padding: 10px 15px;
+  width: auto;  
+  cursor: pointer;
+}
+.AutoCompleteText li:hover {
+  background-color: #f7fbfc ;
+} </style><style type="text/css">* {
+  margin: 0;
+  padding: 0;
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif; }
+
+body {
+  background-image: url("https://media.architecturaldigest.com/photos/5772a29056d7d0330986bc54/16:9/w_1280,c_limit/michael-jackson-home-01.jpg");
+  background-repeat: no-repeat;
+  height: 650px;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-color: #cccccc; }
+
+.main {
+  max-width: 1200px;
+  margin: auto; }
+  .main ul {
+    list-style-type: none;
+    float: right;
+    margin-top: 30px; }
+  .main ul li {
+    display: inline-block; }
+  .main ul li a {
+    text-decoration: none;
+    color: black;
+    padding: 5 px 20px;
+    border: 1px solid transparent;
+    transition: 0.6s ease;
+    margin-right: 10px; }
+  .main ul li a:hover {
+    background-color: white;
+    color: #000; }
+  .main ul li.active a {
+    background-color: #ffffff;
+    color: #000; }
+
+.logo img {
+  float: left;
+  width: 150px;
+  height: auto; }
+
+.AutoComplete-wrapper {
+  display: -webkit-flex;
+  display: flex;
+  max-width: 600px;
+  min-width: 100px;
+  /*height: 500px;*/
+  text-align: center;
+  margin: 0 auto 0 auto;
+  padding-top: 300px;
+  padding-left: 120px; }
+
+.Search {
+  height: 39px;
+  border-radius: 15px;
+  border: 1px solid #70a1ff;
+  transition: border 0.8s ease-out;
+  padding: 8px;
+  margin-left: 5px;
+  font-family: Oxygen, sans-serif;
+  font-size: 17px;
+  color: #15779b;
+  background: rgba(15, 15, 15, 0.01);
+  background-color: #ffffff; }
+
+.Search:hover {
+  background: #15779b;
+  border: 1px solid white;
+  cursor: pointer;
+  color: white; }
+</style><style type="text/css">@import url(https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css);</style><style type="text/css">html, body{
+  padding: 0px;
+
+}
+
+#root{
+  padding: 0px;
+}
+
+.nav-bar {
+  width: 100%;
+  height: 50px;
+  margin: 0px;
+  padding: 0px;
+  position: absolute;
+  overflow: hidden;
+  float: right;
+  background-image: linear-gradient(to right, #68c2ff, white);
+}
+
+
+.item{
+  height: auto;
+  width: 60px;
+  float: right;
+  text-align: center;
+  padding: 15px 20px;
+  background-color: #b2e2ff;
+  border-radius: 10px;
+}
+
+.item:hover{
+  background-color: #6fc7fc;
+  cursor: pointer;
+}
+
+.header{
+  height: auto;
+  width: auto;
+  float: left;
+  padding: 10px 5px;
+  margin-bottom: 0px;
+  border-radius: 0px;
+  font-size: 30px;
+}
+
+.userinfo{
+  height: auto;
+  width: 120px;
+  float: right;
+  text-align: center;
+  padding: 15px 20px;
+}</style><script charset="utf-8" src="./React App_files/main.378ce7a91ea07a17c746.hot-update.js"></script></head>
+  <body>
+    <noscript>You need to enable JavaScript to run this app.</noscript>
+    <!-- <a href="/Home">HOME</a> -->
+    <div id="root"><div><div class="root-container"><div class="box-container"><div class="inner-container"><div class="header">Sign-up</div><div class="box"><div class="input-group"><label for="username">Username</label><input type="text" name="username" class="login-input" placeholder="Enter Username"><small class="danger-error"></small></div><div class="input-group"><label for="password">Password</label><input type="password" name="password" class="login-input" placeholder="Enter Password"><small class="danger-error"></small></div><div class="input-group"><label for="password2">Confirm Password</label><input type="password" name="password" class="login-input" placeholder="Enter Password Again"><small class="danger-error"></small></div><button type="button" class="login-btn">Sign-up</button></div></div></div><div class="box-controller"><div class="controller ">Login</div><div class="controller selected-controller">Sign-up</div></div></div></div></div>
+  <script src="./React App_files/bundle.js"></script><script src="./React App_files/0.chunk.js"></script><script src="./React App_files/main.chunk.js"></script>
+
+</body></html>
