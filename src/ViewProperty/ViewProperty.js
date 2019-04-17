@@ -109,13 +109,30 @@ export class ViewProperty extends React.Component {
 
       let x = [];
       let i = 0;
-      while(this.imageExists('http://localhost:1433/static/'+this.props.match.params.pid+'_'+i.toString()+'.png')){
-        x.push(i);
-        i = i+1;
+      while(1){
+        let f=0;
+        if(this.imageExists('http://localhost:1433/static/'+this.props.match.params.pid+'_'+i.toString()+'.png')){
+          x.push({i:i, type:'.png'});
+          i=i+1;
+          f = 1;
+          continue;
+        }
+        if(this.imageExists('http://localhost:1433/static/'+this.props.match.params.pid+'_'+i.toString()+'.jpg')){
+          x.push({i:i, type:'.jpg'});
+          i=i+1;
+          f = 1;
+          continue;
+        }
+        if(this.imageExists('http://localhost:1433/static/'+this.props.match.params.pid+'_'+i.toString()+'.jpeg')){
+          x.push({i:i, type:'.jpeg'});
+          i=i+1;
+          f = 1;
+          continue;
+        }
+        if(f==0)
+          break;
       }
       this.setState({ images: x});
-
-
   }
 
   imageExists(url){
@@ -142,14 +159,13 @@ export class ViewProperty extends React.Component {
   imageslider(){
     return ( 
       <MDBContainer>
-        
-        <MDBCarousel activeItem={1} length={this.state.images.length} interval={1800} testimonial showControls={true} showIndicators={true} className="z-depth-1">
+        <MDBCarousel activeItem={1} length={this.state.images.length} interval={1800} showControls={true} showIndicators={true} className="z-depth-1">
           <MDBCarouselInner>
             {
-              this.state.images.map( i => {
+              this.state.images.map( (img, i) => {
                 return ( 
                    <MDBCarouselItem itemId={(i+1).toString()}>
-                      <img className="d-block w-100" src={"http://localhost:1433/static/"+this.props.match.params.pid+"_"+i.toString()+".png"}  />
+                      <img className="d-block w-100 propimage" src={"http://localhost:1433/static/"+this.props.match.params.pid+"_"+i.toString()+img.type}  />
                   </MDBCarouselItem>
                 )
               })

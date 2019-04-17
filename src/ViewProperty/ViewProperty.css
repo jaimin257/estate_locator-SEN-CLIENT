@@ -15,6 +15,10 @@
 
 }
 
+.propimage{
+  height: 600px !important;
+  /*width: 700px !important;*/
+}
 
 .parent {
   width: 80%;
