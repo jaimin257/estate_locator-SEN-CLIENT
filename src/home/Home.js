@@ -132,6 +132,8 @@ export class Home extends React.Component {
           const regEx = new RegExp(`^${value}`, "i");
           suggestions = this.items.sort().filter(v => regEx.test(v));
         }
+        if(suggestions.length > 6)
+          suggestions.splice(6);
         this.setState(() => ({ suggestions }));
       }.bind(this)
     });
@@ -146,8 +148,8 @@ export class Home extends React.Component {
     } else {
       return (
         <ul>
-          {suggestions.map(item => (
-            <li onClick={() => this.suggestionselected(item)}>{item}</li>
+          {suggestions.map( (item,index) => (
+            <li id={"i"+index.toString()} onClick={() => this.suggestionselected(item)}>{item}</li>
           ))}
         </ul>
       );
@@ -337,7 +339,7 @@ export class Home extends React.Component {
             <div className="AutoCompleteText">
 
               <input placeholder="Enter Any Property Detail" value={text} onChange={this.onTextChanged} type="text" />
-              <button class="search" onClick={this.onSearch.bind(this)}>
+              <button class="search" id="i0" onClick={this.onSearch.bind(this)}>
                 <i class="fa fa-search"><strong> Search</strong></i>
               </button>
               {this.renderSuggestions()}

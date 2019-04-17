@@ -129,6 +129,24 @@ export class ViewProperty extends React.Component {
           f = 1;
           continue;
         }
+        if(this.imageExists('http://localhost:1433/static/'+this.props.match.params.pid+'_'+i.toString()+'.PNG')){
+          x.push({i:i, type:'.PNG'});
+          i=i+1;
+          f = 1;
+          continue;
+        }
+        if(this.imageExists('http://localhost:1433/static/'+this.props.match.params.pid+'_'+i.toString()+'.JPG')){
+          x.push({i:i, type:'.JPG'});
+          i=i+1;
+          f = 1;
+          continue;
+        }
+        if(this.imageExists('http://localhost:1433/static/'+this.props.match.params.pid+'_'+i.toString()+'.JPEG')){
+          x.push({i:i, type:'.JPG'});
+          i=i+1;
+          f = 1;
+          continue;
+        }
         if(f==0)
           break;
       }

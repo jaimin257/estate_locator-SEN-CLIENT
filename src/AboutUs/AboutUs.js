@@ -46,10 +46,10 @@ devs[3] = (
     designation={"Front-End Developer"}
     image_url={require("./Mahin.jpg")}
     batch={"2016"}
-    facebook_url={"https://www.facebook.com/ayub.subhaniya"}
+    facebook_url={"https://www.facebook.com/mahin.agrawal.23"}
     github_url={"https://github.com/Agrawalmahin"}
     linkedin_url={
-      "https://www.linkedin.com/in/jaiminkumar-chaudhari-a04616120/"
+      "https://www.linkedin.com/in/mahin-agrawal/"
     }
   />
 );
@@ -60,10 +60,10 @@ devs[4] = (
     designation={"UI/UX Designer"}
     image_url={require("./Ks.jpeg")}
     batch={"2016"}
-    facebook_url={"https://www.facebook.com/ayub.subhaniya"}
+    // facebook_url={"https://www.facebook.com/ayub.subhaniya"}
     github_url={"https://github.com/KshitizSareen"}
     linkedin_url={
-      "https://www.linkedin.com/in/jaiminkumar-chaudhari-a04616120/"
+      "https://www.linkedin.com/in/kshitiz-sareen-6783879a/"
     }
   />
 );
@@ -72,12 +72,12 @@ devs[5] = (
   <Devs
     name={"Abhi Ratanaman"}
     designation={"App Developer"}
-    image_url={require("./Hardik.jpg")}
+    image_url={require("./Abhi.jpeg")}
     batch={"2016"}
-    facebook_url={"https://www.facebook.com/ayub.subhaniya"}
-    github_url={"https://github.com/ayubSubhaniya"}
+    facebook_url={"https://www.facebook.com/abhi.ratnman.9"}
+    // github_url={"https://github.com/ayubSubhaniya"}
     linkedin_url={
-      "https://www.linkedin.com/in/jaiminkumar-chaudhari-a04616120/"
+      "https://www.linkedin.com/in/abhi-ratnman-493337140/"
     }
   />
 );
@@ -86,12 +86,12 @@ devs[6] = (
   <Devs
     name={"Abhignya Chamalchala"}
     designation={"Content Writer"}
-    image_url={require("./Hardik.jpg")}
+    image_url={require("./Abhignya.jpeg")}
     batch={"2016"}
-    facebook_url={"https://www.facebook.com/ayub.subhaniya"}
-    github_url={"https://github.com/ayubSubhaniya"}
+    facebook_url={"https://www.facebook.com/abhignyachalamcharla/"}
+    // github_url={"https://github.com/ayubSubhaniya"}
     linkedin_url={
-      "https://www.linkedin.com/in/jaiminkumar-chaudhari-a04616120/"
+      "https://www.linkedin.com/in/abhignya-chalamcharla-a5a616177/"
     }
   />
 );

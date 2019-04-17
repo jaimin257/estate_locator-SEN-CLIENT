@@ -207,7 +207,7 @@ export class AddPropertyForm extends React.Component {
       images[i] = event.target.files.item(i);
     }
     console.log(this.state.images.length);
-    images = images.filter(image => image.name.match(/\.(jpg|jpeg|png|gif)$/));
+    images = images.filter(image => image.name.match(/\.(jpg|jpeg|png|PNG|JPG|JPEG)$/));
     let imgerr = `${images.length} valid image(s) selected`;
     this.setState({ 
       images: images,
@@ -287,12 +287,14 @@ export class AddPropertyForm extends React.Component {
               <Button
                 onClick={this._onOwnerChange.bind(this, "iamowner")}
                 active={this.state.owner === "iamowner"}
+                id="i1"
               >
                 Owner
               </Button>
               <Button
                 onClick={this._onOwnerChange.bind(this, "iambroker")}
                 active={this.state.owner === "iambroker"}
+                id="i2"
               >
                 Broker
               </Button>
@@ -319,12 +321,14 @@ export class AddPropertyForm extends React.Component {
               <Button
                 onClick={this._onContractChange.bind(this, "buy")}
                 active={this.state.contract === "buy"}
+                id="i3"
               >
                 Sell
               </Button>
               <Button
                 onClick={this._onContractChange.bind(this, "rent")}
                 active={this.state.contract === "rent"}
+                id="i4"
               >
                 Rent
               </Button>
@@ -335,12 +339,14 @@ export class AddPropertyForm extends React.Component {
             <Button
               onClick={this._onPropertyChange.bind(this, "Land")}
               active={this.state.proptype === "Land"}
+              id="i5"
             >
               Land or Plot
             </Button>
             <Button
               onClick={this._onPropertyChange.bind(this, "Appartment")}
               active={this.state.proptype === "Appartment"}
+              id="i6"
             > 
               Appartment or House
             </Button>
@@ -348,6 +354,7 @@ export class AddPropertyForm extends React.Component {
             <Button
               onClick={this._onPropertyChange.bind(this, "Shop")}
               active={this.state.proptype === "Shop"}
+              id="i7"
             >
               Shops or Offices
             </Button>
@@ -361,6 +368,7 @@ export class AddPropertyForm extends React.Component {
               required
               onChange={this.handleChange("location")}
               margin="normal"
+              id="i8"
             />
           </form>
 
@@ -372,6 +380,7 @@ export class AddPropertyForm extends React.Component {
               onChange={this.handleChange("city")}
               margin="normal"
               required
+              id="i9"
             />
           </form>
           <form noValidate autoComplete="off" class="name input">
@@ -382,6 +391,7 @@ export class AddPropertyForm extends React.Component {
               onChange={this.handleChange("state")}
               margin="normal"
               required
+              id="i10"
             />
           </form>
           <small>
@@ -392,6 +402,7 @@ export class AddPropertyForm extends React.Component {
                   <Button
                     onClick={this._onConstructionChange.bind(this, "Ready to Move")}
                     active={this.state.constructionStatus === "Ready to Move"}
+                    id="i11"
                   >
                     Ready to Move
                   </Button>
@@ -401,6 +412,7 @@ export class AddPropertyForm extends React.Component {
                       "Under Construction"
                     )}
                     active={this.state.constructionStatus === "Under Construction"}
+                    id="i12"
                   >
                     Under Construction
                   </Button>
@@ -414,6 +426,7 @@ export class AddPropertyForm extends React.Component {
                       onChange={this.handleChange("carpetarea")}
                       margin="normal"
                       required
+                      id="i13"
                     />
                   </form>
                   <form noValidate autoComplete="off" class="name input">
@@ -424,6 +437,7 @@ export class AddPropertyForm extends React.Component {
                       onChange={this.handleChange("totalfloors")}
                       margin="normal"
                       required
+                      id="i14"
                     />
                   </form>
                   <form noValidate autoComplete="off" class="name input">
@@ -434,6 +448,7 @@ export class AddPropertyForm extends React.Component {
                       onChange={this.handleChange("ageofproperty")}
                       margin="normal"
                       required
+                      id="i15"
                     />
                   </form>
                 </div>
@@ -448,6 +463,7 @@ export class AddPropertyForm extends React.Component {
                     onChange={this.handleChange("carpetarea")}
                     margin="normal"
                     required
+                    id="i16"
                   />
                 </form>
               </div>
@@ -462,18 +478,21 @@ export class AddPropertyForm extends React.Component {
                   <Button
                     onClick={this._onFurnishChange.bind(this, "fullyfurnished")}
                     active={this.state.furnish === "fullyfurnished"}
+                    id="i17"
                   >
                     Fully Furnished
                   </Button>
                   <Button
                     onClick={this._onFurnishChange.bind(this, "semifurnished")}
                     active={this.state.furnish === "semifurnished"}
+                    id="i18"
                   >
                     Semi Furnished
                   </Button>
                   <Button
                     onClick={this._onFurnishChange.bind(this, "unfurnished")}
                     active={this.state.furnish === "unfurnished"}
+                    id="i19"
                   >
                     Unfurnished
                   </Button>
@@ -487,13 +506,14 @@ export class AddPropertyForm extends React.Component {
                       inputProps={{
                         name: "bedroom"
                       }}
+                      id="i20"
                     >
                       <MenuItem value="">
                         <em>None</em>
                       </MenuItem>
-                      <MenuItem value={1}>One</MenuItem>
-                      <MenuItem value={2}>Two</MenuItem>
-                      <MenuItem value={3}>Three</MenuItem>
+                      <MenuItem value={1} id="i21">One</MenuItem>
+                      <MenuItem value={2} id="i22">Two</MenuItem>
+                      <MenuItem value={3} id="i23">Three</MenuItem>
                     </Select>
                   </FormControl>
                 </form>
@@ -512,6 +532,7 @@ export class AddPropertyForm extends React.Component {
                   value={this.state.sellprice}
                   onChange={this.handleChange("sellprice")}
                   margin="normal"
+                  id="i24"
                 />
               </form>
         </div>
@@ -522,6 +543,7 @@ export class AddPropertyForm extends React.Component {
             type="button"
             class="btn btn-success float-right package-button"
             onClick={this.onSubmit.bind(this)}
+            id="i25"
           >
             Add Advertisement
           </button>
@@ -535,9 +557,9 @@ export class AddPropertyForm extends React.Component {
                       <p> Upload Images</p>
                       <form id="myform" action={appurl + "/property/addfile"} enctype= "multipart/form-data" method="POST">
                         <input type="hidden" name="pid" value={this.state.pid} />
-                        <input type="hidden" name="nofiles" value={nofiles} />
-                        <input type="file" name="file1" onChange={this.onFileChange.bind(this)} multiple />
-                        <input type="submit" value="submit" />
+                        <input type="hidden" name="nofiles" value={this.state.images.length} />
+                        <input type="file" name="file1" id="i26" onChange={this.onFileChange.bind(this)} multiple />
+                        <input type="submit" value="submit" id="i27" />
                       </form>
                     </div>
                   ) 

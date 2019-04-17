@@ -30,8 +30,8 @@
   margin: 0;
   padding: 0;
   border-top: 1px solid gray;
-  border-radius: 20px !important;
-  border-top-right-radius: 0px;
+  border-radius: 20px ;
+  border-top-right-radius: 0px !important;
 }
 .AutoCompleteText ul::before {
   content: "";

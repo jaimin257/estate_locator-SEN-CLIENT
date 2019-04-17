@@ -116,7 +116,7 @@ export class RegisterBox extends React.Component {
         <div className="header">Sign-up</div>
         <div className="box">
           <div className="input-group">
-            <label htmlFor="email">Emaal</label>
+            <label htmlFor="email">Email</label>
             <input
               type="email"
               name="email"
