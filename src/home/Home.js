@@ -63,6 +63,7 @@ export class Home extends React.Component {
       text: "",
       buyorrent: "buy",
       searchresults: [],
+      response: "",
     };
     console.log(document.cookie);
   }
@@ -197,6 +198,18 @@ export class Home extends React.Component {
         console.log(result.searchResult);
         this.setState({ searchresults: result.searchResult });
         console.log("searched properties " + this.state.searchresults);
+        let suggestions = [];
+        this.setState({ suggestions });
+        if(this.state.searchresults.length === 0){
+          this.setState({response: "No Search Results"});
+          console.log("DASFsaf");
+        }
+        else{
+          this.setState({response: ""});
+        }
+      }.bind(this),
+      error: function(result){
+        this.setState({response: "No Search Results"});
       }.bind(this)
     });
   }
@@ -207,6 +220,7 @@ export class Home extends React.Component {
         <ButtonDropdown
           isOpen={this.state.dropdownProperty}
           toggle={this.togglea}
+          className="mybtn"
         >
           <DropdownToggle>{this.state.valuea}</DropdownToggle>
           <DropdownMenu class="dropdown">
@@ -227,7 +241,6 @@ export class Home extends React.Component {
 
     return (
       <div class="home">
-        <h1 class="tag-line"> Find Home. Find Happiness </h1>
         <div class="search-container">
           
           <div className="AutoComplete-wrapper">
@@ -240,7 +253,7 @@ export class Home extends React.Component {
                       style={{ marginLeft: 0 }}
                       onClick={this._onBuyOrRentrChange.bind(this, "buy")}
                       active={this.state.buyorrent === "buy"}
-                      className="buybtn"
+                      className="buybtn mybtn buyrent"
                     >
                       BUY
                     </Button>
@@ -248,7 +261,7 @@ export class Home extends React.Component {
                       style={{ marginRight: 10 }}
                       onClick={this._onBuyOrRentrChange.bind(this, "rent")}
                       active={this.state.buyorrent === "rent"}
-                      className="rentbtn"
+                      className="rentbtn mybtn buyrent"
                     >
                       RENT
                     </Button>
@@ -259,6 +272,7 @@ export class Home extends React.Component {
                       <ButtonDropdown
                         isOpen={this.state.dropdownOpen}
                         toggle={this.toggle}
+                        className="mybtn"
                       >
                         <DropdownToggle>{this.state.value}</DropdownToggle>
                         <DropdownMenu class="dropdown mydrop">
@@ -282,6 +296,7 @@ export class Home extends React.Component {
                         <ButtonDropdown
                           isOpen={this.state.dropdownBugget}
                           toggle={this.toggleb}
+                          className="mybtn"
                         >
                           <DropdownToggle>{this.state.valueb}</DropdownToggle>
                           <DropdownMenu class="dropdown">
@@ -298,6 +313,7 @@ export class Home extends React.Component {
                         <ButtonDropdown
                           isOpen={this.state.dropdownBugget}
                           toggle={this.toggleb}
+                          className="mybtn"
                         >
                           <DropdownToggle>{this.state.valueb}</DropdownToggle>
                           <DropdownMenu class="dropdown">
@@ -322,7 +338,7 @@ export class Home extends React.Component {
 
               <input placeholder="Enter Any Property Detail" value={text} onChange={this.onTextChanged} type="text" />
               <button class="search" onClick={this.onSearch.bind(this)}>
-                <i class="fa fa-search"> Search</i>
+                <i class="fa fa-search"><strong> Search</strong></i>
               </button>
               {this.renderSuggestions()}
             </div>
@@ -338,63 +354,74 @@ export class Home extends React.Component {
           </div>
         </div>
 
-        <div className="animated fadeIn">
-          <div>
-            <div className="allsearching">
-              {searchresults.map(d => (
-                <Card
-                  style={{
-                    border: "none",
-                    background: "rgba(255,255,255,0.15)"
-                  }}
-                >
-                  <div className="fif">
-                    <div id="avatar_position" className="image">
-                      <Avatar
-                        color={getcolor()}
-                        round={false}
-                        size={80}
-                        name={d.propertyName}
-                      />
-                      <div className="name-style">
-                        {/*userInfo.user_first_name*/}{" "}
-                        {/*userInfo.user_last_name*/}
-                      </div>
-                    </div>
-                    <br />
-                    <div className="properties">
-                      <div>
-                        <strong> Property Name : </strong>
-                        {d.propertyName}
-                      </div>
-                      <div>
-                        <strong>Price :</strong> ₹{" "}
-                        <span className="price">{d.property_amount}</span>{" "}
-                      </div>
-                      <div>
-                        <td>
-                          {" "}
-                          <strong>Address : </strong>
-                          {d.propertyLocation}
-                          {"  "}
-                        </td>
-                      </div>
-                      <div className="buttons" width="200px">
-                        <div>
-                          <button type="button" class="btn btn-primary">
-                            <a href={"/Property/" + d._id} target="_blank" className="link">
-                              View More Details!!
-                            </a>
-                          </button>
+          {
+            this.state.response !== "" ?
+            (
+              <p style={{ textAlign: 'center'}}> 
+                {this.state.response } 
+              </p>
+
+              ) : 
+            (
+              <div className="animated fadeIn">
+                <div>
+                  <div className="allsearching">
+                    {searchresults.map(d => (
+                      <Card
+                        style={{
+                          border: "none",
+                          background: "rgba(255,255,255,0.15)"
+                        }}
+                      >
+                        <div className="fif">
+                          <div id="avatar_position" className="image">
+                            <Avatar
+                              color={getcolor()}
+                              round={false}
+                              size={80}
+                              name={d.propertyName}
+                            />
+                            <div className="name-style">
+                              {/*userInfo.user_first_name*/}{" "}
+                              {/*userInfo.user_last_name*/}
+                            </div>
+                          </div>
+                          <br />
+                          <div className="properties">
+                            <div>
+                              <strong> Property Name : </strong>
+                              {d.propertyName}
+                            </div>
+                            <div>
+                              <strong>Price :</strong> ₹{" "}
+                              <span className="price">{d.property_amount}</span>{" "}
+                            </div>
+                            <div>
+                              <td>
+                                {" "}
+                                <strong>Address : </strong>
+                                {d.propertyLocation}
+                                {"  "}
+                              </td>
+                            </div>
+                            <div className="buttons" width="200px">
+                              <div>
+                                <button type="button" class="btn btn-primary">
+                                  <a href={"/Property/" + d._id} target="_blank" className="link">
+                                    View More Details!!
+                                  </a>
+                                </button>
+                              </div>
+                            </div>
+                          </div>
                         </div>
-                      </div>
-                    </div>
+                      </Card>
+                    ))}
                   </div>
-                </Card>
-              ))}
-            </div>
-          </div>
-        </div>
+                </div>
+              </div>
+            )
+          }
       </div>
     );
   }

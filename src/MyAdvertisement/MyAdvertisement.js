@@ -17,6 +17,8 @@ import Avatar from "react-avatar";
 import "./MyAdvertisement.css";
 import cookie from "react-cookies";
 import $ from 'jquery';
+import { ClipLoader } from 'react-spinners';
+import { css } from '@emotion/core';
 
 let appurl = "http://localhost:1433";
 
@@ -24,63 +26,21 @@ const color = ["red", "green", "purple", "cyan", "teal", "blue"];
 const getcolor = () => {
   return color[Math.floor(Math.random() * 8)];
 };
+const override = css`
+    display: block;
+    border-color: red;
+    display: block;
+    position: absolute;
+    left: 47%;
+    top: 40%;
+`;
 
 export class MyAdvertisement extends Component {
   constructor(props) {
     super(props);
     this.state = {
       searchresults: [],
-      /*searchresults: [
-        {
-          pname: "mahin",
-          location: "B/7 Shrama safalya society,nr tana appartment, ellorapark",
-          city: "hello",
-          budget: "100",
-          more: "ok"
-        },
-        {
-          pname: "mahinaa",
-          location: "gra",
-          city: "heo",
-          budget: "100",
-          more: "ok"
-        },
-        {
-          pname: "mahin",
-          location: "agra",
-          city: "hello",
-          budget: "100",
-          more: "ok"
-        },
-        {
-          pname: "mahin",
-          location: "agra",
-          city: "hello",
-          budget: "100",
-          more: "ok"
-        },
-        {
-          pname: "mahin",
-          location: "agra",
-          city: "hello",
-          budget: "100",
-          more: "ok"
-        },
-        {
-          pname: "mahin",
-          location: "agra",
-          city: "hello",
-          budget: "100",
-          more: "ok"
-        },
-        {
-          pname: "mahin",
-          location: "agra",
-          city: "hello",
-          budget: "100",
-          more: "ok"
-        }
-      ]*/
+      loading: true,
     };
   }
 
@@ -116,6 +76,7 @@ export class MyAdvertisement extends Component {
             )
           });
           this.setState({ searchresults : myprops });
+          this.setState({ loading: false});
         }.bind(this),
         error: function (result){
           console.log("property retrived failed");
@@ -150,6 +111,20 @@ export class MyAdvertisement extends Component {
   }
 
   render() {
+
+    if(this.state.loading){
+      return (
+        <div className='sweet-loading'>
+          <ClipLoader
+            css={override}
+            sizeUnit={"px"}
+            size={150}
+            color={'#123abc'}
+            loading={this.state.loading}
+          />
+        </div> )
+    }
+
     var center = {
       textAlign: "center"
     };
@@ -158,79 +133,70 @@ export class MyAdvertisement extends Component {
 
 
     return (
-      <div className="animated fadeIn">
-        <Card
-          style={{
-            border: "none",
-            backgroundImage:
-              "url(" +
-              "https://raw.githubusercontent.com/ayubSubhaniya/ssrs-client/master/src/images/w2.jpg" +
-              ")",
-            backgroundPosition: "center",
-            backgroundSize: "cover",
-            backgroundRepeat: "no-repeat",
-            border: "none"
-          }}
-        >
-          <CardHeader>
-            <h4>
-              <strong>
-                 My Advertisement
-              </strong>
-            </h4>
-          </CardHeader>
-        </Card>
-        <div>
-          <div class="allsearch">
-            {searchresults.map(d => (
-              <Card style={{ border: "none" }}>
-                <div className="fif">
-                  <div id="avatar_position" className="image">
-                    <Avatar color={getcolor()} round={false} size={80} />
-                    <div className="name-style">
-                      {/*userInfo.user_first_name*/}{" "}
-                      {/*userInfo.user_last_name*/}
+      <div className="homeprop">
+        <div className="animated fadeIn">
+              <h4 className="headprop">
+                <strong>
+                   My Advertisement
+                </strong>
+              </h4>
+          <div>
+            <div class="allsearch">
+              {searchresults.map(d => (
+                <Card style={{ 
+                    border: "none",
+                    background: "rgba(255,255,255,0.15)"
+                  }}>
+                  <div className="fif">
+                    <div id="avatar_position" className="image">
+                      <Avatar color={getcolor()} round={false} size={80} />
+                      <div className="name-style">
+                        {/*userInfo.user_first_name*/}{" "}
+                        {/*userInfo.user_last_name*/}
+                      </div>
                     </div>
-                  </div>
-                  <div className="properties">
-                    <div>
-                      <strong> Property Name : </strong>
-                      {d.pname}
-                    </div>
-                    <div>
-                      <strong>Price :</strong> ₹{" "}
-                      <span className="price">{d.budget}</span>{" "}
-                    </div>
-                    <div>
-                      <td>
-                        {" "}
-                        <strong>Address : </strong>
-                        {d.location}
-                        {"  "}
-                      </td>
-                    </div>
-                    <div className="buttons" width='200px'>
+                    <div className="properties">
                       <div>
-                        <button type="button" class="btn btn-primary" >
-                          <a href={'/Property/'+d.pid} className="link">
-                            View More Details!!
-                          </a>
-                        </button>
+                        <strong> Property Name : </strong>
+                        {d.pname}
                       </div>
-                      <div className="delete">
-                        <button type="button" className="btn btn-danger" onClick={this.removeprop.bind(this, d.pid)}>
-                          <i
-                            className="fa fa-trash"
-                            style={{ textAlign: "center" }}
-                          />
-                          Delete
-                        </button>
+                      <div>
+                        <strong>Price :</strong> ₹{" "}
+                        <span className="price">{d.budget}</span>{" "}
+                      </div>
+                      <div>
+                        <td>
+                          {" "}
+                          <strong>Address : </strong>
+                          {d.location}
+                          {"  "}
+                        </td>
+                      </div>
+                      <div className="buttons" width='200px'>
+                        <div>
+                          <button type="button" class="btn btn-primary" >
+                            <a href={'/Property/'+d.pid} className="link">
+                              View More Details!!
+                            </a>
+                          </button>
+                        </div>
+                        <div className="delete">
+                          <button type="button" className="btn btn-danger" onClick={this.removeprop.bind(this, d.pid)}>
+                            <a className="link">
+                              <i
+                                className="fa fa-trash"
+                                style={{ textAlign: "center" }}
+                              />{"  "}
+                              Delete
+                            </a>
+                          </button>
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
-              </Card>
-            ))}
+                </Card>
+              ))}
+            </div>
           </div>
         </div>
       </div>

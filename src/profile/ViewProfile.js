@@ -16,7 +16,7 @@ const override = css`
     left: 47%;
     top: 40%;
 `;
-const color = ["red", "green", "purple", "cyan", "teal", "blue"];
+const color = ["red", "green", "purple", "cyan", "YellowGreen ", "Tomato "];
 const getcolor = () => {
   return color[Math.floor(Math.random() * 8)];
 };
@@ -100,13 +100,14 @@ export class ViewProfile extends React.Component {
               color={getcolor()}
               round={true}
               size={120}
+              activeOpacity={0.2}
               name={
                 this.state.firstname +
                 (this.state.lastname ? " " + this.state.lastname : "")
               }
             />
             <div className="name-style">
-              {this.state.firstname} {this.state.lastname}
+              <strong>{this.state.firstname} {this.state.lastname}</strong>
             </div>
           </div>
           <div className="info-table">

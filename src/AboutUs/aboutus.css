@@ -1,0 +1,17 @@
+.abouthome{
+	background-image: url("https://www.maxpixel.net/static/photo/1x/Sunset-Light-Sunrise-Colours-Color-Background-1030600.jpg");
+  background-repeat: no-repeat;
+  width: 100%;
+  height: 100vh;
+  overflow: auto;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  background-color: #ffffff;
+  font-weight: bold;
+  font-size: 17px;
+  padding-top: 15vh;
+  position: fixed;
+  text-align: center;
+
+}

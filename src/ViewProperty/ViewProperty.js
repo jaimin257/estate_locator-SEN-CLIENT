@@ -126,23 +126,23 @@ export class ViewProperty extends React.Component {
     return http.status != 404;
   }
 
-  loadImages(){
-    console.log("gayuuuuu : " + this.state.images.length);
-    return(
-      <div> 
-          {
-            this.state.images.map( i => {
-              return <img src={"http://localhost:1433/static/"+this.props.match.params.pid+"_"+i.toString()+".png"} />
-            })
-          }
-      </div>
-    )
-  }
+  // loadImages(){
+  //   console.log("gayuuuuu : " + this.state.images.length);
+  //   return(
+  //     <div> 
+  //         {
+  //           this.state.images.map( i => {
+  //             return <img src={"http://localhost:1433/static/"+this.props.match.params.pid+"_"+i.toString()+".png"} />
+  //           })
+  //         }
+  //     </div>
+  //   )
+  // }
 
   imageslider(){
     return ( 
       <MDBContainer>
-        <h4 className="mt-5 mb-2">{this.state.pname}</h4>
+        
         <MDBCarousel activeItem={1} length={this.state.images.length} interval={1800} testimonial showControls={true} showIndicators={true} className="z-depth-1">
           <MDBCarouselInner>
             {
@@ -176,18 +176,17 @@ export class ViewProperty extends React.Component {
     }
 
     return ( 
-      <div className="container">
-
+      <div className="viewprop">
+        <h4 className="headprop">
+          <strong>
+             {this.state.pname}
+          </strong>
+        </h4>
         {this.imageslider()}
 
         <div className="parent">
                 {/*this.loadImages()*/}
-          <div className="quick-view" id="avatar_position">
-            <Avatar color={getcolor()} round={true} size={120} />
-            <div className="name-style">
-              {/*userInfo.user_first_name*/} {/*userInfo.user_last_name*/}
-            </div>
-          </div>
+          
           <div className="info-table">
             <table className="  table table-striped">
               <tbody>

@@ -59,7 +59,7 @@ export class NavBar extends React.Component {
   render() {
     return (
       <div>
-        <nav class="navbar navbar-dark bg-dark">
+        <nav class="navbar mynav" >
           <a class="navbar-brand " href="/Home">
             <img
               src={require("./logo.png")}
@@ -73,13 +73,8 @@ export class NavBar extends React.Component {
 
           <ul class="nav navbar-nav">
             <li class="btn">
-              <a href="#" class="nav-link">
+              <a href="/AboutUs" class="nav-link">
                 About us
-              </a>
-            </li>
-            <li class="btn">
-              <a href="#" class="nav-link">
-                Contact Us
               </a>
             </li>
             <li class="btn">
@@ -104,7 +99,7 @@ export class NavBar extends React.Component {
               ) : (
                 <div>
                   <li class="nav-item dropdown btn">
-                    <Dropdown class="drop btn">
+                    <Dropdown class="btn drop">
                       <Dropdown.Toggle id="dropdown-basic">
                         Hi, {this.state.firstname}
                       </Dropdown.Toggle>
@@ -113,7 +108,7 @@ export class NavBar extends React.Component {
                           View Profile
                         </Dropdown.Item>
                         <Dropdown.Item href="/MyAdvertisement">
-                          My Advertisements
+                          My Properties
                         </Dropdown.Item>
                         <Dropdown.Item href="/home" onClick={this.logout.bind(this)}>
                           Logout

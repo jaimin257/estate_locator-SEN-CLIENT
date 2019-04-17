@@ -55,24 +55,25 @@ export class AddPropertyForm extends React.Component {
     this.state = {
       isOwner: false,
       isBuy: false,
-      pname: "0",
-      location: "0",
-      city: "0",
-      state: "0",
-      proptype: "0",
-      carpetarea: "0",
+      pname: "",
+      location: "",
+      city: "",
+      state: "",
+      proptype: "",
+      carpetarea: "",
       open: false,
-      constructionStatus: "0",
-      bedroom: "0",
-      sellprice: "0",
-      contract: "0",
-      desc: "0",
+      constructionStatus: "null",
+      bedroom: "null",
+      sellprice: "",
+      contract: "",
+      desc: "",
       totalfloors: "0",
       popup: false,
       popupError: "",
       images: [],
       imgerr: "",
       pid : null,
+      err: "",
     };
   }
 
@@ -218,7 +219,6 @@ export class AddPropertyForm extends React.Component {
 
   onSubmit(e){
     e.preventDefault();
-
     let userstatus;
     $.ajax({
         url: appurl + '/property/addProp',
@@ -256,22 +256,14 @@ export class AddPropertyForm extends React.Component {
                         this.state.bedroom + ' ' + 
                         this.state.furnish + ' ' 
         },
-        statusCode: {
-              200: function(){
-                userstatus = 200;
-              },
-              201: function(){
-                userstatus = 201;
-              },
-            },
         success: function(result){
-          if(result.prop._id){
             this.setState({pid: result.prop._id});
             this.setState({ popupError : ""});
-          }
-          else{
-            this.setState({ popupError : "error"});
-          }
+          this.openPopup();
+        }.bind(this),
+        error: function(){
+          this.setState({ popupError : "error"});
+          console.log("dasd" + this.state.popupErr);
           this.openPopup();
         }.bind(this)
       });
@@ -287,7 +279,7 @@ export class AddPropertyForm extends React.Component {
     }
 
     return (
-      <div>
+      <div className="userhome"> 
         <div class="ownerinfo">
           <h6>I am</h6>
           <div class="radio toggle">
@@ -366,6 +358,7 @@ export class AddPropertyForm extends React.Component {
               id="standard-name"
               label="Enter Street/Area"
               value={this.state.location}
+              required
               onChange={this.handleChange("location")}
               margin="normal"
             />
@@ -378,6 +371,7 @@ export class AddPropertyForm extends React.Component {
               value={this.state.city}
               onChange={this.handleChange("city")}
               margin="normal"
+              required
             />
           </form>
           <form noValidate autoComplete="off" class="name input">
@@ -387,6 +381,7 @@ export class AddPropertyForm extends React.Component {
               value={this.state.state}
               onChange={this.handleChange("state")}
               margin="normal"
+              required
             />
           </form>
           <small>
@@ -412,13 +407,13 @@ export class AddPropertyForm extends React.Component {
                 </ButtonGroup>
                 <div>
                   <form noValidate autoComplete="off" class="name input">
-
                     <TextField
                       id="standard-name"
                       label="Carpet Area"
                       value={this.state.carpetarea}
                       onChange={this.handleChange("carpetarea")}
                       margin="normal"
+                      required
                     />
                   </form>
                   <form noValidate autoComplete="off" class="name input">
@@ -428,28 +423,31 @@ export class AddPropertyForm extends React.Component {
                       value={this.state.totalfloors}
                       onChange={this.handleChange("totalfloors")}
                       margin="normal"
+                      required
                     />
                   </form>
-                  <form>
+                  <form noValidate autoComplete="off" class="name input">
                     <TextField
                       id="standard-name"
                       label="Age of Property"
                       value={this.state.ageofproperty}
                       onChange={this.handleChange("ageofproperty")}
                       margin="normal"
+                      required
                     />
                   </form>
                 </div>
               </div>
             ) : (
               <div>
-                <form>
+                <form noValidate autoComplete="off" class="name input">
                   <TextField
                     id="standard-name"
                     label="Carpet area"
                     value={this.state.carpetarea}
                     onChange={this.handleChange("carpetarea")}
                     margin="normal"
+                    required
                   />
                 </form>
               </div>
@@ -457,7 +455,7 @@ export class AddPropertyForm extends React.Component {
           </small>
 
           <small>
-            {this.state.proptype === "appartmentandhouse" ? (
+            {this.state.proptype === "Appartment" ? (
               <div>
                 <h6>Furnish Type</h6>
                 <ButtonGroup>
@@ -518,13 +516,14 @@ export class AddPropertyForm extends React.Component {
               </form>
         </div>
         
+
         <div class="package-button">
           <button
             type="button"
             class="btn btn-success float-right package-button"
             onClick={this.onSubmit.bind(this)}
           >
-            Select Advertisement Package
+            Add Advertisement
           </button>
         </div>
 
@@ -533,6 +532,7 @@ export class AddPropertyForm extends React.Component {
                 { !this.state.popupError ? (
                     <div> 
                       <p>Property Added Successfully</p>
+                      <p> Upload Images</p>
                       <form id="myform" action={appurl + "/property/addfile"} enctype= "multipart/form-data" method="POST">
                         <input type="hidden" name="pid" value={this.state.pid} />
                         <input type="hidden" name="nofiles" value={nofiles} />
@@ -543,9 +543,10 @@ export class AddPropertyForm extends React.Component {
                   ) 
                 :
                   (
-                    <p>Error Adding Property</p>
+                    <p>Please Provide Required Details</p>
                   )
                 }  
+                <p> {"  "} </p>
                 <a href="javascript:void(0);" onClick={() => this.closePopup()}><h5><b>Close</b></h5></a>
             </div>
         </Modal>

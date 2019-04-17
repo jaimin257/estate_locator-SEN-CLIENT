@@ -10,6 +10,7 @@ import { Myprofile } from './profile/MyProfile.js';
 import { MyAdvertisement } from './MyAdvertisement/MyAdvertisement.js';
 import { ViewProperty } from './ViewProperty/ViewProperty.js';
 import { Forgotpassword } from './Forgotpassword/Forgotpassword.js';
+import { AboutUs } from './AboutUs/AboutUs.js';
 
 let appurl = "http://localhost:1433"
 
@@ -30,6 +31,7 @@ export class App extends React.Component {
               <Route path="/profile" component={Myprofile} exact/>
               <Route path="/MyAdvertisement" component={MyAdvertisement} exact/>
               <Route path="/Property/:pid" component={ViewProperty} exact/>
+              <Route path="/AboutUs" component={AboutUs} exact />
             </div>
         	</Switch>
         </div>
