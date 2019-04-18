@@ -80,10 +80,19 @@ export class Home extends React.Component {
   }
 
   select(event) {
-    this.setState({
-      dropdownOpen: !this.state.dropdownOpen,
-      value: event.target.innerText
-    });
+    if(event.target.innerText == "None"){
+      this.setState({
+        dropdownOpen: !this.state.dropdownOpen,
+        value: "Property Type"
+      });
+    }
+    else{
+      this.setState({
+        dropdownOpen: !this.state.dropdownOpen,
+        value: event.target.innerText
+      });
+    }
+    
     if(this.state.value === 'Appartment'){
       this.setState({ showRoomButton: true });
     }
@@ -96,17 +105,34 @@ export class Home extends React.Component {
   }
 
   selecta(event) {
-    this.setState({
-      dropdownProperty: !this.state.dropdownProperty,
-      valuea: event.target.innerText
-    });
+    if(event.target.innerText == "None"){
+      this.setState({
+        dropdownProperty: !this.state.dropdownProperty,
+        valuea: "Number of Rooms"
+      });
+    }
+    else{
+      this.setState({
+        dropdownProperty: !this.state.dropdownProperty,
+        valuea: event.target.innerText
+      });  
+    }
+    
   }
 
   selectb(event) {
-    this.setState({
-      dropdownBugget: !this.state.dropdownBugget,
-      valueb: event.target.innerText
-    });
+    if(event.target.innerText == "None"){
+      this.setState({
+        dropdownBugget: !this.state.dropdownBugget,
+        valueb: "Budget"
+      });  
+    }
+    else{
+      this.setState({
+        dropdownBugget: !this.state.dropdownBugget,
+        valueb: event.target.innerText
+      });
+    }
   }
   onpropchange(proptype) {
     this.setState({
@@ -230,6 +256,7 @@ export class Home extends React.Component {
             <DropdownItem onClick={this.selecta}>2 BHK</DropdownItem>
             <DropdownItem onClick={this.selecta}>3 BHK</DropdownItem>
             <DropdownItem onClick={this.selecta}>3+ BHK </DropdownItem>
+            <DropdownItem onClick={this.selecta}>None </DropdownItem>
           </DropdownMenu>
         </ButtonDropdown>
       </Dropdown>
@@ -287,6 +314,9 @@ export class Home extends React.Component {
                           <DropdownItem onClick={this.select}>
                             Land
                           </DropdownItem>
+                          <DropdownItem onClick={this.select}>
+                            None
+                          </DropdownItem>
                         </DropdownMenu>
                       </ButtonDropdown>
                     </Dropdown>
@@ -307,6 +337,7 @@ export class Home extends React.Component {
                             <DropdownItem onClick={this.selectb}>30k</DropdownItem>
                             <DropdownItem onClick={this.selectb}>50k</DropdownItem>
                             <DropdownItem onClick={this.selectb}>50k+</DropdownItem>
+                            <DropdownItem onClick={this.selectb}>None</DropdownItem>
                           </DropdownMenu>
                         </ButtonDropdown>
                       </Dropdown>
@@ -324,6 +355,7 @@ export class Home extends React.Component {
                             <DropdownItem onClick={this.selectb}>2 crore</DropdownItem>
                             <DropdownItem onClick={this.selectb}>3 crore</DropdownItem>
                             <DropdownItem onClick={this.selectb}>3 crore+</DropdownItem>
+                            <DropdownItem onClick={this.selectb}>None</DropdownItem>
                           </DropdownMenu>
                         </ButtonDropdown>
                       </Dropdown>
