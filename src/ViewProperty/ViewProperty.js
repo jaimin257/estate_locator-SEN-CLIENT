@@ -7,6 +7,7 @@ import { ClipLoader } from 'react-spinners';
 import { css } from '@emotion/core';
 import Image from "react-bootstrap/Image";
 import "./helper.js";
+import "font-awesome/css/font-awesome.min.css";
 import { MDBCarousel, MDBCarouselCaption, MDBCarouselInner, MDBCarouselItem, MDBView, MDBMask, MDBContainer } from "mdbreact";
 
 
@@ -46,6 +47,12 @@ export class ViewProperty extends React.Component {
       sname: "",
       snumber: "",
       sid: "",
+      temp: "",
+      press: "",
+      wind: "",
+      wdes: "",
+      tmin: "",
+      tmax: "",
     };
 
     // console.log(this.props);
@@ -83,6 +90,29 @@ export class ViewProperty extends React.Component {
             this.setState({ floors: result.prop.floor });
 
             $.ajax({
+              url: 'http://api.openweathermap.org/data/2.5/weather?q=' + this.state.city + ',ind&APPID=a999f35b94877b70ae7e0b8d3985df9d&units=metric',
+              method: 'GET',
+              success: function(result){
+                console.log(result);
+                this.setState({
+                  temp: result.main.temp,
+                  press: result.main.pressure,
+                  wind: result.wind.speed,
+                  hum: result.main.humidity,
+                  wdes: result.weather[0].description,
+                  tmin: result.main.temp_min,
+                  tmax: result.main.temp_max
+                });
+              }.bind(this),
+              error: function (result){
+                console.log("errrr");
+              }.bind(this)
+            });
+
+
+
+
+            $.ajax({
             url: appurl + '/account/getUser',
             method: 'POST',
             data:{
@@ -106,6 +136,10 @@ export class ViewProperty extends React.Component {
           console.log("property retrived failed");
         }
       });
+
+
+
+
 
       let x = [];
       let i = 0;
@@ -212,6 +246,7 @@ export class ViewProperty extends React.Component {
     return ( 
       <div className="viewprop">
         <h4 className="headprop">
+
           <strong>
              {this.state.pname}
           </strong>
@@ -219,7 +254,52 @@ export class ViewProperty extends React.Component {
         {this.imageslider()}
 
         <div className="parent">
-                {/*this.loadImages()*/}
+                
+
+
+
+
+            <div class="frame">
+                <div class="moon">
+                  <div class="moon-crater1"></div>
+                  <div class="moon-crater2"></div>
+                </div>
+                <div class="hill-bg-1"></div>
+                <div class="hill-bg-2"></div>
+                <div class="hill-fg-1"></div>
+                <div class="hill-fg-2"></div>
+                <div class="hill-fg-3"></div>
+                
+                <div class="front">
+                  <div>
+                    <div class="temperature">
+                      {this.state.temp}
+                    </div>
+                    <div class="icons">
+                      <i class="fas fa-wind"></i><br/><i class="fas fa-tint"></i>
+                    </div>
+                    <div>
+                      <div class="info">
+                         {this.state.wind+"km/h"} <br/> {" "+this.state.hum+"%"}
+                      </div>
+                      <table class="preview">
+                        <tbody>
+                          <tr>
+                            <td>{this.state.tmin}° | {this.state.tmax} °</td>
+                          </tr>
+                          <tr>
+                            <td> {this.state.wdes} </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                  <div class="proverb">"A life without love is like, <br/>a year without summer"</div>
+                </div>
+                
+              </div>
+
+
           
           <div className="info-table">
             <table className="  table table-striped">
